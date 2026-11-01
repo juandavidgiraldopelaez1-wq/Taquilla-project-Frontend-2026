@@ -1,0 +1,33 @@
+.banner-cookies {
+  position: fixed;
+  z-index: 20;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  max-width: 760px;
+  margin-inline: auto;
+  padding: 24px;
+  border: 2px solid var(--tinta);
+  border-radius: var(--radio);
+  background: var(--superficie);
+  color: var(--tinta);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+}
+.banner-cookies h2 {
+  font-size: 20px;
+}
+.banner-cookies p {
+  margin-block: 12px 16px;
+}
+@media (max-width: 640px) {
+  .banner-cookies {
+    padding: 16px;
+  }
+  .banner-cookies .grupo-botones {
+    gap: 8px;
+  }
+  .banner-cookies .boton-home {
+    padding: 10px 14px;
+  }
+}

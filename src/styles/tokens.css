@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap");
+
+:root {
+  --fondo: #f7f7f7;
+  --superficie: #fff;
+  --tinta: #141414;
+  --suave: #595959;
+  --acento: #141414;
+  --sobre-acento: #fff;
+  --borde: #dedede;
+  --fuente-texto: "Instrument Sans", sans-serif;
+  --fuente-titulos: "Instrument Sans", sans-serif;
+  --color-foco: #713bfa;
+  --espacio-1: 0.5rem;
+  --espacio-2: 1rem;
+  --espacio-3: 1.5rem;
+  --espacio-4: 2rem;
+  --radio: 0.75rem;
+  --ancho-contenido: 1280px;
+}

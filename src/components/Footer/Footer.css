@@ -1,0 +1,134 @@
+.pie-home {
+  background: var(--superficie);
+  padding: 48px 0 24px;
+}
+.columnas-pie {
+  display: grid;
+  grid-template-columns: 2.6fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+.columnas-pie p {
+  max-width: 300px;
+  color: var(--suave);
+  margin-top: 12px;
+  font-size: 14px;
+}
+.columnas-pie h3 {
+  color: var(--suave);
+  font:
+    400 13px "DM Sans",
+    sans-serif;
+  margin-bottom: 12px;
+}
+.columnas-pie > div > a:not(.marca-home),
+.columnas-pie button {
+  display: block;
+  margin-block: 8px;
+  font-size: 13px;
+}
+.columnas-pie button {
+  color: var(--tinta);
+  border: 0;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+}
+.columnas-pie button:hover,
+.columnas-pie > div > a:not(.marca-home):hover {
+  text-decoration: underline;
+}
+.pie-creditos {
+  border-top: 1px solid var(--borde);
+  margin-top: 32px;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--suave);
+  font-size: 12px;
+}
+.pie-creditos .cookies > .cookies-boton {
+  background: transparent;
+  color: var(--suave);
+  border: 0;
+  font-size: 12px;
+  padding: 8px 0;
+}
+
+@media (max-width: 900px) {
+  .columnas-pie {
+    gap: 24px;
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .columnas-pie > div:last-child {
+    grid-column: 2 / 4;
+  }
+}
+@media (max-width: 640px) {
+  .columnas-pie {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .columnas-pie > div:first-child {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 640px) {
+  .columnas-pie > div:last-child {
+    grid-column: auto;
+  }
+}
+@media (max-width: 640px) {
+  .pie-creditos {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.taquilla .pie-home {
+  --superficie: #141414;
+  --tinta: #fff;
+  --suave: #b3b3b3;
+  --borde: #3c3c3c;
+  color: var(--tinta);
+}
+.taquilla .pie-home .emblema {
+  background: #fff;
+  color: #141414;
+}
+.taquilla .pie-home a:focus-visible,
+.taquilla .pie-home button:focus-visible {
+  outline-color: #fff;
+}
+
+.columnas-pie {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+@media (max-width: 640px) {
+  .columnas-pie {
+    grid-template-columns: 1fr 1fr;
+  }
+  .columnas-pie > div:first-child {
+    grid-column: 1 / -1;
+  }
+  .columnas-pie > div:last-child {
+    grid-column: auto;
+  }
+}
+
+.landing .columnas-pie {
+  grid-template-columns: 2fr 1fr 1fr;
+}
+@media (max-width: 640px) {
+  .landing .columnas-pie {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pie-creditos .enlace-home {
+  color: var(--suave) !important;
+}

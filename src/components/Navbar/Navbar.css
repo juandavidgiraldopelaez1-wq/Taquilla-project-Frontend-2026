@@ -1,0 +1,148 @@
+.cabecera-home {
+  min-height: 72px;
+}
+.fila-cabecera {
+  display: flex;
+  align-items: center;
+  min-height: 72px;
+  gap: 40px;
+}
+.menu-home {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 28px;
+  font-size: 14px;
+}
+.menu-home > a {
+  color: var(--suave);
+}
+.menu-home > a:hover {
+  color: var(--tinta);
+}
+.acciones-home {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-left: auto;
+}
+.ingresar-home {
+  padding: 10px 0;
+  background: transparent;
+  border: 0;
+  color: var(--tinta);
+}
+.ingreso-movil {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .fila-cabecera {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .acciones-home {
+    gap: 16px;
+  }
+}
+@media (max-width: 640px) {
+  .fila-cabecera {
+    min-height: 68px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+}
+@media (max-width: 640px) {
+  .menu-home {
+    display: none;
+    flex-basis: 100%;
+    padding: 24px 0;
+  }
+}
+@media (max-width: 640px) {
+  .menu-home.abierto {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+}
+@media (max-width: 640px) {
+  .menu-home > a {
+    padding: 8px 0;
+  }
+}
+@media (max-width: 640px) {
+  .acciones-home {
+    margin: 8px 0 0;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 640px) {
+  .ingreso-movil {
+    display: block;
+    margin-left: auto;
+    margin-right: 12px;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 99px;
+    background: var(--superficie);
+    color: var(--tinta);
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .cabecera-home .marca-home {
+    font-size: 16px;
+    gap: 6px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cabecera-home .emblema {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cabecera-home .emblema svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ingreso-movil {
+    padding-inline: 10px;
+    margin-right: 8px;
+  }
+}
+.taquilla .cabecera-home {
+  background: #fff;
+}
+.taquilla .ingresar-home {
+  border: 1px solid #8c8c8c;
+  border-radius: 8px;
+  padding: 9px 18px;
+}
+
+.taquilla .buscar-cabecera {
+  background: #f5f5f5;
+  border: 1px solid #dedede;
+  border-radius: 8px;
+  padding: 10px 18px;
+  color: #595959;
+  font-size: 13px;
+}
+@media (max-width: 1200px) {
+  .taquilla .buscar-cabecera {
+    display: none;
+  }
+}

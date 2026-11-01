@@ -1,0 +1,21 @@
+.boton-menu {
+  display: none;
+}
+@media (max-width: 640px) {
+  .boton-menu {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    background: none;
+    color: var(--tinta);
+    border: 1px solid var(--borde);
+    border-radius: 50%;
+  }
+}
+
+@media (max-width: 640px) {
+  .boton-menu {
+    flex-shrink: 0;
+  }
+}

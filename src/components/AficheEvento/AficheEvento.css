@@ -1,0 +1,52 @@
+.arte-evento {
+  position: relative;
+  height: 176px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #a49086, #554650);
+}
+.arte-evento::before,
+.arte-evento::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+}
+.arte-evento::before {
+  width: 70%;
+  aspect-ratio: 1;
+  right: -20%;
+  top: -45%;
+  background: rgb(255 255 255 / 12%);
+}
+.arte-evento::after {
+  width: 50%;
+  aspect-ratio: 1;
+  bottom: -60%;
+  left: -18%;
+  background: rgb(0 0 0 / 12%);
+}
+.arte-evento-1 {
+  background: linear-gradient(135deg, #6c8cae, #19191f 90%);
+}
+.arte-evento-2 {
+  background: linear-gradient(135deg, #b6ac81, #b5827c);
+}
+.arte-evento-3 {
+  background: linear-gradient(135deg, #51856e, #203438 90%);
+}
+.arte-evento-4 {
+  background: linear-gradient(135deg, #a69ac4, #ba8779);
+}
+.arte-evento-5 {
+  background: linear-gradient(135deg, #222126, #a29ac8);
+}
+.arte-evento-6 {
+  background: linear-gradient(135deg, #ba829a, #b8b084);
+}
+.arte-evento-7 {
+  background: linear-gradient(135deg, #21383c, #8cabe0);
+}
+@media (max-width: 640px) {
+  .tarjeta-evento .arte-evento {
+    height: 190px;
+  }
+}

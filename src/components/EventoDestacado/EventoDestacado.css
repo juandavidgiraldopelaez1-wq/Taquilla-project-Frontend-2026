@@ -1,0 +1,51 @@
+.destacado-taquilla {
+  position: relative;
+  min-height: 440px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.destacado-taquilla > .arte-evento {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+.destacado-taquilla .arte-evento::before {
+  top: -15%;
+}
+.destacado-taquilla .arte-evento::after {
+  bottom: -25%;
+}
+.ficha-destacado {
+  position: absolute;
+  bottom: 26px;
+  left: 20px;
+  right: 20px;
+  background: #fff;
+  color: #141414;
+  padding: 20px;
+  border-radius: 12px;
+}
+.ficha-destacado h2 {
+  font-size: 24px;
+  margin: 12px 0;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.ficha-destacado > p {
+  color: #595959;
+  font-size: 14px;
+}
+.ficha-destacado > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.ficha-destacado strong {
+  font-weight: 500;
+}
+@media (max-width: 640px) {
+  .destacado-taquilla {
+    display: none;
+  }
+}

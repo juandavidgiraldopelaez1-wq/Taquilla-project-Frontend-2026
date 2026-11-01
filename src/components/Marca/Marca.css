@@ -1,0 +1,35 @@
+.marca-home {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  font-family: "Syne", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+.emblema {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  border-radius: 50%;
+}
+.emblema svg {
+  width: 32px;
+  height: 32px;
+}
+@media (max-width: 640px) {
+  .marca-home {
+    font-size: 20px;
+  }
+}
+.taquilla .marca-home {
+  font-family: "Instrument Sans", sans-serif;
+}
+.taquilla .emblema {
+  border-radius: 9px;
+  width: 32px;
+  height: 32px;
+}

@@ -1,0 +1,113 @@
+export const eventos = [
+  {
+    nombre: "Noche de Salsa Brava",
+    categoria: "Conciertos",
+    etiqueta: "Concierto",
+    fecha: "2026-11-14",
+    horario: "Sáb 14 nov · 8:00 p. m.",
+    lugar: "Teatro Aurora",
+    ciudad: "Manizales",
+    precio: 95000,
+    arte: 0,
+  },
+  {
+    nombre: "Festival Niebla 2026",
+    categoria: "Festivales",
+    etiqueta: "Festival",
+    fecha: "2026-11-20",
+    horario: "Vie 20 nov · 4:00 p. m.",
+    lugar: "Parque del Bosque",
+    ciudad: "Manizales",
+    precio: 140000,
+    arte: 1,
+  },
+  {
+    nombre: "La casa de los relojes",
+    categoria: "Teatro",
+    etiqueta: "Teatro",
+    fecha: "2026-11-21",
+    horario: "Sáb 21 nov · 7:30 p. m.",
+    lugar: "Teatro Aurora",
+    ciudad: "Manizales",
+    precio: 60000,
+    arte: 2,
+  },
+  {
+    nombre: "Clásico Montaña vs. Río",
+    categoria: "Deportes",
+    etiqueta: "Deportes",
+    fecha: "2026-11-22",
+    horario: "Dom 22 nov · 5:00 p. m.",
+    lugar: "Estadio Norte",
+    ciudad: "Pereira",
+    precio: 45000,
+    arte: 3,
+  },
+  {
+    nombre: "Sinfónica bajo las estrellas",
+    categoria: "Conciertos",
+    etiqueta: "Concierto",
+    fecha: "2026-11-27",
+    horario: "Vie 27 nov · 7:00 p. m.",
+    lugar: "Auditorio Mayor",
+    ciudad: "Bogotá",
+    precio: 120000,
+    arte: 4,
+  },
+  {
+    nombre: "Risas sin filtro",
+    categoria: "Comedia",
+    etiqueta: "Comedia",
+    fecha: "2026-11-28",
+    horario: "Sáb 28 nov · 9:00 p. m.",
+    lugar: "Sala La Tertulia",
+    ciudad: "Medellín",
+    precio: 55000,
+    arte: 5,
+  },
+  {
+    nombre: "Jazz en el patio",
+    categoria: "Conciertos",
+    etiqueta: "Concierto",
+    fecha: "2026-12-04",
+    horario: "Vie 4 dic · 8:30 p. m.",
+    lugar: "Casa Patio",
+    ciudad: "Manizales",
+    precio: 70000,
+    arte: 6,
+  },
+  {
+    nombre: "El circo de papel",
+    categoria: "Familiares",
+    etiqueta: "Familiar",
+    fecha: "2026-12-05",
+    horario: "Sáb 5 dic · 3:00 p. m.",
+    lugar: "Coliseo Central",
+    ciudad: "Armenia",
+    precio: 38000,
+    arte: 7,
+  },
+];
+export const categorias = [
+  "Conciertos",
+  "Teatro",
+  "Deportes",
+  "Festivales",
+  "Comedia",
+  "Familiares",
+];
+export const categoriasEn = [
+  "Concerts",
+  "Theatre",
+  "Sports",
+  "Festivals",
+  "Comedy",
+  "Family",
+];
+export const cantidades = [42, 18, 12, 9, 7, 11];
+export const dinero = (valor) => `$${valor.toLocaleString("es-CO")}`;
+export const normalizar = (texto) =>
+  texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();

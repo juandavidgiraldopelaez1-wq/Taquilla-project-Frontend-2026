@@ -1,0 +1,44 @@
+.preferencias-dialogo {
+  width: min(560px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  padding: 28px;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  color: var(--tinta);
+  background: var(--superficie);
+}
+.preferencias-dialogo::backdrop {
+  background: rgb(0 0 0 / 65%);
+}
+.preferencias-dialogo p {
+  margin-block: 12px 20px;
+}
+.preferencias-dialogo h2 {
+  font-size: 26px;
+}
+.preferencias-dialogo h3 {
+  font-size: 18px;
+}
+.opcion-cookie {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-block: 24px;
+  padding: 16px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.opcion-cookie input {
+  width: 24px;
+  height: 24px;
+  accent-color: var(--acento);
+  flex-shrink: 0;
+}
+.opcion-cookie span span {
+  display: block;
+}
+body:has(.preferencias-dialogo[open]) {
+  overflow: hidden;
+}

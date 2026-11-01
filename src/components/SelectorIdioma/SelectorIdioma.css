@@ -1,0 +1,20 @@
+.idiomas-home {
+  display: flex;
+  padding: 3px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 99px;
+}
+.idiomas-home button {
+  border: 0;
+  border-radius: 99px;
+  padding: 7px 12px;
+  color: var(--tinta);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 700;
+}
+.idiomas-home button[aria-pressed="true"] {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}

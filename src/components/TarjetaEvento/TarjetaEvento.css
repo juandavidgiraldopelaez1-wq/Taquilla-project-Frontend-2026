@@ -1,0 +1,48 @@
+.tarjeta-evento {
+  overflow: hidden;
+  border: 1px solid #dedede;
+  border-radius: 12px;
+  background: #fff;
+}
+.contenido-evento {
+  padding: 16px;
+}
+.contenido-evento h3 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin: 12px 0;
+}
+.contenido-evento > p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #595959;
+  margin-top: 10px;
+}
+.contenido-evento > p svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+.precio-evento {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 24px;
+}
+.precio-evento small {
+  display: block;
+  color: #595959;
+  font-size: 12px;
+}
+.precio-evento strong {
+  font-size: 17px;
+  font-weight: 500;
+}
+.precio-evento .boton-home {
+  border-color: #8c8c8c;
+  padding: 9px 16px;
+}

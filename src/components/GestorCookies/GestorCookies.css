@@ -1,0 +1,8 @@
+.error-cookies {
+  position: fixed;
+  z-index: 25;
+  bottom: 0;
+  background: var(--superficie);
+  color: var(--tinta);
+  padding: 12px;
+}

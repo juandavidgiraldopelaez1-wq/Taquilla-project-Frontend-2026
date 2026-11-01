@@ -1,0 +1,54 @@
+.detalle-home {
+  width: min(480px, calc(100% - 32px));
+  max-height: calc(100dvh - 40px);
+  padding: 36px;
+  border: 1px solid var(--borde);
+  border-radius: 16px;
+  background: var(--superficie);
+  color: var(--tinta);
+}
+.detalle-home::backdrop {
+  background: rgb(0 0 0 / 65%);
+}
+.detalle-home h2 {
+  padding-right: 28px;
+  font-size: 28px;
+}
+.detalle-home p {
+  margin: 16px 0 24px;
+  color: var(--suave);
+}
+.detalle-home > svg {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  border-radius: 12px;
+  margin: 0 auto 24px;
+}
+.cerrar-detalle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  color: var(--tinta);
+  font-size: 28px !important;
+}
+body:has(.detalle-home[open]) {
+  overflow: hidden;
+}
+@media (max-width: 640px) {
+  .detalle-home {
+    padding: 28px;
+  }
+}
+.resumen-evento .arte-evento {
+  border-radius: 10px;
+}
+.resumen-evento small {
+  display: block;
+  margin-bottom: 24px;
+  color: #595959;
+}

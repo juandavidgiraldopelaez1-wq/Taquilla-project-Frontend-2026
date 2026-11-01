@@ -1,0 +1,61 @@
+.categorias-eventos {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+  padding: 48px 0 56px;
+}
+.categorias-eventos button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #dedede;
+  border-radius: 12px;
+  padding: 16px;
+  background: #fff;
+  color: #141414;
+  text-align: left;
+}
+.categorias-eventos button[aria-pressed="true"],
+.categorias-eventos button:hover {
+  border-color: #141414;
+  background: #ededed;
+}
+.icono-categoria {
+  display: grid;
+  place-items: center;
+  background: #f0f0f0;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.categorias-eventos small {
+  display: block;
+  font-size: 12px;
+  color: #595959;
+}
+@media (max-width: 1100px) {
+  .categorias-eventos {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .categorias-eventos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding-block: 28px;
+  }
+}
+@media (max-width: 640px) {
+  .categorias-eventos button {
+    padding: 10px;
+    gap: 8px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 640px) {
+  .icono-categoria {
+    width: 36px;
+    height: 36px;
+  }
+}
