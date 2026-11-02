@@ -26,7 +26,7 @@
   background: transparent;
   color: #141414;
   font-family: "Instrument Sans", sans-serif;
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
   font-weight: 500;
   line-height: 20px;
   cursor: pointer;

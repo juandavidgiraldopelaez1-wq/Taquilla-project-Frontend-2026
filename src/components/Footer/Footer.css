@@ -1,32 +1,26 @@
 
-
-
 .pie-home {
   background: var(--superficie);
   padding: 48px 0 24px;
 }
-
 
 .columnas-pie {
   display: grid;
   grid-template-columns:
     minmax(0, 1fr)
     repeat(3, max-content);
-
   justify-content: space-between;
   column-gap: 48px;
   row-gap: 28px;
 }
 
-
 .contenido-marca-pie p {
   max-width: 420px;
   margin-top: 12px;
   color: var(--suave);
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
   line-height: 1.6;
 }
-
 
 .grupo-enlaces-pie {
   display: flex;
@@ -36,7 +30,7 @@
 
 .grupo-enlaces-pie h3 {
   color: var(--suave);
-  font-size: 13px;
+  font-size: calc(13px * var(--escala-texto, 1));
   font-weight: 400;
   margin-bottom: 12px;
 }
@@ -45,10 +39,8 @@
 .grupo-enlaces-pie button {
   display: block;
   margin-block: 6px;
-
-  font-size: 13px;
+  font-size: calc(13px * var(--escala-texto, 1));
   color: var(--tinta);
-
   text-align: left;
   background: transparent;
   border: 0;
@@ -60,19 +52,16 @@
   text-decoration: underline;
 }
 
-
 .pie-creditos {
   border-top: 1px solid var(--borde);
   margin-top: 32px;
   padding-top: 20px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-
   color: var(--suave);
-  font-size: 12px;
+  font-size: calc(12px * var(--escala-texto, 1));
 }
 
 .creditos-derecha {
@@ -87,7 +76,6 @@
   background: transparent;
   border: 0;
   padding: 0;
-
   font: inherit;
   cursor: pointer;
   text-decoration: underline;
@@ -98,7 +86,6 @@
   --tinta: #ffffff;
   --suave: #b3b3b3;
   --borde: #3c3c3c;
-
   background: var(--superficie);
   color: var(--tinta);
 }
@@ -109,12 +96,10 @@
 }
 
 /* Foco de teclado */
-
 .taquilla .pie-home a:focus-visible,
 .taquilla .pie-home button:focus-visible {
   outline-color: #ffffff;
 }
-
 
 @media (max-width: 900px) {
   .columnas-pie {
@@ -142,13 +127,12 @@
   }
 
   .contenido-marca-pie p {
-    font-size: 14px;
+    font-size: calc(14px * var(--escala-texto, 1));
   }
 
   .pie-creditos {
     margin-top: 28px;
     padding-top: 20px;
-
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;

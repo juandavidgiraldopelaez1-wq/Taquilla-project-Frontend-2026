@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   font-family: var(--fuente-texto);
@@ -8,17 +9,20 @@ body {
   background: var(--fondo);
   color: var(--tinta);
 }
+
 h1,
 h2,
 h3 {
   line-height: 1.2;
   overflow-wrap: anywhere;
 }
+
 button,
 input,
 select {
   font: inherit;
 }
+
 .solo-lectores {
   position: absolute;
   width: 1px;
@@ -44,33 +48,41 @@ select {
 .landing p {
   margin: 0;
 }
+
 .landing h1,
 .landing h2,
 .landing h3 {
   text-wrap: balance;
 }
+
 .landing p {
   text-wrap: pretty;
 }
+
 .landing button,
 .landing input,
 .landing select {
   font: inherit;
 }
+
 .landing button,
 .landing a {
   -webkit-tap-highlight-color: transparent;
 }
+
 .landing button {
   cursor: pointer;
 }
+
 .landing a {
   color: inherit;
   text-decoration: none;
 }
+
 .landing a:hover {
   color: inherit;
 }
+
 .landing button:focus-visible,
 .landing a:focus-visible,
 .landing input:focus-visible,
@@ -78,16 +90,20 @@ select {
   outline: 3px solid var(--acento);
   outline-offset: 5px;
 }
+
 .landing main:focus {
   outline: none;
 }
+
 .landing [id] {
   scroll-margin-top: 24px;
 }
+
 .ancho-home {
   width: min(1280px, calc(100% - 80px));
   margin-inline: auto;
 }
+
 .boton-home {
   min-height: 44px;
   padding: 12px 24px;
@@ -98,7 +114,7 @@ select {
   border: 1px solid var(--borde);
   border-radius: 99px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
   line-height: 1.4;
   text-align: center;
   color: var(--tinta);
@@ -107,20 +123,24 @@ select {
     transform 160ms ease,
     filter 160ms ease;
 }
+
 .boton-home.primario {
   background: var(--acento);
   border-color: var(--acento);
   color: var(--sobre-acento);
 }
+
 .boton-home:hover {
   filter: brightness(0.94);
   transform: translateY(-2px);
 }
+
 .grupo-botones {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
+
 .titulo-seccion {
   display: flex;
   align-items: center;
@@ -128,9 +148,11 @@ select {
   gap: 16px;
   margin-bottom: 24px;
 }
+
 .titulo-seccion h2 {
-  font-size: 28px;
+  font-size: calc(28px * var(--escala-texto, 1));
 }
+
 .enlace-home {
   color: var(--acento) !important;
   display: inline-flex;
@@ -138,9 +160,10 @@ select {
   align-items: center;
   background: none;
   border: 0;
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
   font-weight: 600;
 }
+
 .enlace-home:hover {
   text-decoration: underline;
 }
@@ -150,28 +173,34 @@ select {
     width: calc(100% - 48px);
   }
 }
+
 @media (max-width: 640px) {
   .ancho-home {
     width: calc(100% - 40px);
   }
 }
+
 @media (max-width: 640px) {
   .titulo-seccion {
     gap: 12px;
   }
 }
+
 @media (max-width: 640px) {
   .titulo-seccion h2 {
-    font-size: 21px;
+    font-size: calc(21px * var(--escala-texto, 1));
   }
 }
+
 @media (max-width: 640px) {
   .enlace-home {
-    font-size: 12px;
+    font-size: calc(12px * var(--escala-texto, 1));
     flex-shrink: 0;
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
+
   .landing *,
   .landing *::before,
   .landing *::after {
@@ -180,27 +209,77 @@ select {
     scroll-behavior: auto !important;
   }
 }
+
 .taquilla {
   font-family: "Instrument Sans", sans-serif;
 }
+
 .taquilla h1,
 .taquilla h2,
 .taquilla h3 {
   font-family: "Instrument Sans", sans-serif;
 }
+
 .taquilla .boton-home {
   border-radius: 8px;
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
   font-weight: 500;
   padding: 10px 18px;
   min-height: 42px;
 }
+
 .etiqueta-evento {
   display: inline-block;
   padding: 3px 8px;
   border-radius: 6px;
   background: #f0f0f0;
   color: #141414;
-  font-size: 12px;
+  font-size: calc(12px * var(--escala-texto, 1));
   line-height: 1.4;
+}
+
+/* Preferencias globales de accesibilidad */
+
+/* Alto contraste */
+html[data-alto-contraste="true"] {
+  --fondo: #ffffff;
+  --superficie: #ffffff;
+  --tinta: #000000;
+  --suave: #141414;
+  --acento: #000000;
+  --sobre-acento: #ffffff;
+  --borde: #000000;
+  --color-foco: #000000;
+}
+
+/* Reducir movimiento */
+html[data-reducir-movimiento="true"] *,
+html[data-reducir-movimiento="true"] *::before,
+html[data-reducir-movimiento="true"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Subrayar enlaces */
+html[data-subrayar-enlaces="true"] a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+/* Espaciado de lectura */
+html[data-espaciado-lectura="true"] .taquilla :is(p,
+  li,
+  a,
+  label,
+  button,
+  input,
+  select,
+  h1,
+  h2,
+  h3,
+  small) {
+  line-height: 1.8 !important;
+  letter-spacing: 0.04em !important;
+  word-spacing: 0.12em !important;
 }
