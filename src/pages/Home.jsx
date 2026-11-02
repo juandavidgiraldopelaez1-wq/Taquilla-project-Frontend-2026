@@ -19,12 +19,16 @@ import {
   dinero,
 } from "../data/catalogo.js";
 
+import { interfaz } from "../data/interfaz.js";
+
 export default function Home() {
   const { idioma } = usePreferencias();
   const en = idioma === "en";
+  const t = interfaz[idioma];
 
   const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
 
+  // Consulta las categorías reales de la API.
   const {
     datos: respuestaCategorias,
     cargando: cargandoCategorias,
@@ -32,6 +36,8 @@ export default function Home() {
     recargar: recargarCategorias,
   } = useRecurso("/categorias");
 
+  // Los filtros de eventos siguen utilizando temporalmente
+  // el catálogo local. La conexión de eventos será otro cambio.
   const {
     filtros,
     resultados,
@@ -40,15 +46,18 @@ export default function Home() {
     filtrarCategoria,
   } = useEventos(eventos);
 
+  // Obtener las categorías devueltas por la API.
   const categoriasApi = Array.isArray(respuestaCategorias?.datos)
     ? respuestaCategorias.datos
     : [];
 
+  // Utilizar las categorías locales mientras llega la respuesta.
   const categorias =
     categoriasApi.length > 0
       ? categoriasApi.map((categoria) => categoria.nombre)
       : categoriasLocales;
 
+  // Obtener las cantidades reales de eventos por categoría.
   const cantidades = categorias.map((nombre) => {
     const categoriaApi = categoriasApi.find(
       (categoria) => categoria.nombre === nombre
@@ -64,7 +73,9 @@ export default function Home() {
       contenido: (
         <div className="resumen-evento">
           <AficheEvento variante={evento.arte} />
+
           <p>{dinero(evento.precio)} COP</p>
+
           <small>
             {en
               ? "Sample event. Tickets are not for sale."
@@ -79,12 +90,8 @@ export default function Home() {
   return (
     <LayoutPublico
       destino="#eventos"
-      etiqueta={en ? "Explore" : "Explorar"}
-      descripcion={
-        en
-          ? "Concerts, theatre, sports and festivals in one place."
-          : "Conciertos, teatro, deportes y festivales en un solo lugar."
-      }
+      etiqueta={t.explora}
+      descripcion={t.descripcionHome}
       onCuenta={abrirCuenta}
     >
       <HeroTaquilla
@@ -134,19 +141,13 @@ export default function Home() {
           id="eventos"
           titulo={
             filtros
-              ? en
-                ? "Search results"
-                : "Resultados de búsqueda"
-              : en
-                ? "Featured events"
-                : "Eventos destacados"
+              ? t.resultadosBusqueda
+              : t.destacadosSemana
           }
           descripcion={
             filtros
-              ? `${resultados.length} ${en ? "results" : "resultados"}`
-              : en
-                ? "Explore our event selection"
-                : "Explora nuestra selección de eventos"
+              ? `${resultados.length} ${t.resultados}`
+              : t.descripcionDestacadosSemana
           }
           eventos={filtros ? resultados : eventos.slice(0, 4)}
           en={en}
@@ -157,12 +158,8 @@ export default function Home() {
         {!filtros && (
           <SeccionEventos
             id="eventos-ciudad"
-            titulo={en ? "Events in Manizales" : "Eventos en Manizales"}
-            descripcion={
-              en
-                ? "Discover events in your city"
-                : "Descubre los eventos de tu ciudad"
-            }
+            titulo={t.proximamenteManizales}
+            descripcion={t.descripcionProximamenteManizales}
             eventos={eventos.filter(
               (evento) => evento.ciudad === "Manizales"
             )}

@@ -1,3 +1,4 @@
+
 export const interfaz = {
   es: {
     inicio: "Inicio",
@@ -8,9 +9,19 @@ export const interfaz = {
     navegacion: "Navegación principal",
     idioma: "Idioma",
     buscar: "Busca eventos o artistas",
-    explora: "Explora",
+    explora: "Explorar",
     cuenta: "Tu cuenta",
     academico: "Proyecto académico",
+    descripcionHome:
+      "Conciertos, teatro, deportes y festivales en un solo lugar.",
+    destacadosSemana: "Destacados de la semana",
+    descripcionDestacadosSemana:
+      "Los eventos con más entradas vendidas en los últimos 7 días",
+    proximamenteManizales: "Próximamente en Manizales",
+    descripcionProximamenteManizales:
+      "Cambia la ciudad desde el buscador",
+    resultadosBusqueda: "Resultados de búsqueda",
+    resultados: "resultados",
     cookies: "Preferencias de cookies",
     saltar: "Saltar al contenido",
     banner: "Preferencias del navegador",
@@ -22,12 +33,15 @@ export const interfaz = {
     guardar: "Guardar selección",
     cerrar: "Cerrar preferencias",
     necesarias: "Necesarias",
-    necesariasTexto: "Guardan tu decisión de consentimiento. Siempre activas.",
+    necesariasTexto:
+      "Guardan tu decisión de consentimiento. Siempre activas.",
     preferencias: "Recordar idioma",
-    preferenciasTexto: "Conserva el idioma elegido en este navegador.",
+    preferenciasTexto:
+      "Conserva el idioma elegido en este navegador.",
     guardado: "Preferencias guardadas.",
     error: "No pudimos guardar la decisión en este navegador.",
   },
+
   en: {
     inicio: "Home",
     ingresar: "Log in",
@@ -40,6 +54,16 @@ export const interfaz = {
     explora: "Explore",
     cuenta: "Your account",
     academico: "Academic project",
+    descripcionHome:
+      "Concerts, theatre, sports and festivals in one place.",
+    destacadosSemana: "This week's highlights",
+    descripcionDestacadosSemana:
+      "The events with the most tickets sold in the last 7 days",
+    proximamenteManizales: "Coming soon in Manizales",
+    descripcionProximamenteManizales:
+      "Change the city from the search bar",
+    resultadosBusqueda: "Search results",
+    resultados: "results",
     cookies: "Cookie preferences",
     saltar: "Skip to content",
     banner: "Browser preferences",
@@ -51,10 +75,13 @@ export const interfaz = {
     guardar: "Save selection",
     cerrar: "Close preferences",
     necesarias: "Necessary",
-    necesariasTexto: "Store your consent decision. Always active.",
+    necesariasTexto:
+      "Store your consent decision. Always active.",
     preferencias: "Remember language",
-    preferenciasTexto: "Keep your chosen language in this browser.",
+    preferenciasTexto:
+      "Keep your chosen language in this browser.",
     guardado: "Preferences saved.",
-    error: "We could not save your decision in this browser.",
+    error:
+      "We could not save your decision in this browser.",
   },
 };
