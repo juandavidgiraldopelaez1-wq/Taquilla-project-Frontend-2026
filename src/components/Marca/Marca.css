@@ -1,3 +1,4 @@
+
 .marca-home {
   display: inline-flex;
   align-items: center;
@@ -7,6 +8,7 @@
   font-size: 22px;
   font-weight: 700;
 }
+
 .emblema {
   display: grid;
   place-items: center;
@@ -16,20 +18,31 @@
   color: var(--sobre-acento);
   border-radius: 50%;
 }
+
 .emblema svg {
   width: 32px;
   height: 32px;
 }
+
 @media (max-width: 640px) {
   .marca-home {
     font-size: 20px;
   }
 }
+
 .taquilla .marca-home {
   font-family: "Instrument Sans", sans-serif;
 }
+
 .taquilla .emblema {
-  border-radius: 9px;
+  background: #141414;
+  color: #ffffff;
+  border-radius: 8px;
   width: 32px;
   height: 32px;
+}
+
+.taquilla .emblema svg {
+  width: 18px;
+  height: 18px;
 }
