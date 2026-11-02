@@ -10,6 +10,7 @@ export const interfaz = {
     idioma: "Idioma",
     buscar: "Busca eventos o artistas",
     explora: "Explorar",
+    explorarEventos: "Explorar eventos",
     cuenta: "Tu cuenta",
     academico: "Proyecto académico",
     descripcionHome:
@@ -22,6 +23,13 @@ export const interfaz = {
       "Cambia la ciudad desde el buscador",
     resultadosBusqueda: "Resultados de búsqueda",
     resultados: "resultados",
+    legal: "Legal",
+    terminos: "Términos de uso",
+    accesibilidad: "Accesibilidad",
+    descripcionFooterExtra:
+      "Explora eventos y consulta sus detalles.",
+    avisoAcademico:
+      "Datos de ejemplo con fines académicos.",
     cookies: "Preferencias de cookies",
     saltar: "Saltar al contenido",
     banner: "Preferencias del navegador",
@@ -39,7 +47,8 @@ export const interfaz = {
     preferenciasTexto:
       "Conserva el idioma elegido en este navegador.",
     guardado: "Preferencias guardadas.",
-    error: "No pudimos guardar la decisión en este navegador.",
+    error:
+      "No pudimos guardar la decisión en este navegador.",
   },
 
   en: {
@@ -52,6 +61,7 @@ export const interfaz = {
     idioma: "Language",
     buscar: "Search events or artists",
     explora: "Explore",
+    explorarEventos: "Explore events",
     cuenta: "Your account",
     academico: "Academic project",
     descripcionHome:
@@ -64,6 +74,13 @@ export const interfaz = {
       "Change the city from the search bar",
     resultadosBusqueda: "Search results",
     resultados: "results",
+    legal: "Legal",
+    terminos: "Terms of use",
+    accesibilidad: "Accessibility",
+    descripcionFooterExtra:
+      "Explore events and view their details.",
+    avisoAcademico:
+      "Sample data for academic purposes.",
     cookies: "Cookie preferences",
     saltar: "Skip to content",
     banner: "Browser preferences",
