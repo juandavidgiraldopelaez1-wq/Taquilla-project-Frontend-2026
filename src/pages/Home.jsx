@@ -1,3 +1,4 @@
+
 import LayoutPublico from "../components/LayoutPublico/LayoutPublico.jsx";
 import HeroTaquilla from "../components/HeroTaquilla/HeroTaquilla.jsx";
 import BuscadorEventos from "../components/BuscadorEventos/BuscadorEventos.jsx";
@@ -5,21 +6,57 @@ import CategoriasEventos from "../components/CategoriasEventos/CategoriasEventos
 import SeccionEventos from "../components/SeccionEventos/SeccionEventos.jsx";
 import AficheEvento from "../components/AficheEvento/AficheEvento.jsx";
 import DialogoDetalle from "../components/DialogoDetalle/DialogoDetalle.jsx";
+
 import { usePreferencias } from "../context/PreferenciasContext.jsx";
 import { useDetalle } from "../hooks/useDetalle.js";
 import { useEventos } from "../hooks/useEventos.js";
-import { eventos, categorias, categoriasEn, dinero } from "../data/catalogo.js";
+import { useRecurso } from "../hooks/useRecurso.js";
+
+import {
+  eventos,
+  categorias as categoriasLocales,
+  categoriasEn,
+  dinero,
+} from "../data/catalogo.js";
 
 export default function Home() {
   const { idioma } = usePreferencias();
   const en = idioma === "en";
+
   const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
-  const { filtros, resultados, buscar, setFiltros, filtrarCategoria } =
-    useEventos(eventos);
-  const cantidades = categorias.map(
-    (categoria) =>
-      eventos.filter((evento) => evento.categoria === categoria).length,
-  );
+
+  const {
+    datos: respuestaCategorias,
+    cargando: cargandoCategorias,
+    error: errorCategorias,
+    recargar: recargarCategorias,
+  } = useRecurso("/categorias");
+
+  const {
+    filtros,
+    resultados,
+    buscar,
+    setFiltros,
+    filtrarCategoria,
+  } = useEventos(eventos);
+
+  const categoriasApi = Array.isArray(respuestaCategorias?.datos)
+    ? respuestaCategorias.datos
+    : [];
+
+  const categorias =
+    categoriasApi.length > 0
+      ? categoriasApi.map((categoria) => categoria.nombre)
+      : categoriasLocales;
+
+  const cantidades = categorias.map((nombre) => {
+    const categoriaApi = categoriasApi.find(
+      (categoria) => categoria.nombre === nombre
+    );
+
+    return categoriaApi?.eventos ?? (cargandoCategorias ? "…" : "—");
+  });
+
   function abrirEvento(evento) {
     setDetalle({
       titulo: evento.nombre,
@@ -38,6 +75,7 @@ export default function Home() {
       cerrar: en ? "Close" : "Cerrar",
     });
   }
+
   return (
     <LayoutPublico
       destino="#eventos"
@@ -63,7 +101,26 @@ export default function Home() {
           filtrosAplicados={filtros}
         />
       </HeroTaquilla>
+
       <div className="ancho-home">
+        {errorCategorias && (
+          <div role="alert">
+            <p>
+              {en
+                ? "Categories could not be loaded."
+                : "No se pudieron cargar las categorías desde el servidor."}
+            </p>
+
+            <button
+              type="button"
+              className="boton-home"
+              onClick={recargarCategorias}
+            >
+              {en ? "Retry" : "Reintentar"}
+            </button>
+          </div>
+        )}
+
         <CategoriasEventos
           categorias={categorias}
           categoriasEn={categoriasEn}
@@ -72,6 +129,7 @@ export default function Home() {
           en={en}
           filtrarCategoria={filtrarCategoria}
         />
+
         <SeccionEventos
           id="eventos"
           titulo={
@@ -95,6 +153,7 @@ export default function Home() {
           onAbrir={abrirEvento}
           onVerTodos={() => buscar({})}
         />
+
         {!filtros && (
           <SeccionEventos
             id="eventos-ciudad"
@@ -104,14 +163,20 @@ export default function Home() {
                 ? "Discover events in your city"
                 : "Descubre los eventos de tu ciudad"
             }
-            eventos={eventos.filter((evento) => evento.ciudad === "Manizales")}
+            eventos={eventos.filter(
+              (evento) => evento.ciudad === "Manizales"
+            )}
             en={en}
             onAbrir={abrirEvento}
             onVerTodos={() => buscar({ ciudad: "Manizales" })}
           />
         )}
       </div>
-      <DialogoDetalle detalle={detalle} onCerrar={() => setDetalle(null)} />
+
+      <DialogoDetalle
+        detalle={detalle}
+        onCerrar={() => setDetalle(null)}
+      />
     </LayoutPublico>
   );
 }
