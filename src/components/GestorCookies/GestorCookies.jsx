@@ -6,7 +6,7 @@ import BannerCookies from "../BannerCookies/BannerCookies.jsx";
 import PreferenciasCookies from "../PreferenciasCookies/PreferenciasCookies.jsx";
 import "./GestorCookies.css";
 
-export default function GestorCookies({ abierto, onAbrir, onCerrar }) {
+export default function GestorCookies({ abierto, onCerrar }) {
   const {
     idioma,
     consentimiento,
@@ -72,7 +72,6 @@ export default function GestorCookies({ abierto, onAbrir, onCerrar }) {
           textos={t}
           onAceptar={() => guardar(true)}
           onRechazar={() => guardar(false)}
-          onConfigurar={onAbrir}
         />
       )}
 
