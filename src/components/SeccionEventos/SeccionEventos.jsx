@@ -4,6 +4,7 @@ import "./SeccionEventos.css";
 export default function SeccionEventos({
   id,
   titulo,
+  tituloMovil,
   descripcion,
   eventos,
   en,
@@ -18,7 +19,10 @@ export default function SeccionEventos({
     >
       <div className="titulo-seccion">
         <div>
-          <h2 id={`${id}-titulo`}>{titulo}</h2>
+          <h2 id={`${id}-titulo`}>
+            <span className="titulo-escritorio">{titulo}</span>
+            <span className="titulo-movil">{tituloMovil ?? titulo}</span>
+          </h2>
           <p role="status">{descripcion}</p>
         </div>
         <button className="enlace-home" onClick={onVerTodos}>
