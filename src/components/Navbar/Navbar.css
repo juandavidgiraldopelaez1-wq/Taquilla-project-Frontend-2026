@@ -617,3 +617,208 @@
     height: 22px;
   }
 }
+
+
+/* =========================================
+   NAVBAR EXPLORAR: TABLET Y MÓVIL
+   ========================================= */
+
+@media (max-width: 1024px) {
+  .taquilla .cabecera-explorar {
+    min-height: 56px;
+    background: #ffffff;
+    color: #141414;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .taquilla .cabecera-explorar .fila-cabecera {
+    min-height: 56px;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+
+  .taquilla .cabecera-explorar .fila-cabecera>.marca-home {
+    margin-right: auto;
+    color: #141414;
+  }
+
+  .taquilla .cabecera-explorar .buscar-movil,
+  .taquilla .cabecera-explorar .ingreso-movil {
+    color: #141414;
+  }
+
+  .taquilla .cabecera-explorar .boton-menu {
+    color: #141414;
+    border: 0;
+    background: transparent;
+    border-radius: 8px;
+  }
+
+  .taquilla .cabecera-explorar .menu-movil-cabecera .marca-home {
+    color: #141414;
+  }
+}
+
+/* =========================================
+   NAVBAR EXPLORAR: TABLET
+   ========================================= */
+
+@media (min-width: 641px) and (max-width: 1024px) {
+
+  .taquilla .cabecera-explorar .buscar-movil,
+  .taquilla .cabecera-explorar .ingreso-movil {
+    display: flex;
+    align-items: center;
+  }
+
+  .taquilla .cabecera-explorar .buscar-movil {
+    justify-content: center;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 36px;
+    margin-left: 0;
+  }
+
+  .taquilla .cabecera-explorar .boton-menu {
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .taquilla .cabecera-explorar:not(.menu-abierto) .menu-home {
+    display: none !important;
+  }
+
+  .taquilla .cabecera-explorar.menu-abierto .fondo-menu-movil {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgb(20 20 20 / 50%);
+  }
+
+  .taquilla .cabecera-explorar .menu-home.abierto {
+    display: flex;
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    box-sizing: border-box;
+    width: min(350px, 100vw);
+    height: min(802px, 100dvh);
+    max-height: 100dvh;
+    padding: 16px 0;
+    overflow-y: auto;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
+  }
+
+  .taquilla .cabecera-explorar.menu-abierto .boton-menu {
+    position: fixed;
+    z-index: 1002;
+    top: 5px;
+    right: 3px;
+    width: 44px;
+    height: 44px;
+    background: #ffffff;
+    color: #141414;
+  }
+
+  .taquilla .cabecera-explorar .menu-movil-cabecera {
+    display: flex;
+    align-items: center;
+    flex: 0 0 54px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .taquilla .cabecera-explorar .enlaces-menu-movil {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 16px 12px;
+  }
+
+  .taquilla .cabecera-explorar .enlaces-menu-movil>a {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #141414;
+    text-decoration: none;
+  }
+
+  .taquilla .cabecera-explorar .espacio-menu-movil {
+    display: block;
+    flex: 1;
+    min-height: 30px;
+  }
+
+  .taquilla .cabecera-explorar .menu-home .acciones-home {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    margin: 0;
+  }
+
+  .taquilla .cabecera-explorar .menu-home .grupo-menu-movil {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 64px;
+    padding: 12px 24px;
+  }
+
+  .taquilla .cabecera-explorar .menu-home .etiqueta-menu-movil {
+    display: block;
+    color: #141414;
+  }
+
+  .taquilla .cabecera-explorar .menu-home .grupo-sesion-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .taquilla .cabecera-explorar .menu-home .buscar-cabecera {
+    display: none;
+  }
+}
+
+/* Logo de Explorar según Figma: 32 × 32 px */
+@media (max-width: 1024px) {
+  .taquilla .cabecera-explorar .fila-cabecera>.marca-home .emblema {
+    display: grid;
+    place-items: center;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #141414;
+    color: #ffffff;
+  }
+
+  .taquilla .cabecera-explorar .fila-cabecera>.marca-home .emblema svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+  }
+}
