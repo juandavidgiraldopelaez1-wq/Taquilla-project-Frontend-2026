@@ -1,6 +1,8 @@
+
 import Flecha from "../Flecha/Flecha.jsx";
 import TarjetaEvento from "../TarjetaEvento/TarjetaEvento.jsx";
 import "./SeccionEventos.css";
+
 export default function SeccionEventos({
   id,
   titulo,
@@ -8,9 +10,22 @@ export default function SeccionEventos({
   descripcion,
   eventos,
   en,
+  textos,
   onAbrir,
   onVerTodos,
 }) {
+  const acciones = textos?.general?.acciones;
+  const vacio = textos?.paginas?.explorar?.vacio;
+
+  const textoVerTodos =
+    acciones?.verTodos ?? (en ? "View all" : "Ver todos");
+
+  const textoSinEventos =
+    vacio?.titulo ?? (en ? "No events found" : "No encontramos eventos");
+
+  const descripcionSinEventos =
+    vacio?.texto ?? (en ? "Try another search." : "Prueba con otra búsqueda.");
+
   return (
     <section
       className="seccion-eventos"
@@ -25,27 +40,40 @@ export default function SeccionEventos({
           </h2>
           <p role="status">{descripcion}</p>
         </div>
-        <button className="enlace-home" onClick={onVerTodos}>
-          {en ? "View all" : "Ver todos"}
+
+        <button
+          type="button"
+          className="enlace-home"
+          onClick={onVerTodos}
+        >
+          {textoVerTodos}
           <Flecha />
         </button>
       </div>
+
       <div className="eventos-grid">
         {eventos.map((evento) => (
           <TarjetaEvento
-            key={evento.nombre}
+            key={evento.id ?? evento.nombre}
             evento={evento}
             en={en}
+            textos={textos}
             onAbrir={onAbrir}
           />
         ))}
       </div>
+
       {!eventos.length && (
         <div className="sin-resultados">
-          <h3>{en ? "No events found" : "No encontramos eventos"}</h3>
-          <p>{en ? "Try another search." : "Prueba con otra búsqueda."}</p>
-          <button className="boton-home primario" onClick={onVerTodos}>
-            {en ? "View all events" : "Ver todos los eventos"}
+          <h3>{textoSinEventos}</h3>
+          <p>{descripcionSinEventos}</p>
+
+          <button
+            type="button"
+            className="boton-home primario"
+            onClick={onVerTodos}
+          >
+            {textoVerTodos}
           </button>
         </div>
       )}

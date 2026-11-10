@@ -1,3 +1,4 @@
+
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router";
 
@@ -35,6 +36,28 @@ const etiquetasCategorias = {
   familiares: "Familiar",
 };
 
+// Reemplaza las variables dinámicas de los textos de la API.
+function interpolarTexto(texto, valores = {}) {
+  if (typeof texto !== "string") return "";
+
+  return Object.entries(valores).reduce(
+    (resultado, [clave, valor]) =>
+      resultado.replaceAll(`{${clave}}`, String(valor)),
+    texto,
+  );
+}
+
+// Formatea cantidades utilizando las plantillas de la API.
+function textoResultados(plantillas, cantidad, fallback) {
+  const plantilla =
+    Number(cantidad) === 1 ? plantillas?.uno : plantillas?.otro;
+
+  return plantilla
+    ? interpolarTexto(plantilla, { cantidad })
+    : fallback;
+}
+
+// Convierte una fecha de la API a fecha local de Colombia.
 function fechaLocal(fecha) {
   if (!fecha) return "";
 
@@ -50,6 +73,7 @@ function fechaLocal(fecha) {
   }).format(valor);
 }
 
+// Convierte la fecha a un formato legible según el idioma.
 function horarioEvento(fecha, idioma) {
   if (!fecha) return "";
 
@@ -70,6 +94,7 @@ function horarioEvento(fecha, idioma) {
   ).format(valor);
 }
 
+// Adapta los eventos recibidos de la API a las tarjetas existentes.
 function adaptarEvento(evento, categoriasApi, idioma, indice) {
   const categoriaApi = categoriasApi.find(
     (categoria) => categoria.id === evento.categoria,
@@ -77,10 +102,12 @@ function adaptarEvento(evento, categoriasApi, idioma, indice) {
 
   const categoriaLocal = categoriasLocales.find(
     (categoria) =>
-      normalizar(categoria) === normalizar(categoriaApi?.nombre || evento.categoria),
+      normalizar(categoria) ===
+      normalizar(categoriaApi?.nombre || evento.categoria),
   );
 
-  const categoria = categoriaLocal || categoriaApi?.nombre || evento.categoria;
+  const categoria =
+    categoriaLocal || categoriaApi?.nombre || evento.categoria;
 
   const etiqueta =
     etiquetasCategorias[evento.categoria] || categoria;
@@ -162,8 +189,19 @@ function ordenarEventos(eventos, orden) {
 }
 
 export default function Explorar() {
-  const { idioma } = usePreferencias();
+  const { idioma, textos } = usePreferencias();
+
   const en = idioma === "en";
+
+  // Textos obtenidos de GET /textos?idioma=es|en.
+  const explorar = textos?.paginas?.explorar;
+  const general = textos?.general;
+  const estados = textos?.estados;
+
+  const filtrosTexto = explorar?.filtros;
+  const fechasTexto = filtrosTexto?.fecha;
+  const acciones = general?.acciones;
+  const categoriasTexto = general?.categorias;
 
   const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
 
@@ -176,8 +214,11 @@ export default function Explorar() {
 
   const [filtrosMovilesAbiertos, setFiltrosMovilesAbiertos] =
     useState(false);
+
   const [fechasPersonalizadasAbiertas, setFechasPersonalizadasAbiertas] =
-    useState(() => Boolean(searchParams.get("desde") || searchParams.get("hasta")));
+    useState(() =>
+      Boolean(searchParams.get("desde") || searchParams.get("hasta")),
+    );
 
   const [respuestaEventos, setRespuestaEventos] = useState({
     datos: [],
@@ -186,6 +227,14 @@ export default function Explorar() {
     error: null,
   });
 
+  // Actualiza el título y la descripción del navegador.
+  useEffect(() => {
+    if (explorar?.seo?.titulo) {
+      document.title = explorar.seo.titulo;
+    }
+  }, [explorar?.seo?.titulo]);
+
+  // Obtener categorías desde la API.
   const {
     datos: respuestaCategorias,
     cargando: cargandoCategorias,
@@ -193,6 +242,7 @@ export default function Explorar() {
     recargar: recargarCategorias,
   } = useRecurso("/categorias");
 
+  // Obtener ciudades desde la API.
   const {
     datos: respuestaCiudades,
     cargando: cargandoCiudades,
@@ -208,6 +258,7 @@ export default function Explorar() {
     ? respuestaCiudades.datos
     : [];
 
+  // Mantener categorías locales únicamente como respaldo.
   const categorias = useMemo(() => {
     if (categoriasApi.length) return categoriasApi;
 
@@ -218,13 +269,18 @@ export default function Explorar() {
       posicion: indice,
     }));
   }, [categoriasApi]);
+
   const categoriasSeleccionadas = searchParams.getAll("categoria");
   const ciudad = searchParams.get("ciudad") || "";
   const consulta = searchParams.get("q") || "";
   const desde = searchParams.get("desde") || "";
   const hasta = searchParams.get("hasta") || "";
   const orden = searchParams.get("orden") || "fecha";
-  const pagina = Math.max(1, Number(searchParams.get("pagina")) || 1);
+
+  const pagina = Math.max(
+    1,
+    Number(searchParams.get("pagina")) || 1,
+  );
 
   const precioMinimo = Math.min(
     PRECIO_MAXIMO - 5000,
@@ -242,9 +298,13 @@ export default function Explorar() {
     ),
   );
 
-  const posicionPrecioMinimo = `${(precioMinimo / PRECIO_ESCALA_MAXIMO) * 100}%`;
-  const posicionPrecioMaximo = `${(precioMaximo / PRECIO_ESCALA_MAXIMO) * 100}%`;
+  const posicionPrecioMinimo =
+    `${(precioMinimo / PRECIO_ESCALA_MAXIMO) * 100}%`;
 
+  const posicionPrecioMaximo =
+    `${(precioMaximo / PRECIO_ESCALA_MAXIMO) * 100}%`;
+
+  // Actualizar los parámetros de búsqueda sin perder filtros.
   function actualizarParametros(actualizaciones = {}, opciones = {}) {
     const nuevos = new URLSearchParams(searchParams);
 
@@ -263,6 +323,7 @@ export default function Explorar() {
     setSearchParams(nuevos);
   }
 
+  // Permitir seleccionar varias categorías.
   function seleccionarCategoria(id) {
     const nuevos = new URLSearchParams(searchParams);
     const seleccionadas = nuevos.getAll("categoria");
@@ -281,8 +342,10 @@ export default function Explorar() {
     setSearchParams(nuevos);
   }
 
+  // Seleccionar fechas rápidas.
   function seleccionarFecha(tipo) {
     const hoy = obtenerFechaLocal(new Date());
+
     setFechasPersonalizadasAbiertas(false);
 
     if (tipo === "hoy") {
@@ -300,6 +363,7 @@ export default function Explorar() {
     }
   }
 
+  // Limpiar todos los filtros.
   function limpiarFiltros() {
     setBusqueda("");
     setFechasPersonalizadasAbiertas(false);
@@ -313,7 +377,8 @@ export default function Explorar() {
     );
 
     actualizarParametros({
-      precioMin: nuevoMinimo === PRECIO_MINIMO ? "" : nuevoMinimo,
+      precioMin:
+        nuevoMinimo === PRECIO_MINIMO ? "" : nuevoMinimo,
     });
   }
 
@@ -324,11 +389,12 @@ export default function Explorar() {
     );
 
     actualizarParametros({
-      precioMax: nuevoMaximo === PRECIO_MAXIMO ? "" : nuevoMaximo,
+      precioMax:
+        nuevoMaximo === PRECIO_MAXIMO ? "" : nuevoMaximo,
     });
   }
 
-  // Consulta eventos usando los filtros guardados en la URL.
+  // Consultar eventos utilizando los filtros guardados en la URL.
   useEffect(() => {
     const controlador = new AbortController();
     let vigente = true;
@@ -343,7 +409,9 @@ export default function Explorar() {
       try {
         const parametros = new URLSearchParams(filtrosURL);
 
-        const categoriasSeleccionadas = parametros.getAll("categoria");
+        const categoriasSeleccionadas =
+          parametros.getAll("categoria");
+
         const paginaActual = Math.max(
           1,
           Number(parametros.get("pagina")) || 1,
@@ -365,6 +433,7 @@ export default function Explorar() {
           const respuestas = await Promise.all(
             categoriasSeleccionadas.map(async (categoria) => {
               const consulta = new URLSearchParams(parametros);
+
               consulta.set("categoria", categoria);
               consulta.set("pagina", "1");
               consulta.set("porPagina", "100");
@@ -391,7 +460,10 @@ export default function Explorar() {
           );
 
           const total = eventos.length;
-          const paginas = Math.max(1, Math.ceil(total / POR_PAGINA));
+          const paginas = Math.max(
+            1,
+            Math.ceil(total / POR_PAGINA),
+          );
 
           const paginaSegura = Math.min(paginaActual, paginas);
           const inicio = (paginaSegura - 1) * POR_PAGINA;
@@ -456,108 +528,235 @@ export default function Explorar() {
       controlador.abort();
     };
   }, [filtrosURL]);
+
   useEffect(() => {
     setBusqueda(consulta);
   }, [consulta]);
 
+  // Adaptar los eventos recibidos.
   const eventos = respuestaEventos.datos.map((evento, indice) =>
     adaptarEvento(evento, categorias, idioma, indice),
   );
 
-  const totalEventos = respuestaEventos.paginacion?.total ?? 0;
-  const totalPaginas = respuestaEventos.paginacion?.paginas ?? 1;
+  const totalEventos =
+    respuestaEventos.paginacion?.total ?? 0;
 
-  const hayFiltros =
-    categoriasSeleccionadas.length > 0 ||
-    ciudad ||
-    consulta ||
-    desde ||
-    hasta ||
-    precioMinimo > PRECIO_MINIMO ||
-    precioMaximo < PRECIO_MAXIMO;
+  const totalPaginas =
+    respuestaEventos.paginacion?.paginas ?? 1;
 
-  const etiquetaFecha = useMemo(() => {
+  // Identificar el tipo de fecha seleccionado.
+  const estadoFecha = useMemo(() => {
     if (!desde && !hasta) return "";
 
     const hoy = obtenerFechaLocal(new Date());
     const finDeSemana = rangoFinDeSemana();
     const mes = rangoMes();
 
-    if (desde === hoy && hasta === hoy) {
-      return en ? "Today" : "Hoy";
-    }
+    if (desde === hoy && hasta === hoy) return "hoy";
 
     if (
       desde === finDeSemana.desde &&
       hasta === finDeSemana.hasta
     ) {
-      return en ? "This weekend" : "Este fin de semana";
+      return "finDeSemana";
     }
 
     if (desde === mes.desde && hasta === mes.hasta) {
-      return en ? "This month" : "Este mes";
+      return "mes";
     }
 
-    return en ? "Custom dates" : "Fechas elegidas";
-  }, [desde, hasta, en]);
+    return "personalizada";
+  }, [desde, hasta]);
 
+  const etiquetaFecha =
+    estadoFecha === "hoy"
+      ? fechasTexto?.hoy ?? (en ? "Today" : "Hoy")
+      : estadoFecha === "finDeSemana"
+        ? fechasTexto?.finDeSemana ??
+        (en ? "This weekend" : "Este fin de semana")
+        : estadoFecha === "mes"
+          ? fechasTexto?.mes ?? (en ? "This month" : "Este mes")
+          : estadoFecha === "personalizada"
+            ? fechasTexto?.elegir ??
+            (en ? "Choose dates" : "Elegir fechas")
+            : "";
 
-
+  // Abrir el detalle de un evento.
   function abrirEvento(evento) {
     const original = evento.original;
+    const disponibles = original?.disponibilidad?.disponibles;
+
+    const formatoLugar = interpolarTexto(
+      general?.formatos?.lugarYCiudad,
+      {
+        lugar: evento.lugar,
+        ciudad: evento.ciudad,
+      },
+    );
+
+    const descripcion = general?.formatos?.fechaYLugar
+      ? interpolarTexto(general.formatos.fechaYLugar, {
+        fecha: evento.horario,
+        lugar: formatoLugar,
+      })
+      : `${evento.horario} · ${evento.lugar}, ${evento.ciudad}`;
+
+    const plantillaEntradas =
+      disponibles === 1
+        ? general?.formatos?.entradas?.uno
+        : general?.formatos?.entradas?.otro;
+
+    const textoDisponibilidad = plantillaEntradas
+      ? interpolarTexto(plantillaEntradas, {
+        cantidad: disponibles,
+      })
+      : en
+        ? `${disponibles} tickets available`
+        : `${disponibles} entradas disponibles`;
 
     setDetalle({
       titulo: evento.nombre,
-      descripcion: `${evento.horario} · ${evento.lugar}, ${evento.ciudad}`,
+      descripcion,
       contenido: (
         <div className="resumen-evento">
           <AficheEvento variante={evento.arte} />
 
           <p>{dinero(evento.precio)} COP</p>
 
-          {original?.disponibilidad && (
-            <small>
-              {en
-                ? `${original.disponibilidad.disponibles} tickets available`
-                : `${original.disponibilidad.disponibles} entradas disponibles`}
-            </small>
+          {disponibles !== undefined && (
+            <small>{textoDisponibilidad}</small>
           )}
         </div>
       ),
-      cerrar: en ? "Close" : "Cerrar",
+      cerrar: acciones?.cerrar ?? (en ? "Close" : "Cerrar"),
     });
   }
 
-  const numeroPagina = respuestaEventos.paginacion?.pagina || pagina;
+  const numeroPagina =
+    respuestaEventos.paginacion?.pagina || pagina;
+
+  // Textos para la interfaz de explorar.
+  const tituloPagina =
+    explorar?.seo?.titulo?.replace(/\s*[·|—-]\s*Taquilla\s*$/, "") ??
+    (en ? "Explore events" : "Explorar eventos");
+
+  const resultadosTexto = textoResultados(
+    explorar?.resultados,
+    totalEventos,
+    `${totalEventos} ${en
+      ? "events match your filters"
+      : "eventos coinciden con tus filtros"
+    }`,
+  );
+
+  const textoCargando =
+    estados?.cargando?.indicador ??
+    (en ? "Loading..." : "Cargando...");
+
+  const textoReintentar =
+    estados?.error?.botones?.reintentar ??
+    acciones?.reintentar ??
+    (en ? "Try again" : "Reintentar");
+
+  const textoError =
+    estados?.error?.texto ??
+    (en
+      ? "Check your connection and try again."
+      : "Revisa tu conexión e inténtalo de nuevo.");
+
+  const tituloError =
+    estados?.error?.titulo ??
+    (en ? "Something went wrong" : "Algo salió mal");
+
+  const tituloVacio =
+    explorar?.vacio?.titulo ??
+    (en
+      ? "We couldn't find events with those filters"
+      : "No encontramos eventos con esos filtros");
+
+  const descripcionVacio =
+    explorar?.vacio?.texto ??
+    (en
+      ? "Try another date, another city, or clear the filters."
+      : "Prueba con otra fecha, otra ciudad o limpia los filtros.");
+
+  const botonLimpiarVacio =
+    explorar?.vacio?.botones?.limpiar ??
+    (en ? "Clear filters" : "Limpiar filtros");
+
+  const tituloFiltros =
+    filtrosTexto?.titulo ?? (en ? "Filters" : "Filtros");
+
+  const tituloCategoria =
+    filtrosTexto?.categoria ?? (en ? "Category" : "Categoría");
+
+  const tituloCiudad =
+    filtrosTexto?.ciudad ?? (en ? "City" : "Ciudad");
+
+  const tituloPrecio =
+    filtrosTexto?.precio ?? (en ? "Price" : "Precio");
+
+  const textoLimpiar =
+    filtrosTexto?.botones?.limpiar ??
+    acciones?.limpiar ??
+    (en ? "Clear" : "Limpiar");
+
+  const textoTodasCiudades =
+    en ? "All cities" : "Todas las ciudades";
+
+  const textoDesde = en ? "From" : "Desde";
+  const textoHasta = en ? "To" : "Hasta";
+
+  const etiquetaOrden =
+    explorar?.orden?.etiqueta ?? (en ? "Sort:" : "Ordenar:");
+
+  const opcionesOrden = explorar?.orden?.opciones;
+
+  const textoBreadcrumb = en
+    ? "Breadcrumb"
+    : "Ruta de navegación";
 
   return (
     <LayoutPublico
       destino="/explorar"
-      etiqueta={en ? "Explore" : "Explorar"}
+      etiqueta={
+        textos?.navbar?.enlaces?.explorar ??
+        (en ? "Explore" : "Explorar")
+      }
       descripcion={
-        en
+        explorar?.seo?.descripcion ??
+        (en
           ? "Find concerts, theater, sports and more."
-          : "Encuentra conciertos, teatro, deportes y mucho más."
+          : "Encuentra conciertos, teatro, deportes y mucho más.")
       }
       onCuenta={abrirCuenta}
     >
       <div className="pagina-explorar">
         <div className="ancho-explorar">
-          <nav className="migas-explorar" aria-label={en ? "Breadcrumb" : "Ruta de navegación"}>
-            <a href="/">{en ? "Home" : "Inicio"}</a>
+          <nav
+            className="migas-explorar"
+            aria-label={textoBreadcrumb}
+          >
+            <a href="/">
+              {textos?.navbar?.enlaces?.inicio ??
+                (en ? "Home" : "Inicio")}
+            </a>
+
             <span aria-hidden="true">›</span>
-            <span aria-current="page">{en ? "Explore" : "Explorar"}</span>
+
+            <span aria-current="page">
+              {textos?.navbar?.enlaces?.explorar ??
+                (en ? "Explore" : "Explorar")}
+            </span>
           </nav>
 
           <header className="encabezado-explorar">
-            <h1>{en ? "Explore events" : "Explorar eventos"}</h1>
+            <h1>{tituloPagina}</h1>
+
             <p role="status">
               {respuestaEventos.cargando
-                ? en
-                  ? "Loading events..."
-                  : "Cargando eventos..."
-                : `${totalEventos} ${en ? "events match your filters" : "eventos coinciden con tus filtros"
-                }`}
+                ? textoCargando
+                : resultadosTexto}
             </p>
           </header>
 
@@ -569,31 +768,35 @@ export default function Explorar() {
               setFiltrosMovilesAbiertos((actual) => !actual)
             }
           >
-            {en ? "Filters" : "Filtros"}
-            <span>{filtrosMovilesAbiertos ? "−" : "+"}</span>
+            {tituloFiltros}
+            <span>
+              {filtrosMovilesAbiertos ? "−" : "+"}
+            </span>
           </button>
 
           <div className="contenido-explorar">
             <aside
               className={`panel-filtros ${filtrosMovilesAbiertos ? "filtros-abiertos" : ""
                 }`}
-              aria-label={en ? "Event filters" : "Filtros de eventos"}
+              aria-label={tituloFiltros}
             >
               <div className="encabezado-filtros">
-                <h2>{en ? "Filters" : "Filtros"}</h2>
+                <h2>{tituloFiltros}</h2>
 
-                <button type="button" onClick={limpiarFiltros}>
-                  {en ? "Clear" : "Limpiar"}
+                <button
+                  type="button"
+                  onClick={limpiarFiltros}
+                >
+                  {textoLimpiar}
                 </button>
               </div>
 
               <section className="grupo-filtro">
-                <h3>{en ? "Category" : "Categoría"}</h3>
+                <h3>{tituloCategoria}</h3>
 
-                {categorias.map((categoria, indice) => {
-                  const seleccionada = categoriasSeleccionadas.includes(
-                    categoria.id,
-                  );
+                {categorias.map((categoria) => {
+                  const seleccionada =
+                    categoriasSeleccionadas.includes(categoria.id);
 
                   const nombreEn =
                     categoriasEn[
@@ -603,6 +806,10 @@ export default function Explorar() {
                         normalizar(categoria.nombre),
                     )
                     ];
+
+                  const nombreCategoria =
+                    categoriasTexto?.[categoria.id] ??
+                    (en ? nombreEn || categoria.nombre : categoria.nombre);
 
                   return (
                     <label
@@ -617,9 +824,7 @@ export default function Explorar() {
                         }
                       />
 
-                      <span>
-                        {en ? nombreEn || categoria.nombre : categoria.nombre}
-                      </span>
+                      <span>{nombreCategoria}</span>
 
                       <small>
                         {categoria.eventos ?? "—"}
@@ -634,61 +839,67 @@ export default function Explorar() {
                     className="reintentar-filtro"
                     onClick={recargarCategorias}
                   >
-                    {en ? "Retry categories" : "Reintentar categorías"}
+                    {textoReintentar}
                   </button>
                 )}
 
                 {cargandoCategorias && (
-                  <small>{en ? "Loading..." : "Cargando..."}</small>
+                  <small>{textoCargando}</small>
                 )}
               </section>
 
               <section className="grupo-filtro filtro-fechas">
-                <h3>{en ? "Date" : "Fecha"}</h3>
+                <h3>
+                  {fechasTexto?.titulo ??
+                    (en ? "Date" : "Fecha")}
+                </h3>
 
                 <div className="opciones-fecha">
                   <button
                     type="button"
                     className={
-                      etiquetaFecha === (en ? "Today" : "Hoy")
+                      estadoFecha === "hoy"
                         ? "seleccionado"
                         : ""
                     }
                     onClick={() => seleccionarFecha("hoy")}
                   >
-                    {en ? "Today" : "Hoy"}
+                    {fechasTexto?.hoy ?? (en ? "Today" : "Hoy")}
                   </button>
 
                   <button
                     type="button"
                     className={
-                      etiquetaFecha ===
-                        (en ? "This weekend" : "Este fin de semana")
+                      estadoFecha === "finDeSemana"
                         ? "seleccionado"
                         : ""
                     }
-                    onClick={() => seleccionarFecha("fin-de-semana")}
+                    onClick={() =>
+                      seleccionarFecha("fin-de-semana")
+                    }
                   >
-                    {en ? "This weekend" : "Este fin de semana"}
+                    {fechasTexto?.finDeSemana ??
+                      (en ? "This weekend" : "Este fin de semana")}
                   </button>
 
                   <button
                     type="button"
                     className={
-                      etiquetaFecha === (en ? "This month" : "Este mes")
+                      estadoFecha === "mes"
                         ? "seleccionado"
                         : ""
                     }
                     onClick={() => seleccionarFecha("mes")}
                   >
-                    {en ? "This month" : "Este mes"}
+                    {fechasTexto?.mes ??
+                      (en ? "This month" : "Este mes")}
                   </button>
 
                   <button
                     type="button"
                     className={
                       fechasPersonalizadasAbiertas ||
-                        etiquetaFecha === (en ? "Custom dates" : "Fechas elegidas")
+                        estadoFecha === "personalizada"
                         ? "seleccionado"
                         : ""
                     }
@@ -702,39 +913,49 @@ export default function Explorar() {
                       setFechasPersonalizadasAbiertas(true);
 
                       if (
-                        etiquetaFecha === (en ? "Today" : "Hoy") ||
-                        etiquetaFecha === (en ? "This weekend" : "Este fin de semana") ||
-                        etiquetaFecha === (en ? "This month" : "Este mes")
+                        estadoFecha === "hoy" ||
+                        estadoFecha === "finDeSemana" ||
+                        estadoFecha === "mes"
                       ) {
-                        actualizarParametros({ desde: "", hasta: "" });
+                        actualizarParametros({
+                          desde: "",
+                          hasta: "",
+                        });
                       }
                     }}
                   >
-                    {en ? "Choose dates" : "Elegir fechas"}
+                    {fechasTexto?.elegir ??
+                      (en ? "Choose dates" : "Elegir fechas")}
                   </button>
                 </div>
 
                 {fechasPersonalizadasAbiertas && (
                   <div className="fechas-personalizadas">
                     <label>
-                      <span>{en ? "From" : "Desde"}</span>
+                      <span>{textoDesde}</span>
+
                       <input
                         type="date"
                         value={desde}
                         onChange={(evento) =>
-                          actualizarParametros({ desde: evento.target.value })
+                          actualizarParametros({
+                            desde: evento.target.value,
+                          })
                         }
                       />
                     </label>
 
                     <label>
-                      <span>{en ? "To" : "Hasta"}</span>
+                      <span>{textoHasta}</span>
+
                       <input
                         type="date"
                         min={desde || undefined}
                         value={hasta}
                         onChange={(evento) =>
-                          actualizarParametros({ hasta: evento.target.value })
+                          actualizarParametros({
+                            hasta: evento.target.value,
+                          })
                         }
                       />
                     </label>
@@ -743,21 +964,26 @@ export default function Explorar() {
               </section>
 
               <section className="grupo-filtro">
-                <h3>{en ? "City" : "Ciudad"}</h3>
+                <h3>{tituloCiudad}</h3>
 
                 <select
                   value={ciudad}
                   onChange={(evento) =>
-                    actualizarParametros({ ciudad: evento.target.value })
+                    actualizarParametros({
+                      ciudad: evento.target.value,
+                    })
                   }
-                  aria-label={en ? "Filter by city" : "Filtrar por ciudad"}
+                  aria-label={
+                    en ? "Filter by city" : "Filtrar por ciudad"
+                  }
                 >
-                  <option value="">
-                    {en ? "All cities" : "Todas las ciudades"}
-                  </option>
+                  <option value="">{textoTodasCiudades}</option>
 
                   {ciudadesApi.map((item) => (
-                    <option key={item.nombre} value={item.nombre}>
+                    <option
+                      key={item.nombre}
+                      value={item.nombre}
+                    >
                       {item.nombre}
                     </option>
                   ))}
@@ -769,17 +995,17 @@ export default function Explorar() {
                     className="reintentar-filtro"
                     onClick={recargarCiudades}
                   >
-                    {en ? "Retry cities" : "Reintentar ciudades"}
+                    {textoReintentar}
                   </button>
                 )}
 
                 {cargandoCiudades && (
-                  <small>{en ? "Loading..." : "Cargando..."}</small>
+                  <small>{textoCargando}</small>
                 )}
               </section>
 
               <section className="grupo-filtro filtro-precio">
-                <h3>{en ? "Price" : "Precio"}</h3>
+                <h3>{tituloPrecio}</h3>
 
                 <div
                   className="controles-precio"
@@ -795,7 +1021,9 @@ export default function Explorar() {
                     max={PRECIO_ESCALA_MAXIMO}
                     step="5000"
                     value={precioMinimo}
-                    aria-label={en ? "Minimum price" : "Precio mínimo"}
+                    aria-label={
+                      en ? "Minimum price" : "Precio mínimo"
+                    }
                     aria-valuetext={dinero(precioMinimo)}
                     onChange={(evento) =>
                       cambiarPrecioMinimo(evento.target.value)
@@ -809,7 +1037,9 @@ export default function Explorar() {
                     max={PRECIO_ESCALA_MAXIMO}
                     step="5000"
                     value={precioMaximo}
-                    aria-label={en ? "Maximum price" : "Precio máximo"}
+                    aria-label={
+                      en ? "Maximum price" : "Precio máximo"
+                    }
                     aria-valuetext={dinero(precioMaximo)}
                     onChange={(evento) =>
                       cambiarPrecioMaximo(evento.target.value)
@@ -835,17 +1065,21 @@ export default function Explorar() {
                     <div className="filtros-activos">
                       {categoriasSeleccionadas.map((id) => {
                         const categoria = categorias.find(
-                          (item) => String(item.id) === String(id)
+                          (item) => String(item.id) === String(id),
                         );
 
-                        const nombre = categoria?.nombre || id;
+                        const nombre =
+                          categoriasTexto?.[id] ??
+                          categoria?.nombre ??
+                          id;
 
                         return (
                           <button
                             type="button"
                             key={id}
                             onClick={() => seleccionarCategoria(id)}
-                            aria-label={`${en ? "Remove filter" : "Quitar filtro"}: ${nombre}`}
+                            aria-label={`${en ? "Remove filter" : "Quitar filtro"
+                              }: ${nombre}`}
                           >
                             {nombre}
                             <span aria-hidden="true">×</span>
@@ -858,7 +1092,11 @@ export default function Explorar() {
                           type="button"
                           onClick={() => {
                             setFechasPersonalizadasAbiertas(false);
-                            actualizarParametros({ desde: "", hasta: "" });
+
+                            actualizarParametros({
+                              desde: "",
+                              hasta: "",
+                            });
                           }}
                         >
                           {etiquetaFecha}
@@ -869,7 +1107,9 @@ export default function Explorar() {
                       {ciudad && (
                         <button
                           type="button"
-                          onClick={() => actualizarParametros({ ciudad: "" })}
+                          onClick={() =>
+                            actualizarParametros({ ciudad: "" })
+                          }
                         >
                           {ciudad}
                           <span aria-hidden="true">×</span>
@@ -892,52 +1132,61 @@ export default function Explorar() {
                   )}
 
                 <label className="orden-resultados">
-                  <span>{en ? "Sort:" : "Ordenar:"}</span>
+                  <span>
+                    {explorar?.orden?.etiqueta ??
+                      (en ? "Sort:" : "Ordenar:")}
+                  </span>
 
                   <select
                     value={orden}
                     onChange={(evento) =>
-                      actualizarParametros({ orden: evento.target.value })
+                      actualizarParametros({
+                        orden: evento.target.value,
+                      })
                     }
                   >
                     <option value="fecha">
-                      {en ? "Nearest date" : "Fecha más próxima"}
+                      {opcionesOrden?.fecha ??
+                        (en ? "Soonest date" : "Fecha más próxima")}
                     </option>
+
                     <option value="precio">
-                      {en ? "Lowest price" : "Menor precio"}
+                      {opcionesOrden?.precio ??
+                        (en ? "Lowest price" : "Menor precio")}
                     </option>
+
                     <option value="popularidad">
-                      {en ? "Most popular" : "Más populares"}
+                      {opcionesOrden?.popularidad ??
+                        (en ? "Most popular" : "Más populares")}
                     </option>
                   </select>
                 </label>
               </div>
+
               {respuestaEventos.error && (
                 <div className="estado-explorar" role="alert">
-                  <h2>
-                    {en
-                      ? "Events could not be loaded"
-                      : "No pudimos cargar los eventos"}
-                  </h2>
+                  <h2>{tituloError}</h2>
 
                   <p>
-                    {respuestaEventos.error.message}
+                    {textoError}
                   </p>
 
                   <button
                     type="button"
                     onClick={() => {
-                      setSearchParams(new URLSearchParams(searchParams));
+                      setSearchParams(
+                        new URLSearchParams(searchParams),
+                      );
                     }}
                   >
-                    {en ? "Try again" : "Reintentar"}
+                    {textoReintentar}
                   </button>
                 </div>
               )}
 
               {respuestaEventos.cargando && (
                 <p className="estado-cargando" role="status">
-                  {en ? "Loading events..." : "Cargando eventos..."}
+                  {textoCargando}
                 </p>
               )}
 
@@ -950,6 +1199,7 @@ export default function Explorar() {
                         key={evento.id}
                         evento={evento}
                         en={en}
+                        textos={textos}
                         onAbrir={abrirEvento}
                       />
                     ))}
@@ -960,22 +1210,16 @@ export default function Explorar() {
                 !respuestaEventos.error &&
                 eventos.length === 0 && (
                   <div className="sin-resultados">
-                    <h2>
-                      {en ? "No events found" : "No encontramos eventos"}
-                    </h2>
+                    <h2>{tituloVacio}</h2>
 
-                    <p>
-                      {en
-                        ? "Try changing or clearing your filters."
-                        : "Prueba cambiando o limpiando tus filtros."}
-                    </p>
+                    <p>{descripcionVacio}</p>
 
                     <button
                       type="button"
                       className="boton-home primario"
                       onClick={limpiarFiltros}
                     >
-                      {en ? "Clear filters" : "Limpiar filtros"}
+                      {botonLimpiarVacio}
                     </button>
                   </div>
                 )}
@@ -996,7 +1240,10 @@ export default function Explorar() {
                           { reiniciarPagina: false },
                         )
                       }
-                      aria-label={en ? "Previous page" : "Página anterior"}
+                      aria-label={
+                        explorar?.paginacion?.anterior ??
+                        (en ? "Previous page" : "Página anterior")
+                      }
                     >
                       ‹
                     </button>
@@ -1023,10 +1270,14 @@ export default function Explorar() {
                           <button
                             type="button"
                             className={
-                              numero === numeroPagina ? "pagina-activa" : ""
+                              numero === numeroPagina
+                                ? "pagina-activa"
+                                : ""
                             }
                             aria-current={
-                              numero === numeroPagina ? "page" : undefined
+                              numero === numeroPagina
+                                ? "page"
+                                : undefined
                             }
                             onClick={() =>
                               actualizarParametros(
@@ -1049,7 +1300,10 @@ export default function Explorar() {
                           { reiniciarPagina: false },
                         )
                       }
-                      aria-label={en ? "Next page" : "Página siguiente"}
+                      aria-label={
+                        explorar?.paginacion?.siguiente ??
+                        (en ? "Next page" : "Página siguiente")
+                      }
                     >
                       ›
                     </button>
