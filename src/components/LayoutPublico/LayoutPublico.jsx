@@ -68,7 +68,6 @@ export default function LayoutPublico({
 
       <GestorCookies
         abierto={cookiesAbiertas}
-        onAbrir={abrirCookies}
         onCerrar={cerrarCookies}
       />
     </div>
