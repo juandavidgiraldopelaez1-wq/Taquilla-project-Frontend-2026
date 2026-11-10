@@ -1,4 +1,3 @@
-
 .cabecera-home {
   min-height: 72px;
 }
@@ -25,12 +24,12 @@
   display: contents;
 }
 
-.menu-home .enlaces-menu-movil > a {
+.menu-home .enlaces-menu-movil>a {
   color: var(--suave);
 }
 
-.menu-home .enlaces-menu-movil > a:hover,
-.menu-home .enlaces-menu-movil > a.active {
+.menu-home .enlaces-menu-movil>a:hover,
+.menu-home .enlaces-menu-movil>a.active {
   color: var(--tinta);
 }
 
@@ -74,7 +73,7 @@
   order: 4;
 }
 
-.taquilla .grupo-sesion-menu > .boton-home.primario {
+.taquilla .grupo-sesion-menu>.boton-home.primario {
   order: 5;
 }
 
@@ -94,6 +93,7 @@
    ======================================== */
 
 @media (max-width: 640px) {
+
   /* Encabezado integrado visualmente con el Hero */
   .taquilla .cabecera-home {
     min-height: 56px;
@@ -247,7 +247,7 @@
     padding: 16px 12px;
   }
 
-  .menu-home .enlaces-menu-movil > a {
+  .menu-home .enlaces-menu-movil>a {
     display: flex;
     align-items: center;
     flex: 0 0 52px;
@@ -260,7 +260,7 @@
     text-decoration: none;
   }
 
-  .menu-home .enlaces-menu-movil > a.active {
+  .menu-home .enlaces-menu-movil>a.active {
     background: #f5f5f5;
   }
 
@@ -339,7 +339,7 @@
 
   /* Botones: 302 × 40 px */
   .menu-home .grupo-sesion-menu .ingresar-home,
-  .menu-home .grupo-sesion-menu > .boton-home.primario {
+  .menu-home .grupo-sesion-menu>.boton-home.primario {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -362,7 +362,7 @@
     color: #141414;
   }
 
-  .menu-home .grupo-sesion-menu > .boton-home.primario {
+  .menu-home .grupo-sesion-menu>.boton-home.primario {
     border: 1px solid #141414;
     background: #141414;
     color: #ffffff;
@@ -403,7 +403,7 @@
   white-space: normal;
 }
 
-.taquilla .grupo-sesion-menu > .boton-home.primario {
+.taquilla .grupo-sesion-menu>.boton-home.primario {
   box-sizing: border-box;
   flex: 0 1 auto;
   min-width: 121px;
@@ -505,4 +505,115 @@
 
 .taquilla .acciones-home {
   gap: 16px;
+}
+
+/* =========================================
+   BUSCADOR FUNCIONAL DE LA CABECERA
+   ========================================= */
+
+.taquilla .buscar-cabecera {
+  margin: 0;
+}
+
+.taquilla .buscar-cabecera::before {
+  display: none;
+  content: none;
+}
+
+.taquilla .buscar-cabecera input {
+  order: 0;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #141414;
+  font-family: var(--fuente-texto);
+  font-size: calc(13px * var(--escala-texto, 1));
+}
+
+.taquilla .buscar-cabecera input::placeholder {
+  color: #6b6b6b;
+  opacity: 1;
+}
+
+.taquilla .buscar-cabecera button {
+  order: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #6b6b6b;
+  cursor: pointer;
+}
+
+.taquilla .buscar-cabecera button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.taquilla .buscar-cabecera input:focus-visible {
+  outline: 2px solid #713bfa;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* =========================================
+   CORRECCIÓN DEL MENÚ CERRADO EN MÓVIL
+   ========================================= */
+
+@media (max-width: 640px) {
+  .taquilla .cabecera-home:not(.menu-abierto) .menu-home {
+    display: none !important;
+  }
+
+  .taquilla .cabecera-home.menu-abierto .menu-home.abierto {
+    display: flex !important;
+  }
+}
+
+/* CORRECCIÓN: encabezado negro en móvil */
+@media (max-width: 640px) {
+  .taquilla .cabecera-home {
+    background: #141414;
+  }
+}
+
+/* Ajuste de distribución del encabezado móvil según Figma */
+@media (max-width: 640px) {
+  .taquilla .cabecera-home .fila-cabecera {
+    justify-content: flex-start;
+    gap: 14px;
+  }
+
+  .taquilla .cabecera-home .fila-cabecera > .marca-home {
+    margin-right: auto;
+  }
+
+  .taquilla .cabecera-home .buscar-movil {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 36px;
+    margin-left: 0;
+    color: #ffffff;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .taquilla .cabecera-home .buscar-movil svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+  }
 }

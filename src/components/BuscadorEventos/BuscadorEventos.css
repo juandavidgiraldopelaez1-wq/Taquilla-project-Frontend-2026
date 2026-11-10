@@ -91,3 +91,192 @@
     min-height: 44px;
   }
 }
+
+/* =========================================
+   BUSCADOR MÓVIL - FIGMA
+   ========================================= */
+
+/* Estos elementos solo aparecen en teléfono */
+.buscador-eventos .boton-filtros-buscador,
+.buscador-eventos .resumen-filtros-movil {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .buscador-eventos {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    grid-template-areas:
+      "consulta filtros"
+      "ciudad ciudad"
+      "fecha fecha"
+      "buscar buscar";
+    align-items: center;
+    gap: 0;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 12px;
+    background: #ffffff;
+  }
+
+  /* Campo principal de búsqueda */
+  .buscador-eventos .campo-consulta {
+    grid-area: consulta;
+    display: flex;
+    align-items: center;
+    flex: none;
+    width: auto;
+    min-width: 0;
+    min-height: 58px;
+    box-sizing: border-box;
+    gap: 12px;
+    padding: 8px 8px;
+    border: 0 !important;
+  }
+
+  .buscador-eventos .campo-consulta > svg {
+    width: 19px;
+    height: 19px;
+    flex: 0 0 19px;
+    color: #595959;
+  }
+
+  .buscador-eventos .campo-consulta > span {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    gap: 2px;
+  }
+
+  .buscador-eventos .campo-consulta > span > span:first-child {
+    display: none;
+  }
+
+  .buscador-eventos .campo-consulta input {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: #141414;
+    font-size: 16px;
+    line-height: 21px;
+  }
+
+  .buscador-eventos .campo-consulta input::placeholder {
+    color: #595959;
+    opacity: 1;
+  }
+
+  /* Resumen de ciudad y fecha */
+  .buscador-eventos .resumen-filtros-movil {
+    display: block;
+    color: #777777;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  /* Botón redondo de filtros */
+  .buscador-eventos .boton-filtros-buscador {
+    grid-area: filtros;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #f0f0f0;
+    color: #141414;
+    cursor: pointer;
+  }
+
+  .buscador-eventos .boton-filtros-buscador:active {
+    background: #e2e2e2;
+  }
+
+  .buscador-eventos .boton-filtros-buscador:focus-visible {
+    outline: 2px solid #141414;
+    outline-offset: 3px;
+  }
+
+  /* Ciudad y fecha ocultas inicialmente */
+  .buscador-eventos .campo-ciudad,
+  .buscador-eventos .campo-fecha {
+    display: none;
+    flex: none;
+    width: auto;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 12px 8px;
+    border: 0;
+    border-top: 1px solid #e5e5e5 !important;
+  }
+
+  /* Al abrir filtros aparecen los dos campos */
+  .buscador-eventos.filtros-moviles-abiertos .campo-ciudad {
+    display: flex;
+    grid-area: ciudad;
+  }
+
+  .buscador-eventos.filtros-moviles-abiertos .campo-fecha {
+    display: flex;
+    grid-area: fecha;
+  }
+
+  .buscador-eventos .campo-ciudad > svg,
+  .buscador-eventos .campo-fecha > svg {
+    flex: 0 0 20px;
+    width: 20px;
+    color: #595959;
+  }
+
+  .buscador-eventos .campo-ciudad > span,
+  .buscador-eventos .campo-fecha > span {
+    min-width: 0;
+  }
+
+  .buscador-eventos .campo-ciudad > span > span,
+  .buscador-eventos .campo-fecha > span > span {
+    display: block;
+    font-size: 12px;
+    color: #595959;
+  }
+
+  .buscador-eventos .campo-ciudad select,
+  .buscador-eventos .campo-fecha select {
+    width: 100%;
+    min-width: 0;
+    padding: 3px 0;
+    font-size: 16px;
+  }
+
+  /* Buscar aparece cuando se despliegan los filtros */
+  .buscador-eventos > .boton-home {
+    display: none;
+  }
+
+  .buscador-eventos.filtros-moviles-abiertos > .boton-home {
+    display: flex;
+    grid-area: buscar;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 44px;
+    margin-top: 8px;
+    padding: 10px 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  .buscador-eventos .boton-filtros-buscador {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+  }
+}

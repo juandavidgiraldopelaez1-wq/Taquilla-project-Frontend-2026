@@ -1,4 +1,3 @@
-
 .seccion-eventos {
   margin-bottom: 48px;
 }
@@ -46,14 +45,41 @@
 
 @media (max-width: 640px) {
   .eventos-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .eventos-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .eventos-grid>* {
+    flex: 0 0 63%;
+    width: 63%;
+    min-width: 63%;
+    scroll-snap-align: start;
   }
 }
 
 @media (max-width: 640px) {
   .seccion-eventos .titulo-seccion {
-    align-items: flex-start;
+    align-items: center;
+  }
+
+  .seccion-eventos .titulo-seccion p {
+    display: none;
   }
 }
 
@@ -72,5 +98,27 @@
 @media (max-width: 640px) {
   .sin-resultados {
     padding: 24px;
+  }
+}
+
+/* Título alternativo: solo móvil */
+.titulo-movil {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .seccion-eventos .titulo-escritorio {
+    display: none;
+  }
+
+  .seccion-eventos .titulo-movil {
+    display: inline;
+  }
+}
+
+/* Ocultar flecha de Ver todos exclusivamente en móvil */
+@media (max-width: 640px) {
+  .seccion-eventos .titulo-seccion .enlace-home svg {
+    display: none;
   }
 }

@@ -46,3 +46,20 @@
   width: 18px;
   height: 18px;
 }
+
+/* Ajuste exclusivo del logo en móvil */
+@media (max-width: 640px) {
+  .taquilla .cabecera-home .fila-cabecera > .marca-home .emblema {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #141414;
+  }
+
+  .taquilla .cabecera-home .fila-cabecera > .marca-home .emblema svg {
+    width: 18px;
+    height: 18px;
+  }
+}
