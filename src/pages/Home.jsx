@@ -1,4 +1,6 @@
 
+import { useEffect } from "react";
+
 import LayoutPublico from "../components/LayoutPublico/LayoutPublico.jsx";
 import HeroTaquilla from "../components/HeroTaquilla/HeroTaquilla.jsx";
 import BuscadorEventos from "../components/BuscadorEventos/BuscadorEventos.jsx";
@@ -14,6 +16,26 @@ import { useRecurso } from "../hooks/useRecurso.js";
 
 import { categoriasEn, dinero } from "../data/catalogo.js";
 import { interfaz } from "../data/interfaz.js";
+
+// Sustituye variables dinámicas de los textos de la API.
+function interpolar(texto, valores = {}) {
+  if (!texto) return "";
+
+  return Object.entries(valores).reduce(
+    (resultado, [clave, valor]) =>
+      resultado.replaceAll(`{${clave}}`, String(valor)),
+    texto,
+  );
+}
+
+function textoCantidad(plantillas, cantidad, fallback) {
+  const plantilla =
+    Number(cantidad) === 1 ? plantillas?.uno : plantillas?.otro;
+
+  return plantilla
+    ? interpolar(plantilla, { cantidad })
+    : fallback;
+}
 
 // Convierte la fecha de la API a fecha local de Colombia.
 function fechaLocal(fecha) {
@@ -72,11 +94,22 @@ function adaptarEvento(evento, categoriasApi, idioma, indice) {
 }
 
 export default function Home() {
-  const { idioma } = usePreferencias();
+  const { idioma, textos } = usePreferencias();
+
   const en = idioma === "en";
-  const t = interfaz[idioma];
+  const t = interfaz[idioma] || interfaz.es;
+
+  const inicio = textos?.paginas?.inicio;
+  const general = textos?.general;
 
   const { detalle, setDetalle, abrirCuenta } = useDetalle(idioma);
+
+  // Actualiza los metadatos de inicio con los textos de la API.
+  useEffect(() => {
+    if (inicio?.seo?.titulo) {
+      document.title = inicio.seo.titulo;
+    }
+  }, [inicio?.seo?.titulo]);
 
   // Obtener categorías de la API.
   const {
@@ -94,7 +127,7 @@ export default function Home() {
     recargar: recargarCatalogo,
   } = useRecurso("/eventos?pagina=1&porPagina=100");
 
-  // Obtener los eventos destacados para el Hero y la sección principal.
+  // Obtener los eventos destacados.
   const {
     datos: respuestaDestacados,
     cargando: cargandoDestacados,
@@ -144,25 +177,54 @@ export default function Home() {
 
   // Mostrar el detalle del evento seleccionado.
   function abrirEvento(evento) {
+    const original = evento.original;
+    const disponibilidad = original?.disponibilidad?.disponibles;
+
+    const formatoLugar = interpolar(
+      general?.formatos?.lugarYCiudad,
+      {
+        lugar: evento.lugar,
+        ciudad: evento.ciudad,
+      },
+    );
+
+    const descripcion =
+      general?.formatos?.fechaYLugar
+        ? interpolar(general.formatos.fechaYLugar, {
+          fecha: evento.horario,
+          lugar: formatoLugar,
+        })
+        : `${evento.horario} · ${formatoLugar || evento.lugar}`;
+
+    const plantillaEntradas =
+      disponibilidad === 1
+        ? general?.formatos?.entradas?.uno
+        : general?.formatos?.entradas?.otro;
+
+    const textoDisponibilidad = plantillaEntradas
+      ? interpolar(plantillaEntradas, {
+        cantidad: disponibilidad,
+      })
+      : en
+        ? `${disponibilidad} tickets available`
+        : `${disponibilidad} entradas disponibles`;
+
     setDetalle({
       titulo: evento.nombre,
-      descripcion: `${evento.horario} · ${evento.lugar}, ${evento.ciudad}`,
+      descripcion,
       contenido: (
         <div className="resumen-evento">
           <AficheEvento variante={evento.arte} />
 
           <p>{dinero(evento.precio)} COP</p>
 
-          {evento.original?.disponibilidad && (
-            <small>
-              {en
-                ? `${evento.original.disponibilidad.disponibles} tickets available`
-                : `${evento.original.disponibilidad.disponibles} entradas disponibles`}
-            </small>
+          {disponibilidad !== undefined && (
+            <small>{textoDisponibilidad}</small>
           )}
         </div>
       ),
-      cerrar: en ? "Close" : "Cerrar",
+      cerrar:
+        general?.acciones?.cerrar ?? (en ? "Close" : "Cerrar"),
     });
   }
 
@@ -173,17 +235,59 @@ export default function Home() {
     if (errorDestacados) recargarDestacados();
   }
 
-  const hayErrores = errorCategorias || errorCatalogo || errorDestacados;
+  const hayErrores =
+    errorCategorias || errorCatalogo || errorDestacados;
+
+  const estadoCarga =
+    textos?.estados?.cargando?.indicador ??
+    (en ? "Loading..." : "Cargando...");
+
+  const textoError =
+    textos?.estados?.error?.texto ??
+    (en
+      ? "Some information could not be loaded from the server."
+      : "No pudimos cargar toda la información del servidor.");
+
+  const textoReintentar =
+    textos?.estados?.error?.botones?.reintentar ??
+    general?.acciones?.reintentar ??
+    (en ? "Retry" : "Reintentar");
+
+  const tituloResultados =
+    filtros
+      ? textoCantidad(
+        textos?.paginas?.explorar?.resultadosCorto,
+        resultados.length,
+        `${resultados.length} ${en ? "events" : "eventos"}`,
+      )
+      : inicio?.destacados?.titulo ?? t.destacadosSemana;
+
+  const descripcionResultados =
+    filtros
+      ? textoCantidad(
+        textos?.paginas?.explorar?.resultados,
+        resultados.length,
+        `${resultados.length} ${en ? "events match your filters" : "eventos coinciden con tus filtros"
+        }`,
+      )
+      : inicio?.destacados?.subtitulo ??
+      t.descripcionDestacadosSemana;
+
+  const tituloProximos = interpolar(
+    inicio?.proximos?.titulo,
+    { ciudad: "Manizales" },
+  ) || t.proximamenteManizales;
 
   return (
     <LayoutPublico
       destino="#eventos"
-      etiqueta={t.explora}
-      descripcion={t.descripcionHome}
+      etiqueta={textos?.navbar?.enlaces?.explorar ?? t.explora}
+      descripcion={inicio?.seo?.descripcion ?? t.descripcionHome}
       onCuenta={abrirCuenta}
     >
       <HeroTaquilla
         en={en}
+        textos={textos}
         destacado={destacados[0] ?? null}
         abrirEvento={abrirEvento}
         setFiltros={setFiltros}
@@ -191,6 +295,7 @@ export default function Home() {
       >
         <BuscadorEventos
           en={en}
+          textos={textos}
           eventos={eventos}
           onBuscar={buscar}
           filtrosAplicados={filtros}
@@ -200,82 +305,74 @@ export default function Home() {
       <div className="ancho-home">
         {hayErrores && (
           <div role="alert">
-            <p>
-              {en
-                ? "Some information could not be loaded from the server."
-                : "No pudimos cargar toda la información del servidor."}
-            </p>
+            <p>{textoError}</p>
 
             <button
               type="button"
               className="boton-home"
               onClick={reintentarCargas}
             >
-              {en ? "Retry" : "Reintentar"}
+              {textoReintentar}
             </button>
           </div>
         )}
 
         {cargandoCategorias && (
-          <p role="status">
-            {en ? "Loading categories..." : "Cargando categorías..."}
-          </p>
+          <p role="status">{estadoCarga}</p>
         )}
 
         <CategoriasEventos
           categorias={categorias}
+          categoriasApi={categoriasApi}
           categoriasEn={categoriasEn}
           cantidades={cantidades}
           filtros={filtros}
           en={en}
+          textos={textos}
           filtrarCategoria={filtrarCategoria}
         />
 
         {cargandoDestacados && !filtros && (
-          <p role="status">
-            {en
-              ? "Loading featured events..."
-              : "Cargando eventos destacados..."}
-          </p>
+          <p role="status">{estadoCarga}</p>
         )}
 
         {!cargandoDestacados && (
           <SeccionEventos
             id="eventos"
-            titulo={
-              filtros
-                ? t.resultadosBusqueda
-                : t.destacadosSemana
+            titulo={tituloResultados}
+            tituloMovil={
+              inicio?.filtrosMovil?.destacados ??
+              (en ? "Highlights" : "Destacados")
             }
-            tituloMovil={en ? "Highlights" : "Destacados"}
-            descripcion={
-              filtros
-                ? `${resultados.length} ${t.resultados}`
-                : t.descripcionDestacadosSemana
-            }
+            descripcion={descripcionResultados}
             eventos={filtros ? resultados : destacados.slice(0, 4)}
             en={en}
+            textos={textos}
             onAbrir={abrirEvento}
             onVerTodos={() => buscar({})}
           />
         )}
 
         {cargandoCatalogo && (
-          <p role="status">
-            {en ? "Loading event catalog..." : "Cargando catálogo de eventos..."}
-          </p>
+          <p role="status">{estadoCarga}</p>
         )}
 
         {!filtros && !cargandoCatalogo && !errorCatalogo && (
           <SeccionEventos
             id="eventos-ciudad"
-            titulo={t.proximamenteManizales}
-            tituloMovil={en ? "This weekend" : "Este fin de semana"}
-            descripcion={t.descripcionProximamenteManizales}
+            titulo={tituloProximos}
+            tituloMovil={
+              en ? "This weekend" : "Este fin de semana"
+            }
+            descripcion={
+              inicio?.proximos?.subtitulo ??
+              t.descripcionProximamenteManizales
+            }
             eventos={eventos.filter(
               (evento) => evento.ciudad === "Manizales",
             )}
             en={en}
+            textos={textos}
             onAbrir={abrirEvento}
             onVerTodos={() => buscar({ ciudad: "Manizales" })}
           />

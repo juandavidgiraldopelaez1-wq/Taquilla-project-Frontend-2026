@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import IconoEvento from "../IconoEvento/IconoEvento.jsx";
 import "./BuscadorEventos.css";
@@ -5,6 +6,7 @@ import "./BuscadorEventos.css";
 export default function BuscadorEventos({
   en,
   eventos,
+  textos,
   onBuscar,
   filtrosAplicados = null,
 }) {
@@ -12,6 +14,17 @@ export default function BuscadorEventos({
   const [ciudad, setCiudad] = useState("Manizales");
   const [fecha, setFecha] = useState("");
   const [esMovil, setEsMovil] = useState(false);
+  const [filtrosMovilesAbiertos, setFiltrosMovilesAbiertos] =
+    useState(false);
+
+  const buscador = textos?.paginas?.inicio?.hero?.buscador;
+  const etiquetas = buscador?.etiquetas;
+  const placeholders = buscador?.placeholders;
+
+  const textoBuscar =
+    buscador?.botones?.buscar ?? (en ? "Search" : "Buscar");
+
+  const textoCiudadTodas = en ? "All cities" : "Todas las ciudades";
 
   useEffect(() => {
     const media = window.matchMedia("(max-width: 640px)");
@@ -27,9 +40,6 @@ export default function BuscadorEventos({
       media.removeEventListener("change", actualizarVista);
     };
   }, []);
-
-  const [filtrosMovilesAbiertos, setFiltrosMovilesAbiertos] =
-    useState(false);
 
   useEffect(() => {
     setConsulta(filtrosAplicados?.consulta ?? "");
@@ -52,12 +62,14 @@ export default function BuscadorEventos({
       day: "numeric",
       month: "short",
     }).format(new Date(`${fecha}T12:00:00`))
-    : en
-      ? "Any date"
-      : "Cualquier fecha";
+    : placeholders?.cuando ?? (en ? "Any date" : "Cualquier fecha");
 
-  const resumenFiltros = `${ciudad || (en ? "All cities" : "Todas las ciudades")
-    } · ${etiquetaFecha}`;
+  const plantillaResumen =
+    buscador?.resumenMovil ?? "{ciudad} · {fecha}";
+
+  const resumenFiltros = plantillaResumen
+    .replace("{ciudad}", ciudad || textoCiudadTodas)
+    .replace("{fecha}", etiquetaFecha);
 
   return (
     <form
@@ -72,16 +84,17 @@ export default function BuscadorEventos({
         <IconoEvento tipo="buscar" />
 
         <span>
-          <span>{en ? "What" : "Qué"}</span>
+          <span>{etiquetas?.que ?? (en ? "What" : "Qué")}</span>
 
           <input
             type="search"
             value={consulta}
             onChange={(evento) => setConsulta(evento.target.value)}
             placeholder={
-              en
-                ? (esMovil ? "Event, artist or place" : "Event or artist")
-                : (esMovil ? "Evento, artista o lugar" : "Evento o artista")
+              esMovil
+                ? placeholders?.movil ??
+                (en ? "Event, artist or venue" : "Evento, artista o lugar")
+                : placeholders?.que ?? (en ? "Event or artist" : "Evento o artista")
             }
           />
 
@@ -95,15 +108,13 @@ export default function BuscadorEventos({
         <IconoEvento tipo="lugar" />
 
         <span>
-          <span>{en ? "Where" : "Dónde"}</span>
+          <span>{etiquetas?.donde ?? (en ? "Where" : "Dónde")}</span>
 
           <select
             value={ciudad}
             onChange={(evento) => setCiudad(evento.target.value)}
           >
-            <option value="">
-              {en ? "All cities" : "Todas las ciudades"}
-            </option>
+            <option value="">{textoCiudadTodas}</option>
 
             {["Manizales", "Pereira", "Bogotá", "Medellín", "Armenia"].map(
               (valor) => (
@@ -120,14 +131,15 @@ export default function BuscadorEventos({
         <IconoEvento tipo="fecha" />
 
         <span>
-          <span>{en ? "When" : "Cuándo"}</span>
+          <span>{etiquetas?.cuando ?? (en ? "When" : "Cuándo")}</span>
 
           <select
             value={fecha}
             onChange={(evento) => setFecha(evento.target.value)}
           >
             <option value="">
-              {en ? "Any date" : "Cualquier fecha"}
+              {placeholders?.cuando ??
+                (en ? "Any date" : "Cualquier fecha")}
             </option>
 
             {eventos.map((evento) => (
@@ -179,7 +191,7 @@ export default function BuscadorEventos({
       </button>
 
       <button className="boton-home primario" type="submit">
-        {en ? "Search" : "Buscar"}
+        {textoBuscar}
       </button>
     </form>
   );
