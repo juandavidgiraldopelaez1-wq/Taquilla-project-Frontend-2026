@@ -1,3 +1,4 @@
+
 import { useRef, useState } from "react";
 import { proyecto } from "../../config/proyecto.js";
 import { usePreferencias } from "../../context/PreferenciasContext.jsx";
@@ -7,6 +8,7 @@ import Footer from "../Footer/Footer.jsx";
 import SaltarContenido from "../SaltarContenido/SaltarContenido.jsx";
 import GestorCookies from "../GestorCookies/GestorCookies.jsx";
 import "./LayoutPublico.css";
+
 export default function LayoutPublico({
   destino,
   etiqueta,
@@ -14,32 +16,45 @@ export default function LayoutPublico({
   onCuenta,
   children,
 }) {
-  const { idioma, cambiarIdioma } = usePreferencias();
+  const { idioma, cambiarIdioma, textos } = usePreferencias();
+
   const [cookiesAbiertas, setCookiesAbiertas] = useState(false);
   const disparador = useRef(null);
+
   function abrirCookies() {
     disparador.current = document.activeElement;
     setCookiesAbiertas(true);
   }
+
   function cerrarCookies() {
     setCookiesAbiertas(false);
     disparador.current?.focus();
   }
+
+  const textoSaltar =
+    textos?.general?.aria?.saltarAlContenido ??
+    interfaz[idioma]?.saltar ??
+    interfaz.es.saltar;
+
   return (
     <div className={`landing ${proyecto.id}`}>
-      <SaltarContenido texto={interfaz[idioma].saltar} />
+      <SaltarContenido texto={textoSaltar} />
+
       <Navbar
         nombre={proyecto.nombre}
         tipo={proyecto.id}
         idioma={idioma}
+        textos={textos}
         onCambiarIdioma={cambiarIdioma}
         destino={destino}
         etiqueta={etiqueta}
         onCuenta={onCuenta}
       />
+
       <main id="contenido" tabIndex={-1}>
         {children}
       </main>
+
       <Footer
         nombre={proyecto.nombre}
         tipo={proyecto.id}
@@ -50,6 +65,7 @@ export default function LayoutPublico({
         onCuenta={onCuenta}
         onAbrirCookies={abrirCookies}
       />
+
       <GestorCookies
         abierto={cookiesAbiertas}
         onAbrir={abrirCookies}

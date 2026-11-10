@@ -6,6 +6,7 @@ import {
   borrarCookie,
 } from "../services/cookies.js";
 import { proyecto } from "../config/proyecto.js";
+import { useRecurso } from "../hooks/useRecurso.js";
 
 const PreferenciasContext = createContext(null);
 
@@ -70,6 +71,12 @@ export function PreferenciasProvider({ children }) {
 
   const [errorAccesibilidad, setErrorAccesibilidad] = useState(false);
 
+  // Consulta los textos correspondientes al idioma actual.
+  const { datos: respuestaTextos } = useRecurso(`/textos?idioma=${idioma}`);
+
+  // Si la API todavía está cargando o falla, los textos quedan en null.
+  const textos = respuestaTextos?.textos ?? null;
+
   useEffect(() => {
     document.documentElement.lang = idioma;
     document.title = `${proyecto.nombre} · ${idioma === "en" ? "Home" : "Inicio"}`;
@@ -105,8 +112,12 @@ export function PreferenciasProvider({ children }) {
 
   function cambiarIdioma(valor) {
     setIdioma(valor);
+
     try {
-      if (consentimiento === "aceptado") guardarCookie("idioma", valor);
+      if (consentimiento === "aceptado") {
+        guardarCookie("idioma", valor);
+      }
+
       setError(false);
     } catch {
       setError(true);
@@ -116,11 +127,18 @@ export function PreferenciasProvider({ children }) {
   function guardarConsentimiento(permitir) {
     try {
       const valor = permitir ? "aceptado" : "rechazado";
+
       guardarCookie("consentimiento", valor);
-      if (permitir) guardarCookie("idioma", idioma);
-      else borrarCookie("idioma");
+
+      if (permitir) {
+        guardarCookie("idioma", idioma);
+      } else {
+        borrarCookie("idioma");
+      }
+
       setConsentimiento(valor);
       setError(false);
+
       return true;
     } catch {
       setError(true);
@@ -161,6 +179,7 @@ export function PreferenciasProvider({ children }) {
         consentimiento,
         guardarConsentimiento,
         error,
+        textos,
         accesibilidad,
         ajustarTamanoTexto,
         cambiarOpcionAccesibilidad,
@@ -175,6 +194,10 @@ export function PreferenciasProvider({ children }) {
 
 export function usePreferencias() {
   const valor = useContext(PreferenciasContext);
-  if (!valor) throw new Error("PreferenciasProvider requerido");
+
+  if (!valor) {
+    throw new Error("PreferenciasProvider requerido");
+  }
+
   return valor;
 }

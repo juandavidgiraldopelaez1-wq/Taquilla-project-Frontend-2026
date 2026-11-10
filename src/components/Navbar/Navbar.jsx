@@ -1,6 +1,10 @@
 
-import { useId, useRef, useState } from "react";
-import { NavLink } from "react-router";
+import { useEffect, useId, useRef, useState } from "react";
+import {
+  NavLink,
+  useLocation,
+  useNavigate,
+} from "react-router";
 
 import Marca from "../Marca/Marca.jsx";
 import MenuMovil from "../MenuMovil/MenuMovil.jsx";
@@ -14,20 +18,83 @@ export default function Navbar({
   nombre,
   tipo,
   idioma,
+  textos,
   onCambiarIdioma,
   onCuenta,
 }) {
   const [abierto, setAbierto] = useState(false);
   const [accesibilidadAbierta, setAccesibilidadAbierta] = useState(false);
+  const [busquedaCabecera, setBusquedaCabecera] = useState("");
 
   const boton = useRef(null);
   const botonAccesibilidad = useRef(null);
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const id = useId();
-  const t = interfaz[idioma];
+
+  // Textos locales de respaldo mientras llega la respuesta de la API.
+  const base = interfaz[idioma] || interfaz.es;
+
+  const apiNavbar = textos?.navbar;
+  const apiMenu = textos?.menuMovil;
+
+  // Prioriza los textos proporcionados por la API.
+  const t = {
+    ...base,
+
+    inicio: apiNavbar?.enlaces?.inicio ?? base.inicio,
+    explora: apiNavbar?.enlaces?.explorar ?? base.explora,
+
+    ingresar: apiNavbar?.botones?.ingresar ?? base.ingresar,
+    registro: apiNavbar?.botones?.crearCuenta ?? base.registro,
+
+    buscar: apiNavbar?.buscador?.placeholder ?? base.buscar,
+    buscarAria: apiNavbar?.buscador?.aria ?? base.buscar,
+
+    abrirMenu: apiMenu?.abrir ?? base.abrirMenu,
+    cerrarMenu: apiMenu?.cerrar ?? base.cerrarMenu,
+
+    idioma:
+      apiMenu?.secciones?.idioma ??
+      textos?.idioma?.tituloMovil ??
+      base.idioma,
+
+    idiomaAria:
+      apiNavbar?.aria?.idioma ??
+      base.idioma,
+
+    accesibilidad:
+      apiMenu?.secciones?.accesibilidad ??
+      base.accesibilidad,
+
+    accesibilidadAria:
+      apiNavbar?.aria?.accesibilidad ??
+      base.accesibilidad,
+
+    navegacion: base.navegacion,
+  };
+
+  // Mantiene sincronizado el buscador con la búsqueda de Explorar.
+  useEffect(() => {
+    const parametros = new URLSearchParams(location.search);
+    setBusquedaCabecera(parametros.get("q") || "");
+  }, [location.search]);
 
   function cerrarMenu() {
     setAbierto(false);
+  }
+
+  function buscarEventos(evento) {
+    evento.preventDefault();
+
+    const termino = busquedaCabecera.trim();
+
+    if (!termino) return;
+
+    cerrarMenu();
+    navigate(`/explorar?q=${encodeURIComponent(termino)}`);
   }
 
   return (
@@ -62,8 +129,8 @@ export default function Navbar({
 
         <a
           className="buscar-movil"
-          href="#buscador-eventos"
-          aria-label={t.buscar}
+          href="/explorar"
+          aria-label={t.buscarAria}
         >
           <svg
             viewBox="0 0 24 24"
@@ -118,16 +185,44 @@ export default function Navbar({
           <div className="espacio-menu-movil" aria-hidden="true" />
 
           <div className="acciones-home">
-            <a
-              className="buscar-cabecera"
-              href="#buscador-eventos"
-              onClick={cerrarMenu}
-            >
-              {t.buscar}
-            </a>
-
             {tipo === "taquilla" && (
               <>
+                <form
+                  className="buscar-cabecera"
+                  role="search"
+                  onSubmit={buscarEventos}
+                >
+                  <input
+                    type="search"
+                    value={busquedaCabecera}
+                    onChange={(evento) =>
+                      setBusquedaCabecera(evento.target.value)
+                    }
+                    placeholder={t.buscar}
+                    aria-label={t.buscarAria}
+                  />
+
+                  <button
+                    type="submit"
+                    aria-label={t.buscarAria}
+                    disabled={!busquedaCabecera.trim()}
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="18"
+                      height="18"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.3"
+                      strokeLinecap="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="11" cy="11" r="7" />
+                      <path d="m16 16 4 4" />
+                    </svg>
+                  </button>
+                </form>
+
                 <div className="grupo-menu-movil grupo-idioma-menu">
                   <span className="etiqueta-menu-movil">
                     {t.idioma}
@@ -136,7 +231,7 @@ export default function Navbar({
                   <SelectorIdioma
                     idioma={idioma}
                     onCambiar={onCambiarIdioma}
-                    etiqueta={t.idioma}
+                    etiqueta={t.idiomaAria}
                   />
                 </div>
 
@@ -150,7 +245,7 @@ export default function Navbar({
                       ref={botonAccesibilidad}
                       type="button"
                       className="boton-accesibilidad"
-                      aria-label={t.accesibilidad}
+                      aria-label={t.accesibilidadAria}
                       aria-haspopup="dialog"
                       aria-expanded={accesibilidadAbierta}
                       aria-controls="panel-accesibilidad"
