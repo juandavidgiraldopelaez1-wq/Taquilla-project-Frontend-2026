@@ -370,6 +370,15 @@ export default function Explorar() {
     setSearchParams(new URLSearchParams());
   }
 
+  // Buscar desde el encabezado responsive sin alterar los demás filtros.
+  function buscarPorTexto(evento) {
+    evento.preventDefault();
+
+    actualizarParametros({
+      q: busqueda.trim(),
+    });
+  }
+
   function cambiarPrecioMinimo(valor) {
     const nuevoMinimo = Math.min(
       Math.max(Number(valor), PRECIO_MINIMO),
@@ -649,6 +658,13 @@ export default function Explorar() {
     }`,
   );
 
+  // Texto compacto para la fila de resultados en móvil y tablet.
+  const resultadosCorto = textoResultados(
+    explorar?.resultadosCorto,
+    totalEventos,
+    `${totalEventos} ${en ? "events" : "eventos"}`,
+  );
+
   const textoCargando =
     estados?.cargando?.indicador ??
     (en ? "Loading..." : "Cargando...");
@@ -753,6 +769,77 @@ export default function Explorar() {
           <header className="encabezado-explorar">
             <h1>{tituloPagina}</h1>
 
+            <div className="buscador-filtros-explorar">
+              <form
+                className="busqueda-explorar"
+                role="search"
+                onSubmit={buscarPorTexto}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="m16 16 4 4" />
+                </svg>
+
+                <input
+                  type="search"
+                  value={busqueda}
+                  onChange={(evento) => setBusqueda(evento.target.value)}
+                  placeholder={
+                    textos?.navbar?.buscador?.placeholder ??
+                    (en ? "Event, artist or venue" : "Evento, artista o lugar")
+                  }
+                  aria-label={
+                    textos?.navbar?.buscador?.aria ??
+                    (en ? "Search events" : "Buscar eventos")
+                  }
+                />
+              </form>
+
+              <button
+                type="button"
+                className="boton-filtros-movil"
+                aria-label={tituloFiltros}
+                aria-expanded={filtrosMovilesAbiertos}
+                aria-controls="panel-filtros-explorar"
+                onClick={() =>
+                  setFiltrosMovilesAbiertos((actual) => !actual)
+                }
+              >
+                {/* SVG original del botón de filtros de Figma */}
+                <svg
+                  width="48"
+                  height="48"
+                  viewBox="0 0 48 48"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <rect
+                    width="48"
+                    height="48"
+                    rx="8"
+                    fill="#141414"
+                  />
+                  <path
+                    d="M18 30.75V25.5M18 25.5H16.5M18 25.5H19.5M18 22.5V17.25M24 30.75V24M24 21V17.25M24 21H22.5M24 21H25.5M30 30.75V27M30 27H28.5M30 27H31.5M30 24V17.25"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    stroke="white"
+                  />
+                </svg>
+              </button>
+            </div>
+
             <p role="status">
               {respuestaEventos.cargando
                 ? textoCargando
@@ -760,22 +847,9 @@ export default function Explorar() {
             </p>
           </header>
 
-          <button
-            type="button"
-            className="boton-filtros-movil"
-            aria-expanded={filtrosMovilesAbiertos}
-            onClick={() =>
-              setFiltrosMovilesAbiertos((actual) => !actual)
-            }
-          >
-            {tituloFiltros}
-            <span>
-              {filtrosMovilesAbiertos ? "−" : "+"}
-            </span>
-          </button>
-
           <div className="contenido-explorar">
             <aside
+              id="panel-filtros-explorar"
               className={`panel-filtros ${filtrosMovilesAbiertos ? "filtros-abiertos" : ""
                 }`}
               aria-label={tituloFiltros}
@@ -800,11 +874,11 @@ export default function Explorar() {
 
                   const nombreEn =
                     categoriasEn[
-                    categoriasLocales.findIndex(
-                      (nombre) =>
-                        normalizar(nombre) ===
-                        normalizar(categoria.nombre),
-                    )
+                      categoriasLocales.findIndex(
+                        (nombre) =>
+                          normalizar(nombre) ===
+                          normalizar(categoria.nombre),
+                      )
                     ];
 
                   const nombreCategoria =
@@ -1062,74 +1136,80 @@ export default function Explorar() {
                   ciudad ||
                   consulta
                 ) && (
-                    <div className="filtros-activos">
-                      {categoriasSeleccionadas.map((id) => {
-                        const categoria = categorias.find(
-                          (item) => String(item.id) === String(id),
-                        );
+                  <div className="filtros-activos">
+                    {categoriasSeleccionadas.map((id) => {
+                      const categoria = categorias.find(
+                        (item) => String(item.id) === String(id),
+                      );
 
-                        const nombre =
-                          categoriasTexto?.[id] ??
-                          categoria?.nombre ??
-                          id;
+                      const nombre =
+                        categoriasTexto?.[id] ??
+                        categoria?.nombre ??
+                        id;
 
-                        return (
-                          <button
-                            type="button"
-                            key={id}
-                            onClick={() => seleccionarCategoria(id)}
-                            aria-label={`${en ? "Remove filter" : "Quitar filtro"
-                              }: ${nombre}`}
-                          >
-                            {nombre}
-                            <span aria-hidden="true">×</span>
-                          </button>
-                        );
-                      })}
-
-                      {etiquetaFecha && (
+                      return (
                         <button
                           type="button"
-                          onClick={() => {
-                            setFechasPersonalizadasAbiertas(false);
-
-                            actualizarParametros({
-                              desde: "",
-                              hasta: "",
-                            });
-                          }}
+                          key={id}
+                          onClick={() => seleccionarCategoria(id)}
+                          aria-label={`${en ? "Remove filter" : "Quitar filtro"
+                            }: ${nombre}`}
                         >
-                          {etiquetaFecha}
+                          {nombre}
                           <span aria-hidden="true">×</span>
                         </button>
-                      )}
+                      );
+                    })}
 
-                      {ciudad && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            actualizarParametros({ ciudad: "" })
-                          }
-                        >
-                          {ciudad}
-                          <span aria-hidden="true">×</span>
-                        </button>
-                      )}
+                    {etiquetaFecha && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFechasPersonalizadasAbiertas(false);
 
-                      {consulta && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setBusqueda("");
-                            actualizarParametros({ q: "" });
-                          }}
-                        >
-                          {consulta}
-                          <span aria-hidden="true">×</span>
-                        </button>
-                      )}
-                    </div>
-                  )}
+                          actualizarParametros({
+                            desde: "",
+                            hasta: "",
+                          });
+                        }}
+                      >
+                        {etiquetaFecha}
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    )}
+
+                    {ciudad && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          actualizarParametros({ ciudad: "" })
+                        }
+                      >
+                        {ciudad}
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    )}
+
+                    {consulta && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setBusqueda("");
+                          actualizarParametros({ q: "" });
+                        }}
+                      >
+                        {consulta}
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    )}
+                  </div>
+                )}
+
+                <span className="conteo-resultados-movil">
+                  {respuestaEventos.cargando
+                    ? textoCargando
+                    : resultadosCorto}
+                </span>
 
                 <label className="orden-resultados">
                   <span>
