@@ -362,7 +362,8 @@ export default function Home() {
             id="eventos-ciudad"
             titulo={tituloProximos}
             tituloMovil={
-              en ? "This weekend" : "Este fin de semana"
+              inicio?.filtrosMovil?.finDeSemana ??
+              (en ? "This weekend" : "Este fin de semana")
             }
             descripcion={
               inicio?.proximos?.subtitulo ??
