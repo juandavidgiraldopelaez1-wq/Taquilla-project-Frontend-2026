@@ -31,6 +31,7 @@ export default function Navbar({
 
   const navigate = useNavigate();
   const location = useLocation();
+  const esExplorar = location.pathname === "/explorar";
 
   const id = useId();
 
@@ -99,7 +100,8 @@ export default function Navbar({
 
   return (
     <header
-      className={`cabecera-home ${abierto ? "menu-abierto" : ""}`}
+      className={`cabecera-home ${abierto ? "menu-abierto" : ""
+        } ${esExplorar ? "cabecera-explorar" : ""}`}
       onKeyDown={(evento) => {
         if (evento.key !== "Escape") return;
 
