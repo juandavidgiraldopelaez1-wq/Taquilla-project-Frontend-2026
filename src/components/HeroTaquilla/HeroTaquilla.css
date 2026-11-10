@@ -3,80 +3,175 @@
   background: #141414;
   padding: 72px 0;
 }
+
 .interior-taquilla {
   display: grid;
   grid-template-columns: 1.53fr 1fr;
   gap: 64px;
   align-items: center;
 }
+
 .hero-taquilla h1 {
-  font-size: clamp(36px, 3.5vw, 52px);
+  font-size: clamp(calc(36px * var(--escala-texto, 1)),
+      calc(3.5vw * var(--escala-texto, 1)),
+      calc(52px * var(--escala-texto, 1)));
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.035em;
   margin: 26px 0;
   text-wrap: initial;
 }
-.hero-taquilla .interior-taquilla > div > p {
+
+.hero-taquilla .interior-taquilla>div>p {
   color: #b3b3b3;
-  font-size: 18px;
+  font-size: calc(18px * var(--escala-texto, 1));
   line-height: 1.6;
   margin-bottom: 26px;
 }
+
 .populares {
   display: flex;
   gap: 16px;
   align-items: center;
   flex-wrap: wrap;
   margin-top: 20px;
-  font-size: 13px;
+  font-size: calc(13px * var(--escala-texto, 1));
 }
-.populares > span {
+
+.populares>span {
   color: #b3b3b3;
 }
+
 .populares button {
   border: 0;
   color: #fff;
   background: none;
   padding: 4px 0;
-  font-size: 13px;
+  font-size: calc(13px * var(--escala-texto, 1));
 }
+
 .populares button:hover {
   text-decoration: underline;
 }
+
 .taquilla .hero-taquilla a:focus-visible,
 .taquilla .hero-taquilla button:focus-visible {
   outline-color: #9191ff;
 }
+
 @media (max-width: 1100px) {
   .interior-taquilla {
     gap: 32px;
     grid-template-columns: 1.35fr 1fr;
   }
 }
+
 @media (max-width: 640px) {
   .hero-taquilla {
     padding: 32px 0;
   }
 }
+
 @media (max-width: 640px) {
   .interior-taquilla {
     display: block;
   }
 }
+
 @media (max-width: 640px) {
   .hero-taquilla h1 {
-    font-size: 34px;
+    font-size: calc(34px * var(--escala-texto, 1));
     margin-block: 20px;
   }
 }
+
 @media (max-width: 640px) {
-  .hero-taquilla .interior-taquilla > div > p {
-    font-size: 14px;
+  .hero-taquilla .interior-taquilla>div>p {
+    font-size: calc(14px * var(--escala-texto, 1));
   }
 }
+
 @media (max-width: 640px) {
   .populares {
     gap: 12px;
+  }
+}
+
+/* =========================================
+   HERO MÓVIL - FIGMA
+   No modifica escritorio ni tablet
+   ========================================= */
+
+@media (max-width: 640px) {
+  .hero-taquilla {
+    padding: 16px 0 28px;
+    background: #141414;
+  }
+
+  .hero-taquilla .interior-taquilla {
+    display: block;
+  }
+
+  /* Ocultar etiqueta de temporada */
+  .hero-taquilla .interior-taquilla>div>.etiqueta-evento {
+    display: none;
+  }
+
+  /* Título del hero */
+  .hero-taquilla h1 {
+    max-width: 370px;
+    margin: 0 0 18px;
+    font-size: clamp(calc(30px * var(--escala-texto, 1)),
+        calc(8.4vw * var(--escala-texto, 1)),
+        calc(34px * var(--escala-texto, 1)));
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+
+  /* Ocultar descripción en la composición móvil */
+  .hero-taquilla .interior-taquilla>div>p {
+    display: none;
+  }
+
+  /* El buscador ocupa el ancho disponible */
+  .hero-taquilla .buscador-eventos {
+    width: 100%;
+  }
+
+  /* Los enlaces populares no forman parte del hero móvil */
+  .hero-taquilla .populares {
+    display: none;
+  }
+
+  /* La tarjeta destacada se muestra en las secciones inferiores */
+  .hero-taquilla .interior-taquilla> :nth-child(2) {
+    display: none;
+  }
+}
+
+/* HERO MÓVIL: dimensiones y espaciado de Figma */
+@media (max-width: 640px) {
+  .hero-taquilla {
+    padding: 8px 0 28px;
+  }
+
+  .hero-taquilla .interior-taquilla>div:first-child {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .hero-taquilla h1 {
+    max-width: 370px;
+    margin: 0;
+    font-size: calc(38px * var(--escala-texto, 1));
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+  }
+
+  .hero-taquilla .buscador-eventos {
+    width: 100%;
+    margin: 0;
   }
 }

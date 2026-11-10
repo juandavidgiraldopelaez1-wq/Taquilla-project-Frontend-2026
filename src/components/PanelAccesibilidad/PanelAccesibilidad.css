@@ -1,0 +1,233 @@
+
+.panel-accesibilidad {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  width: 360px;
+  min-height: 576px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  color: #141414;
+  font-family: "Instrument Sans", sans-serif;
+}
+
+.panel-accesibilidad-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.panel-accesibilidad-encabezado h2 {
+  margin: 0;
+  color: #141414;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.panel-accesibilidad-cerrar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.panel-accesibilidad-cerrar svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.panel-accesibilidad-tamano {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panel-accesibilidad-tamano h3 {
+  margin: 0;
+  color: #141414;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.control-tamano-texto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50px;
+  padding: 4px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+}
+
+.control-tamano-texto button {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
+.control-tamano-texto button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.control-tamano-texto output {
+  display: grid;
+  place-items: center;
+  width: 12px;
+  height: 24px;
+  color: #141414;
+}
+
+.control-tamano-texto output svg {
+  display: block;
+  width: 11px;
+  height: 12px;
+}
+
+.panel-accesibilidad-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.opcion-accesibilidad {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
+.opcion-accesibilidad-texto {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 2px;
+}
+
+.opcion-accesibilidad-texto h3 {
+  margin: 0;
+  color: #141414;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.opcion-accesibilidad-texto p {
+  margin: 0;
+  color: #525252;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.interruptor-accesibilidad {
+  display: block;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.interruptor-accesibilidad svg {
+  display: block;
+  width: 44px;
+  height: 24px;
+}
+
+.panel-accesibilidad-pie {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.panel-accesibilidad-pie p {
+  margin: 0;
+  color: #525252;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.panel-accesibilidad-pie footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.panel-accesibilidad-pie footer a {
+  color: #141414;
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.panel-accesibilidad-restablecer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  box-sizing: border-box;
+  min-width: 108px;
+  height: 38px;
+  padding: 8px 14px;
+  border: 1px solid #8c8c8c;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #141414;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.panel-accesibilidad button:focus-visible,
+.panel-accesibilidad a:focus-visible {
+  outline: 3px solid #713bfa;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .panel-accesibilidad {
+    position: fixed;
+    top: 80px;
+    right: 16px;
+    width: min(360px, calc(100vw - 32px));
+    max-height: calc(100dvh - 96px);
+    min-height: 0;
+    overflow-y: auto;
+  }
+}

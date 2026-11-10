@@ -13,7 +13,8 @@
   "type": "module",
   "dependencies": {
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "react-router": "^8.5.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.1.2",

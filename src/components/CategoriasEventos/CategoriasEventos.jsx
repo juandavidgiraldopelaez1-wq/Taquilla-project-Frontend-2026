@@ -1,5 +1,6 @@
 import IconoEvento from "../IconoEvento/IconoEvento.jsx";
 import "./CategoriasEventos.css";
+
 export default function CategoriasEventos({
   categorias,
   categoriasEn,
@@ -13,8 +14,18 @@ export default function CategoriasEventos({
       className="categorias-eventos"
       aria-label={en ? "Event categories" : "Categorías de eventos"}
     >
+      <button
+        type="button"
+        className="categoria-todos"
+        aria-pressed={!filtros?.categoria}
+        onClick={() => filtrarCategoria("")}
+      >
+        {en ? "All" : "Todos"}
+      </button>
+
       {categorias.map((categoria, i) => (
         <button
+          type="button"
           key={categoria}
           aria-pressed={filtros?.categoria === categoria}
           onClick={() => filtrarCategoria(categoria)}
@@ -22,6 +33,7 @@ export default function CategoriasEventos({
           <span className="icono-categoria">
             <IconoEvento tipo={categoria} />
           </span>
+
           <span>
             {en ? categoriasEn[i] : categoria}
             <small>

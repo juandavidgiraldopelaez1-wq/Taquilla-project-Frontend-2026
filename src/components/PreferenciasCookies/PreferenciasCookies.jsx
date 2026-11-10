@@ -1,5 +1,7 @@
+
 import { useEffect, useId, useRef, useState } from "react";
 import "./PreferenciasCookies.css";
+
 export default function PreferenciasCookies({
   abierto,
   textos,
@@ -11,12 +13,19 @@ export default function PreferenciasCookies({
   const dialogo = useRef(null);
   const id = useId();
   const [seleccion, setSeleccion] = useState(permitir);
+
   useEffect(() => {
     if (abierto) {
       setSeleccion(permitir);
-      if (!dialogo.current.open) dialogo.current.showModal();
-    } else if (dialogo.current.open) dialogo.current.close();
+
+      if (!dialogo.current.open) {
+        dialogo.current.showModal();
+      }
+    } else if (dialogo.current.open) {
+      dialogo.current.close();
+    }
   }, [abierto, permitir]);
+
   return (
     <dialog
       className="preferencias-dialogo"
@@ -25,31 +34,44 @@ export default function PreferenciasCookies({
       onClose={onCerrar}
     >
       <h2 id={id}>{textos.cookies}</h2>
-      <p>{textos.descripcion}</p>
+
+      <p>
+        {textos.descripcionPreferencias || textos.descripcion}
+      </p>
+
       <section>
         <h3>{textos.necesarias}</h3>
         <p>{textos.necesariasTexto}</p>
       </section>
+
       <label className="opcion-cookie">
         <input
           type="checkbox"
           checked={seleccion}
-          onChange={(e) => setSeleccion(e.target.checked)}
+          onChange={(evento) => setSeleccion(evento.target.checked)}
         />
+
         <span>
           <strong>{textos.preferencias}</strong>
           <span>{textos.preferenciasTexto}</span>
         </span>
       </label>
-      {error && <p role="alert">{textos.error}</p>}
+
+      {error && (
+        <p role="alert">{textos.error}</p>
+      )}
+
       <div className="grupo-botones">
         <button
+          type="button"
           className="boton-home primario"
           onClick={() => onGuardar(seleccion)}
         >
           {textos.guardar}
         </button>
+
         <button
+          type="button"
           className="boton-home secundario"
           onClick={() => dialogo.current.close()}
         >

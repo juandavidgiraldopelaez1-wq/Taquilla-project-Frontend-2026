@@ -1,20 +1,38 @@
+
 .idiomas-home {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-sizing: border-box;
+  width: 98px;
+  height: 40px;
   padding: 3px;
-  background: var(--superficie);
-  border: 1px solid var(--borde);
-  border-radius: 99px;
+  background: #ffffff;
+  border: 1px solid #8c8c8c;
+  border-radius: 999px;
 }
+
 .idiomas-home button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 32px;
+  padding: 0;
   border: 0;
-  border-radius: 99px;
-  padding: 7px 12px;
-  color: var(--tinta);
+  border-radius: 999px;
   background: transparent;
-  font-size: 12px;
-  font-weight: 700;
+  color: #141414;
+  font-family: "Instrument Sans", sans-serif;
+  font-size: calc(14px * var(--escala-texto, 1));
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
 }
+
 .idiomas-home button[aria-pressed="true"] {
-  background: var(--acento);
-  color: var(--sobre-acento);
+  background: #141414;
+  color: #ffffff;
 }

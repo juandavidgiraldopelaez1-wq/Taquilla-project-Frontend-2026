@@ -1,24 +1,29 @@
 .seccion-eventos {
   margin-bottom: 48px;
 }
+
 .seccion-eventos .titulo-seccion {
   align-items: flex-end;
 }
+
 .seccion-eventos h2 {
-  font-size: 24px;
+  font-size: calc(24px * var(--escala-texto, 1));
   font-weight: 600;
   letter-spacing: -0.025em;
   margin-bottom: 6px;
 }
+
 .seccion-eventos .titulo-seccion p {
   color: #595959;
-  font-size: 16px;
+  font-size: calc(16px * var(--escala-texto, 1));
 }
+
 .eventos-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
 }
+
 .sin-resultados {
   padding: 48px;
   border: 1px solid #dedede;
@@ -26,37 +31,94 @@
   background: #fff;
   text-align: center;
 }
+
 .sin-resultados p {
   margin: 12px 0 24px;
+  font-size: calc(16px * var(--escala-texto, 1));
 }
+
 @media (max-width: 1100px) {
   .eventos-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
 @media (max-width: 640px) {
   .eventos-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .eventos-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .eventos-grid>* {
+    flex: 0 0 63%;
+    width: 63%;
+    min-width: 63%;
+    scroll-snap-align: start;
   }
 }
+
 @media (max-width: 640px) {
   .seccion-eventos .titulo-seccion {
-    align-items: flex-start;
+    align-items: center;
+  }
+
+  .seccion-eventos .titulo-seccion p {
+    display: none;
   }
 }
+
 @media (max-width: 640px) {
   .seccion-eventos h2 {
-    font-size: 22px;
+    font-size: calc(22px * var(--escala-texto, 1));
   }
 }
+
 @media (max-width: 640px) {
   .seccion-eventos .titulo-seccion p {
-    font-size: 14px;
+    font-size: calc(14px * var(--escala-texto, 1));
   }
 }
+
 @media (max-width: 640px) {
   .sin-resultados {
     padding: 24px;
+  }
+}
+
+/* Título alternativo: solo móvil */
+.titulo-movil {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .seccion-eventos .titulo-escritorio {
+    display: none;
+  }
+
+  .seccion-eventos .titulo-movil {
+    display: inline;
+  }
+}
+
+/* Ocultar flecha de Ver todos exclusivamente en móvil */
+@media (max-width: 640px) {
+  .seccion-eventos .titulo-seccion .enlace-home svg {
+    display: none;
   }
 }

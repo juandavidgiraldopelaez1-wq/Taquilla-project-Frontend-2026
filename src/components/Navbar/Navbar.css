@@ -1,148 +1,619 @@
 .cabecera-home {
   min-height: 72px;
 }
+
 .fila-cabecera {
   display: flex;
   align-items: center;
   min-height: 72px;
   gap: 40px;
 }
+
+/* Navegación de escritorio */
 .menu-home {
   display: flex;
   align-items: center;
   flex: 1;
   gap: 28px;
-  font-size: 14px;
+  font-size: calc(14px * var(--escala-texto, 1));
 }
-.menu-home > a {
+
+.enlaces-menu-movil,
+.grupo-menu-movil,
+.grupo-sesion-menu {
+  display: contents;
+}
+
+.menu-home .enlaces-menu-movil>a {
   color: var(--suave);
 }
-.menu-home > a:hover {
+
+.menu-home .enlaces-menu-movil>a:hover,
+.menu-home .enlaces-menu-movil>a.active {
   color: var(--tinta);
 }
+
 .acciones-home {
   display: flex;
   align-items: center;
   gap: 32px;
   margin-left: auto;
 }
+
 .ingresar-home {
   padding: 10px 0;
   background: transparent;
   border: 0;
   color: var(--tinta);
 }
-.ingreso-movil {
+
+.ingreso-movil,
+.buscar-movil,
+.menu-movil-cabecera,
+.espacio-menu-movil,
+.fondo-menu-movil,
+.etiqueta-menu-movil {
   display: none;
 }
 
+/* Orden original de escritorio */
+.taquilla .acciones-home .buscar-cabecera {
+  order: 1;
+}
+
+.taquilla .grupo-accesibilidad-menu .accesibilidad-home {
+  order: 2;
+}
+
+.taquilla .grupo-idioma-menu .idiomas-home {
+  order: 3;
+}
+
+.taquilla .grupo-sesion-menu .ingresar-home {
+  order: 4;
+}
+
+.taquilla .grupo-sesion-menu>.boton-home.primario {
+  order: 5;
+}
+
+/* Tablet */
 @media (max-width: 900px) {
   .fila-cabecera {
     gap: 24px;
   }
-}
 
-@media (max-width: 900px) {
   .acciones-home {
     gap: 16px;
   }
 }
+
+/* ========================================
+   MÓVIL
+   ======================================== */
+
 @media (max-width: 640px) {
+
+  /* Encabezado integrado visualmente con el Hero */
+  .taquilla .cabecera-home {
+    min-height: 56px;
+    background: #141414;
+  }
+
   .fila-cabecera {
-    min-height: 68px;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0;
-  }
-}
-@media (max-width: 640px) {
-  .menu-home {
-    display: none;
-    flex-basis: 100%;
-    padding: 24px 0;
-  }
-}
-@media (max-width: 640px) {
-  .menu-home.abierto {
+    min-height: 56px;
     display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
     gap: 12px;
   }
-}
-@media (max-width: 640px) {
-  .menu-home > a {
-    padding: 8px 0;
-  }
-}
-@media (max-width: 640px) {
-  .acciones-home {
-    margin: 8px 0 0;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-}
 
-@media (max-width: 640px) {
-  .ingreso-movil {
-    display: block;
-    margin-left: auto;
-    margin-right: 12px;
-    padding: 8px 14px;
-    border: 0;
-    border-radius: 99px;
-    background: var(--superficie);
-    color: var(--tinta);
-    font-size: 12px !important;
+  .taquilla .cabecera-home .marca-home {
+    flex-shrink: 0;
+    color: #ffffff;
+    font-size: 18px;
+    gap: 8px;
   }
-}
 
-@media (max-width: 640px) {
-  .cabecera-home .marca-home {
-    font-size: 16px;
-    gap: 6px;
-  }
-}
-
-@media (max-width: 640px) {
-  .cabecera-home .emblema {
+  .taquilla .cabecera-home .emblema {
     width: 28px;
     height: 28px;
   }
-}
 
-@media (max-width: 640px) {
-  .cabecera-home .emblema svg {
+  .taquilla .cabecera-home .emblema svg {
     width: 26px;
     height: 26px;
   }
-}
 
-@media (max-width: 640px) {
+  /* Buscador y acceso de la cabecera */
+  .buscar-movil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 36px;
+    margin-left: auto;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
   .ingreso-movil {
-    padding-inline: 10px;
-    margin-right: 8px;
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    padding: 8px 0;
+    border: 0;
+    background: transparent;
+    color: #ffffff;
+    font-size: calc(12px * var(--escala-texto, 1));
+    white-space: nowrap;
+  }
+
+  /* Fondo oscurecido */
+  .fondo-menu-movil {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: rgb(20 20 20 / 50%);
+  }
+
+  /* Botón de menú cerrado */
+  .cabecera-home .boton-menu {
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #ffffff;
+  }
+
+  /* Panel móvil: medidas de Figma 350 × 802 */
+  .menu-home.abierto {
+    display: flex;
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    box-sizing: border-box;
+    width: min(350px, 100vw);
+    height: min(802px, 100dvh);
+    max-height: 100dvh;
+    padding: 16px 0 12px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
+  }
+
+  /* Logo y cerrar */
+  .menu-movil-cabecera {
+    display: flex;
+    align-items: center;
+    flex: 0 0 54px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .menu-home .menu-movil-cabecera .marca-home {
+    color: #141414;
+    font-size: 20px;
+    font-weight: 600;
+    gap: 12px;
+  }
+
+  .menu-home .menu-movil-cabecera .emblema {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Botón X: 44 × 44 px */
+  .cabecera-home.menu-abierto .boton-menu {
+    position: fixed;
+    z-index: 1002;
+    top: 5px;
+    right: 3px;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #141414;
+  }
+
+  /* Enlaces: 350 × 138 px */
+  .enlaces-menu-movil {
+    display: flex;
+    flex: 0 0 138px;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+    gap: 2px;
+    padding: 16px 12px;
+  }
+
+  .menu-home .enlaces-menu-movil>a {
+    display: flex;
+    align-items: center;
+    flex: 0 0 52px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: #141414;
+    font-size: calc(18px * var(--escala-texto, 1));
+    text-decoration: none;
+  }
+
+  .menu-home .enlaces-menu-movil>a.active {
+    background: #f5f5f5;
+  }
+
+  /* Espacio flexible: 319 px en el frame de Figma */
+  .espacio-menu-movil {
+    display: block;
+    flex: 1 1 319px;
+    min-height: 40px;
+  }
+
+  /* Zona inferior */
+  .menu-home .acciones-home {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Filas de idioma y accesibilidad: 64 px */
+  .menu-home .grupo-menu-movil {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 0 0 64px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px 24px;
+  }
+
+  .menu-home .etiqueta-menu-movil {
+    display: block;
+    color: #141414;
+    font-size: calc(16px * var(--escala-texto, 1));
+    font-weight: 500;
+    line-height: 24px;
+  }
+
+  /* Selector ES / EN: 98 × 40 px */
+  .menu-home .idiomas-home {
+    flex: 0 0 98px;
+    width: 98px;
+    height: 40px;
+  }
+
+  /* Accesibilidad */
+  .menu-home .accesibilidad-home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .menu-home .boton-accesibilidad {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Sesión: 350 × 135 px */
+  .menu-home .grupo-sesion-menu {
+    display: flex;
+    flex: 0 0 135px;
+    flex-direction: column;
+    align-items: stretch;
+    box-sizing: border-box;
+    width: 100%;
+    gap: 12px;
+    padding: 16px 24px 24px;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  /* Botones: 302 × 40 px */
+  .menu-home .grupo-sesion-menu .ingresar-home,
+  .menu-home .grupo-sesion-menu>.boton-home.primario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 40px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: 40px;
+    margin: 0;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-family: var(--fuente-texto);
+    font-size: calc(14px * var(--escala-texto, 1));
+    line-height: 20px;
+  }
+
+  .menu-home .grupo-sesion-menu .ingresar-home {
+    border: 1px solid #8c8c8c;
+    background: #ffffff;
+    color: #141414;
+  }
+
+  .menu-home .grupo-sesion-menu>.boton-home.primario {
+    border: 1px solid #141414;
+    background: #141414;
+    color: #ffffff;
+  }
+
+  /* El buscador de escritorio no se muestra dentro del panel */
+  .menu-home .buscar-cabecera {
+    display: none;
   }
 }
+
+/* ========================================
+   ESCRITORIO: conservar diseño original
+   ======================================== */
+
 .taquilla .cabecera-home {
-  background: #fff;
+  background: #ffffff;
 }
+
 .taquilla .ingresar-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: 0 1 auto;
+  min-width: 92px;
+  min-height: 42px;
+  height: auto;
+  padding: 10px 18px;
   border: 1px solid #8c8c8c;
   border-radius: 8px;
-  padding: 9px 18px;
+  background: #ffffff;
+  color: #141414;
+  font-family: var(--fuente-texto);
+  font-size: calc(14px * var(--escala-texto, 1));
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+.taquilla .grupo-sesion-menu>.boton-home.primario {
+  box-sizing: border-box;
+  flex: 0 1 auto;
+  min-width: 121px;
+  width: auto;
+  height: auto;
+  min-height: 40px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #141414;
+  border-color: #141414;
+  color: #ffffff;
+  font-family: var(--fuente-texto);
+  font-size: calc(14px * var(--escala-texto, 1));
+  font-weight: 500;
+  line-height: 1.4;
+  white-space: normal;
 }
 
 .taquilla .buscar-cabecera {
-  background: #f5f5f5;
-  border: 1px solid #dedede;
-  border-radius: 8px;
-  padding: 10px 18px;
-  color: #595959;
-  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 1 230px;
+  width: 230px;
+  min-width: 0;
+  min-height: 40px;
+  height: auto;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: #f0f0f0;
+  color: #6b6b6b;
+  font-family: var(--fuente-texto);
+  font-size: calc(14px * var(--escala-texto, 1));
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: normal;
 }
+
+.taquilla .buscar-cabecera::before {
+  content: "";
+  display: block;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%236B6B6B' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='6.5' cy='6.5' r='4.5'/%3E%3Cpath d='m10 10 4 4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 @media (max-width: 1200px) {
   .taquilla .buscar-cabecera {
     display: none;
+  }
+}
+
+/* Accesibilidad */
+.taquilla .accesibilidad-home {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.taquilla .boton-accesibilidad {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #8c8c8c;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #141414;
+  cursor: pointer;
+}
+
+.taquilla .boton-accesibilidad svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+.taquilla .boton-accesibilidad:hover {
+  background: #f0f0f0;
+}
+
+.taquilla .boton-accesibilidad:focus-visible {
+  outline: 3px solid #713bfa;
+  outline-offset: 3px;
+}
+
+.taquilla .acciones-home {
+  gap: 16px;
+}
+
+/* =========================================
+   BUSCADOR FUNCIONAL DE LA CABECERA
+   ========================================= */
+
+.taquilla .buscar-cabecera {
+  margin: 0;
+}
+
+.taquilla .buscar-cabecera::before {
+  display: none;
+  content: none;
+}
+
+.taquilla .buscar-cabecera input {
+  order: 0;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #141414;
+  font-family: var(--fuente-texto);
+  font-size: calc(13px * var(--escala-texto, 1));
+}
+
+.taquilla .buscar-cabecera input::placeholder {
+  color: #6b6b6b;
+  opacity: 1;
+}
+
+.taquilla .buscar-cabecera button {
+  order: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 18px;
+  width: 18px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #6b6b6b;
+  cursor: pointer;
+}
+
+.taquilla .buscar-cabecera button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.taquilla .buscar-cabecera input:focus-visible {
+  outline: 2px solid #713bfa;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* =========================================
+   CORRECCIÓN DEL MENÚ CERRADO EN MÓVIL
+   ========================================= */
+
+@media (max-width: 640px) {
+  .taquilla .cabecera-home:not(.menu-abierto) .menu-home {
+    display: none !important;
+  }
+
+  .taquilla .cabecera-home.menu-abierto .menu-home.abierto {
+    display: flex !important;
+  }
+}
+
+/* CORRECCIÓN: encabezado negro en móvil */
+@media (max-width: 640px) {
+  .taquilla .cabecera-home {
+    background: #141414;
+  }
+}
+
+/* Ajuste de distribución del encabezado móvil según Figma */
+@media (max-width: 640px) {
+  .taquilla .cabecera-home .fila-cabecera {
+    justify-content: flex-start;
+    gap: 14px;
+  }
+
+  .taquilla .cabecera-home .fila-cabecera > .marca-home {
+    margin-right: auto;
+  }
+
+  .taquilla .cabecera-home .buscar-movil {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 36px;
+    margin-left: 0;
+    color: #ffffff;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .taquilla .cabecera-home .buscar-movil svg {
+    display: block;
+    width: 22px;
+    height: 22px;
   }
 }
