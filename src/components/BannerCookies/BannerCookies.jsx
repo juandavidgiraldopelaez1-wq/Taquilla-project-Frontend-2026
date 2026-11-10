@@ -1,4 +1,5 @@
 import "./BannerCookies.css";
+
 export default function BannerCookies({
   textos,
   onAceptar,
@@ -8,15 +9,31 @@ export default function BannerCookies({
   return (
     <aside className="banner-cookies" aria-label={textos.banner}>
       <h2>{textos.banner}</h2>
+
       <p>{textos.descripcion}</p>
+
       <div className="grupo-botones">
-        <button className="boton-home primario" onClick={onAceptar}>
+        <button
+          type="button"
+          className="boton-home"
+          onClick={onAceptar}
+        >
           {textos.aceptar}
         </button>
-        <button className="boton-home secundario" onClick={onRechazar}>
+
+        <button
+          type="button"
+          className="boton-home"
+          onClick={onRechazar}
+        >
           {textos.rechazar}
         </button>
-        <button className="enlace-home" onClick={onConfigurar}>
+
+        <button
+          type="button"
+          className="enlace-home"
+          onClick={onConfigurar}
+        >
           {textos.configurar}
         </button>
       </div>
