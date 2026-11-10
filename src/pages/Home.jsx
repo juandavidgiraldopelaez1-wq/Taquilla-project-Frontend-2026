@@ -346,6 +346,7 @@ export default function Home() {
             }
             descripcion={descripcionResultados}
             eventos={filtros ? resultados : destacados.slice(0, 4)}
+            vistaCompleta={Boolean(filtros)}
             en={en}
             textos={textos}
             onAbrir={abrirEvento}

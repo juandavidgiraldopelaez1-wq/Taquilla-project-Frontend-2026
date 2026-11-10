@@ -13,6 +13,7 @@ export default function SeccionEventos({
   textos,
   onAbrir,
   onVerTodos,
+  vistaCompleta = false,
 }) {
   const acciones = textos?.general?.acciones;
   const vacio = textos?.paginas?.explorar?.vacio;
@@ -28,7 +29,8 @@ export default function SeccionEventos({
 
   return (
     <section
-      className="seccion-eventos"
+      className={`seccion-eventos ${vistaCompleta ? "seccion-eventos-completa" : ""
+        }`}
       id={id}
       aria-labelledby={`${id}-titulo`}
     >
