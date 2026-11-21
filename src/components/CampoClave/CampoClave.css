@@ -1,0 +1,23 @@
+.boton-ver-clave {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  margin-right: -6px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio-m);
+  background: transparent;
+  color: var(--texto-secundario);
+  cursor: pointer;
+}
+
+.boton-ver-clave:hover {
+  background: var(--fondo-sutil);
+}
+
+.boton-ver-clave:focus-visible {
+  outline: 2px solid var(--foco);
+  outline-offset: 0;
+}

@@ -99,3 +99,13 @@ export function fechaISO(fecha = new Date()) {
     day: "2-digit",
   }).format(fecha);
 }
+
+/** Iniciales para el avatar: «Laura Castaño» → «LC». */
+export function iniciales(nombre = "") {
+  return nombre
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((parte) => parte[0].toUpperCase())
+    .join("");
+}

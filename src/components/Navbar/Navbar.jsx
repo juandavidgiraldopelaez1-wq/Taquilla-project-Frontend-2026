@@ -7,6 +7,9 @@ import SelectorIdioma from "../SelectorIdioma/SelectorIdioma.jsx";
 import PanelAccesibilidad from "../PanelAccesibilidad/PanelAccesibilidad.jsx";
 import Boton from "../Boton/Boton.jsx";
 import Icono from "../Icono/Icono.jsx";
+import MenuCuenta from "../MenuCuenta/MenuCuenta.jsx";
+import { useSesion } from "../../hooks/useSesion.js";
+import { iniciales } from "../../utils/formato.js";
 import { usePreferencias } from "../../hooks/usePreferencias.js";
 import { useRecurso } from "../../hooks/useRecurso.js";
 import { textosFaltantes } from "../../config/textosFaltantes.js";
@@ -23,6 +26,7 @@ function leerBusqueda(search) {
  */
 export default function Navbar() {
   const { idioma, textos } = usePreferencias();
+  const { usuario, cerrarSesion } = useSesion();
   const { datos: respuestaIdiomas } = useRecurso("/idiomas", { cache: true });
   const idiomas = respuestaIdiomas?.datos ?? [];
 
@@ -106,9 +110,15 @@ export default function Navbar() {
           <Icono nombre="search" />
         </Link>
 
-        <Link className="ingreso-movil" to="/ingresar">
-          {nav?.botones?.ingresar}
-        </Link>
+        {usuario ? (
+          <span className="avatar-cuenta ingreso-movil" aria-hidden="true">
+            {iniciales(usuario.nombre)}
+          </span>
+        ) : (
+          <Link className="ingreso-movil" to="/ingresar">
+            {nav?.botones?.ingresar}
+          </Link>
+        )}
         <MenuMovil
           abierto={abierto}
           onAlternar={() => setAbierto((actual) => !actual)}
@@ -199,16 +209,45 @@ export default function Navbar() {
             </div>
 
             <div className="grupo-sesion-menu">
-              <Link
-                className="ingresar-home"
-                to="/ingresar"
-                onClick={cerrarMenu}
-              >
-                {nav?.botones?.ingresar}
-              </Link>
-              <Boton variante="primario" to="/registro" onClick={cerrarMenu}>
-                {nav?.botones?.crearCuenta}
-              </Boton>
+              {usuario ? (
+                <>
+                  <span className="menu-cuenta-escritorio">
+                    <MenuCuenta
+                      usuario={usuario}
+                      textos={nav}
+                      onCerrarSesion={cerrarSesion}
+                    />
+                  </span>
+                  <Boton
+                    variante="secundario"
+                    className="cerrar-sesion-movil"
+                    onClick={() => {
+                      cerrarMenu();
+                      cerrarSesion();
+                    }}
+                  >
+                    <Icono nombre="salir" tamano={18} />
+                    {menu?.botones?.cerrarSesion}
+                  </Boton>
+                </>
+              ) : (
+                <>
+                  <Link
+                    className="ingresar-home"
+                    to="/ingresar"
+                    onClick={cerrarMenu}
+                  >
+                    {nav?.botones?.ingresar}
+                  </Link>
+                  <Boton
+                    variante="primario"
+                    to="/registro"
+                    onClick={cerrarMenu}
+                  >
+                    {nav?.botones?.crearCuenta}
+                  </Boton>
+                </>
+              )}
             </div>
           </div>
         </nav>
