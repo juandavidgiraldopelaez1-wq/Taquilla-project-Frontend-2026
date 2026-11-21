@@ -5,7 +5,7 @@
   padding: 48px 0 56px;
 }
 
-.categorias-eventos button {
+.categorias-eventos a {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -15,13 +15,12 @@
   background: var(--fondo-superficie);
   color: var(--texto-principal);
   text-align: left;
+  text-decoration: none;
   font-size: var(--tamano-cuerpo-m);
 }
 
-.categorias-eventos button[aria-pressed="true"],
-.categorias-eventos button:hover {
-  border-color: var(--fondo-inverso);
-  background: var(--borde-sutil);
+.categorias-eventos a:hover {
+  border-color: var(--borde-fuerte);
 }
 
 .icono-categoria {
@@ -55,7 +54,7 @@
 }
 
 @media (max-width: 640px) {
-  .categorias-eventos button {
+  .categorias-eventos a {
     padding: 10px;
     gap: 8px;
     font-size: var(--tamano-cuerpo-p);
@@ -88,7 +87,7 @@
     display: none;
   }
 
-  .categorias-eventos button {
+  .categorias-eventos a {
     flex: 0 0 auto;
     width: max-content;
     min-height: 40px;
@@ -104,11 +103,11 @@
     display: none;
   }
 
-  .categorias-eventos button small {
+  .categorias-eventos a small {
     display: none;
   }
 
-  .categorias-eventos button[aria-pressed="true"] {
+  .categorias-eventos a[aria-current="page"] {
     color: var(--texto-inverso);
     background: var(--marca-primario);
     border-color: var(--fondo-inverso);
@@ -139,7 +138,7 @@
     display: none;
   }
 
-  .categorias-eventos button {
+  .categorias-eventos a {
     display: flex;
     flex: 0 0 auto;
     align-items: center;
@@ -157,11 +156,11 @@
   }
 
   .categorias-eventos .icono-categoria,
-  .categorias-eventos button small {
+  .categorias-eventos a small {
     display: none;
   }
 
-  .categorias-eventos button[aria-pressed="true"] {
+  .categorias-eventos a[aria-current="page"] {
     border-color: var(--fondo-inverso);
     background: var(--marca-primario);
     color: var(--texto-inverso);
@@ -170,7 +169,7 @@
 
 /* Corregir el contorno adicional al tocar las categorías */
 @media (max-width: 1100px) {
-  .categorias-eventos button:focus:not(:focus-visible) {
+  .categorias-eventos a:focus:not(:focus-visible) {
     outline: none;
     box-shadow: none;
   }
