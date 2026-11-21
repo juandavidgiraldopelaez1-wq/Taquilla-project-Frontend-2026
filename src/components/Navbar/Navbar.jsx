@@ -1,5 +1,5 @@
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 import {
   NavLink,
   useLocation,
@@ -14,6 +14,10 @@ import PanelAccesibilidad from "../PanelAccesibilidad/PanelAccesibilidad.jsx";
 import { interfaz } from "../../data/interfaz.js";
 import "./Navbar.css";
 
+function leerBusqueda(search) {
+  return new URLSearchParams(search).get("q") || "";
+}
+
 export default function Navbar({
   nombre,
   tipo,
@@ -24,7 +28,6 @@ export default function Navbar({
 }) {
   const [abierto, setAbierto] = useState(false);
   const [accesibilidadAbierta, setAccesibilidadAbierta] = useState(false);
-  const [busquedaCabecera, setBusquedaCabecera] = useState("");
 
   const boton = useRef(null);
   const botonAccesibilidad = useRef(null);
@@ -32,6 +35,10 @@ export default function Navbar({
   const navigate = useNavigate();
   const location = useLocation();
   const esExplorar = location.pathname === "/explorar";
+  const [busquedaCabecera, setBusquedaCabecera] = useState(() =>
+    leerBusqueda(location.search),
+  );
+  const [busquedaPrevia, setBusquedaPrevia] = useState(location.search);
 
   const id = useId();
 
@@ -78,10 +85,10 @@ export default function Navbar({
   };
 
   // Mantiene sincronizado el buscador con la búsqueda de Explorar.
-  useEffect(() => {
-    const parametros = new URLSearchParams(location.search);
-    setBusquedaCabecera(parametros.get("q") || "");
-  }, [location.search]);
+  if (busquedaPrevia !== location.search) {
+    setBusquedaPrevia(location.search);
+    setBusquedaCabecera(leerBusqueda(location.search));
+  }
 
   function cerrarMenu() {
     setAbierto(false);

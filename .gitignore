@@ -1,3 +1,30 @@
+# Dependencias de npm
 node_modules/
+
+# Build de producción
 dist/
-.env.local
+
+# Variables de entorno locales
+.env
+.env.*
+!.env.example
+
+# Archivos de registro
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de editores
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# Archivos temporales
+*.local
+.postman
+postman

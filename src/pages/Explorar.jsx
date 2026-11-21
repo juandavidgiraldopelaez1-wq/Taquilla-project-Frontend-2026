@@ -250,9 +250,6 @@ export default function Explorar() {
     recargar: recargarCiudades,
   } = useRecurso("/ciudades");
 
-  const categoriasApi = Array.isArray(respuestaCategorias?.datos)
-    ? respuestaCategorias.datos
-    : [];
 
   const ciudadesApi = Array.isArray(respuestaCiudades?.datos)
     ? respuestaCiudades.datos
@@ -260,6 +257,10 @@ export default function Explorar() {
 
   // Mantener categorías locales únicamente como respaldo.
   const categorias = useMemo(() => {
+    const categoriasApi = Array.isArray(respuestaCategorias?.datos)
+      ? respuestaCategorias.datos
+      : [];
+
     if (categoriasApi.length) return categoriasApi;
 
     return categoriasLocales.map((nombre, indice) => ({
@@ -268,7 +269,7 @@ export default function Explorar() {
       eventos: 0,
       posicion: indice,
     }));
-  }, [categoriasApi]);
+  }, [respuestaCategorias]);
 
   const categoriasSeleccionadas = searchParams.getAll("categoria");
   const ciudad = searchParams.get("ciudad") || "";
@@ -538,9 +539,12 @@ export default function Explorar() {
     };
   }, [filtrosURL]);
 
-  useEffect(() => {
+  // Si cambia la búsqueda en la URL, se refleja en el campo de texto.
+  const [consultaPrevia, setConsultaPrevia] = useState(consulta);
+  if (consultaPrevia !== consulta) {
+    setConsultaPrevia(consulta);
     setBusqueda(consulta);
-  }, [consulta]);
+  }
 
   // Adaptar los eventos recibidos.
   const eventos = respuestaEventos.datos.map((evento, indice) =>
@@ -1212,10 +1216,7 @@ export default function Explorar() {
                 </span>
 
                 <label className="orden-resultados">
-                  <span>
-                    {explorar?.orden?.etiqueta ??
-                      (en ? "Sort:" : "Ordenar:")}
-                  </span>
+                  <span>{etiquetaOrden}</span>
 
                   <select
                     value={orden}
