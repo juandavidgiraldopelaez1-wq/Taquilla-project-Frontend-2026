@@ -13,18 +13,23 @@ export default function PreferenciasCookies({
   const dialogo = useRef(null);
   const id = useId();
   const [seleccion, setSeleccion] = useState(permitir);
+  const [previo, setPrevio] = useState({ abierto, permitir });
+
+  // Al abrir el diálogo, la selección arranca con el valor guardado.
+  if (previo.abierto !== abierto || previo.permitir !== permitir) {
+    setPrevio({ abierto, permitir });
+    if (abierto) setSeleccion(permitir);
+  }
 
   useEffect(() => {
     if (abierto) {
-      setSeleccion(permitir);
-
       if (!dialogo.current.open) {
         dialogo.current.showModal();
       }
     } else if (dialogo.current.open) {
       dialogo.current.close();
     }
-  }, [abierto, permitir]);
+  }, [abierto]);
 
   return (
     <dialog

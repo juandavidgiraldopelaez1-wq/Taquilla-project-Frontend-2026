@@ -82,18 +82,6 @@ export function PreferenciasProvider({ children }) {
     document.title = `${proyecto.nombre} · ${idioma === "en" ? "Home" : "Inicio"}`;
   }, [idioma]);
 
-  // Guarda las preferencias de accesibilidad en este dispositivo.
-  useEffect(() => {
-    try {
-      localStorage.setItem(
-        CLAVE_ACCESIBILIDAD,
-        JSON.stringify(accesibilidad),
-      );
-      setErrorAccesibilidad(false);
-    } catch {
-      setErrorAccesibilidad(true);
-    }
-  }, [accesibilidad]);
 
   // Expone los ajustes para que los estilos puedan aplicarlos a la página.
   useEffect(() => {
@@ -146,29 +134,41 @@ export function PreferenciasProvider({ children }) {
     }
   }
 
+  // Actualiza las preferencias y las guarda en este dispositivo.
+  function actualizarAccesibilidad(siguiente) {
+    setAccesibilidad(siguiente);
+
+    try {
+      localStorage.setItem(CLAVE_ACCESIBILIDAD, JSON.stringify(siguiente));
+      setErrorAccesibilidad(false);
+    } catch {
+      setErrorAccesibilidad(true);
+    }
+  }
+
   function ajustarTamanoTexto(direccion) {
     if (direccion === 0) return;
 
-    setAccesibilidad((actual) => ({
-      ...actual,
+    actualizarAccesibilidad({
+      ...accesibilidad,
       tamanoTexto: Math.min(
         150,
-        Math.max(80, actual.tamanoTexto + Math.sign(direccion) * 10),
+        Math.max(80, accesibilidad.tamanoTexto + Math.sign(direccion) * 10),
       ),
-    }));
+    });
   }
 
   function cambiarOpcionAccesibilidad(opcion, valor) {
     if (!OPCIONES_ACCESIBILIDAD.includes(opcion)) return;
 
-    setAccesibilidad((actual) => ({
-      ...actual,
+    actualizarAccesibilidad({
+      ...accesibilidad,
       [opcion]: Boolean(valor),
-    }));
+    });
   }
 
   function restablecerAccesibilidad() {
-    setAccesibilidad({ ...ACCESIBILIDAD_INICIAL });
+    actualizarAccesibilidad({ ...ACCESIBILIDAD_INICIAL });
   }
 
   return (
@@ -192,6 +192,8 @@ export function PreferenciasProvider({ children }) {
   );
 }
 
+// El hook vive junto al Provider porque comparten el mismo contexto.
+// eslint-disable-next-line react-refresh/only-export-components
 export function usePreferencias() {
   const valor = useContext(PreferenciasContext);
 

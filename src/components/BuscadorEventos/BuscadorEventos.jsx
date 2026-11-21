@@ -3,6 +3,14 @@ import { useEffect, useState } from "react";
 import IconoEvento from "../IconoEvento/IconoEvento.jsx";
 import "./BuscadorEventos.css";
 
+const CONSULTA_MOVIL = "(max-width: 640px)";
+
+function ciudadInicial(filtrosAplicados) {
+  return filtrosAplicados === null
+    ? "Manizales"
+    : (filtrosAplicados?.ciudad ?? "");
+}
+
 export default function BuscadorEventos({
   en,
   eventos,
@@ -10,10 +18,15 @@ export default function BuscadorEventos({
   onBuscar,
   filtrosAplicados = null,
 }) {
-  const [consulta, setConsulta] = useState("");
-  const [ciudad, setCiudad] = useState("Manizales");
-  const [fecha, setFecha] = useState("");
-  const [esMovil, setEsMovil] = useState(false);
+  const [consulta, setConsulta] = useState(
+    () => filtrosAplicados?.consulta ?? "",
+  );
+  const [ciudad, setCiudad] = useState(() => ciudadInicial(filtrosAplicados));
+  const [fecha, setFecha] = useState(() => filtrosAplicados?.fecha ?? "");
+  const [filtrosPrevios, setFiltrosPrevios] = useState(filtrosAplicados);
+  const [esMovil, setEsMovil] = useState(
+    () => window.matchMedia(CONSULTA_MOVIL).matches,
+  );
   const [filtrosMovilesAbiertos, setFiltrosMovilesAbiertos] =
     useState(false);
 
@@ -27,13 +40,12 @@ export default function BuscadorEventos({
   const textoCiudadTodas = en ? "All cities" : "Todas las ciudades";
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 640px)");
+    const media = window.matchMedia(CONSULTA_MOVIL);
 
     function actualizarVista(evento) {
       setEsMovil(evento.matches);
     }
 
-    setEsMovil(media.matches);
     media.addEventListener("change", actualizarVista);
 
     return () => {
@@ -41,15 +53,13 @@ export default function BuscadorEventos({
     };
   }, []);
 
-  useEffect(() => {
+  // Si cambian los filtros aplicados desde afuera, se reflejan en el formulario.
+  if (filtrosPrevios !== filtrosAplicados) {
+    setFiltrosPrevios(filtrosAplicados);
     setConsulta(filtrosAplicados?.consulta ?? "");
-    setCiudad(
-      filtrosAplicados === null
-        ? "Manizales"
-        : (filtrosAplicados?.ciudad ?? ""),
-    );
+    setCiudad(ciudadInicial(filtrosAplicados));
     setFecha(filtrosAplicados?.fecha ?? "");
-  }, [filtrosAplicados]);
+  }
 
   function buscar(evento) {
     evento.preventDefault();
