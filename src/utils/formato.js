@@ -35,20 +35,25 @@ function locale(idioma) {
   return idioma === "en" ? "en-US" : "es-CO";
 }
 
-/** «Sáb 14 nov» */
+/** «Sáb 14 nov» (formato de Figma: día abreviado, número y mes abreviado). */
 export function formatoFecha(fecha, idioma) {
   const valor = new Date(fecha);
   if (Number.isNaN(valor.getTime())) return "";
-  const partes = new Intl.DateTimeFormat(locale(idioma), {
-    timeZone: ZONA_HORARIA,
-    weekday: "short",
-    day: "numeric",
-    month: "short",
-  })
-    .format(valor)
-    .replaceAll(".", "")
-    .replace(",", "");
-  return capitalizar(partes);
+  const partes = Object.fromEntries(
+    new Intl.DateTimeFormat(locale(idioma), {
+      timeZone: ZONA_HORARIA,
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+    })
+      .formatToParts(valor)
+      .map(({ type, value }) => [type, value.replace(".", "")]),
+  );
+  const orden =
+    idioma === "en"
+      ? [partes.weekday, partes.month, partes.day]
+      : [partes.weekday, partes.day, partes.month];
+  return capitalizar(orden.join(" "));
 }
 
 /** «8:00 p. m.» / «8:00 PM» */
