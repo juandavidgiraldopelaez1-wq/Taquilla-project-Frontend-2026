@@ -1,0 +1,208 @@
+/* Vista 4 · Iniciar sesión (Figma 8:1080 web y 33:440 móvil). */
+.pagina-ingresar {
+  display: grid;
+  grid-template-columns: 620px minmax(0, 1fr);
+  min-height: 100dvh;
+  background: var(--fondo-superficie);
+  font-family: var(--fuente-texto);
+  color: var(--texto-principal);
+}
+
+.portada-ingresar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 56px;
+  background: var(--fondo-inverso);
+  color: var(--texto-inverso);
+}
+
+.presentacion-ingresar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-6);
+}
+
+.lema-ingresar {
+  margin: 0;
+  font-size: var(--tamano-display);
+  line-height: var(--interlineado-display);
+  letter-spacing: var(--espaciado-display);
+  font-weight: var(--peso-seminegrita);
+}
+
+.presentacion-ingresar ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.presentacion-ingresar li {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  font-size: var(--tamano-cuerpo-g);
+  line-height: var(--interlineado-cuerpo-g);
+}
+
+.check-ingresar {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radio-pildora);
+  background: var(--velo-claro);
+  color: var(--texto-inverso);
+}
+
+.contenido-ingresar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--espacio-12) var(--espacio-6);
+}
+
+.contenido-ingresar:focus {
+  outline: none;
+}
+
+.formulario-ingresar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-5);
+  width: min(400px, 100%);
+}
+
+.formulario-ingresar h1 {
+  margin: 0;
+  font-size: var(--tamano-h1);
+  line-height: var(--interlineado-h1);
+  letter-spacing: var(--espaciado-h1);
+  font-weight: var(--peso-seminegrita);
+}
+
+.subtitulo-ingresar {
+  margin: 0;
+  font-size: var(--tamano-cuerpo-m);
+  line-height: var(--interlineado-cuerpo-m);
+  color: var(--texto-secundario);
+}
+
+.fila-ingresar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-3);
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+}
+
+/* Casilla de 20 px con área táctil de 44 px (Figma: «Casilla de verificación»). */
+.casilla {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.casilla input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.casilla-caja {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--borde-fuerte);
+  border-radius: 4px;
+  background: var(--fondo-superficie);
+  color: transparent;
+}
+
+.casilla input:checked + .casilla-caja {
+  border-color: var(--marca-primario);
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
+}
+
+.casilla input:focus-visible + .casilla-caja {
+  outline: 2px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.enlace-subrayado {
+  font-weight: var(--peso-medio);
+  color: var(--texto-principal);
+  text-decoration: underline;
+}
+
+.boton-ingresar {
+  width: 100%;
+}
+
+.boton-ingresar:disabled {
+  opacity: 1;
+  background: var(--marca-primario-hover);
+}
+
+.giro {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--texto-inverso-suave);
+  border-top-color: var(--texto-inverso);
+  border-radius: 50%;
+  animation: giro 0.8s linear infinite;
+}
+
+@keyframes giro {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.registro-ingresar {
+  margin: 0;
+  text-align: center;
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+  color: var(--texto-secundario);
+}
+
+@media (max-width: 1024px) {
+  .pagina-ingresar {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  .portada-ingresar {
+    padding: var(--espacio-4) var(--margen-pagina-movil);
+  }
+
+  .presentacion-ingresar {
+    display: none;
+  }
+
+  .contenido-ingresar {
+    align-items: flex-start;
+    padding: var(--espacio-8) var(--margen-pagina-movil);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .giro {
+    animation: none;
+  }
+}
