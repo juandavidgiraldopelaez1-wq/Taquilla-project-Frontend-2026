@@ -1,70 +1,31 @@
-import { useRef, useState } from "react";
-import { proyecto } from "../../config/proyecto.js";
 import { usePreferencias } from "../../hooks/usePreferencias.js";
-import { interfaz } from "../../data/interfaz.js";
 import Navbar from "../Navbar/Navbar.jsx";
 import Footer from "../Footer/Footer.jsx";
 import SaltarContenido from "../SaltarContenido/SaltarContenido.jsx";
 import GestorCookies from "../GestorCookies/GestorCookies.jsx";
 import "./LayoutPublico.css";
 
-export default function LayoutPublico({
-  destino,
-  etiqueta,
-  descripcion,
-  onCuenta,
-  children,
-}) {
-  const { idioma, cambiarIdioma, textos } = usePreferencias();
-
-  const [cookiesAbiertas, setCookiesAbiertas] = useState(false);
-  const disparador = useRef(null);
-
-  function abrirCookies() {
-    disparador.current = document.activeElement;
-    setCookiesAbiertas(true);
-  }
-
-  function cerrarCookies() {
-    setCookiesAbiertas(false);
-    disparador.current?.focus();
-  }
-
-  const textoSaltar =
-    textos?.general?.aria?.saltarAlContenido ??
-    interfaz[idioma]?.saltar ??
-    interfaz.es.saltar;
+/**
+ * Estructura común de las vistas: enlace para saltar al contenido,
+ * encabezado, <main>, pie y aviso de cookies.
+ * `titulo` y `descripcion` son los metadatos de la página: React 19 lleva
+ * <title> y <meta> al <head> (equivalente a generateMetadata de Next.js).
+ */
+export default function LayoutPublico({ titulo, descripcion, children }) {
+  const { textos } = usePreferencias();
 
   return (
-    <div className={`landing ${proyecto.id}`}>
-      <SaltarContenido texto={textoSaltar} />
+    <div className="landing taquilla">
+      {titulo && <title>{titulo}</title>}
+      {descripcion && <meta name="description" content={descripcion} />}
 
-      <Navbar
-        nombre={proyecto.nombre}
-        tipo={proyecto.id}
-        idioma={idioma}
-        textos={textos}
-        onCambiarIdioma={cambiarIdioma}
-        destino={destino}
-        etiqueta={etiqueta}
-        onCuenta={onCuenta}
-      />
-
+      <SaltarContenido texto={textos?.general?.aria?.saltarAlContenido} />
+      <Navbar />
       <main id="contenido" tabIndex={-1}>
         {children}
       </main>
-
-      <Footer
-        nombre={proyecto.nombre}
-        idioma={idioma}
-        descripcion={descripcion}
-        destino={destino}
-        etiqueta={etiqueta}
-        onCuenta={onCuenta}
-        onAbrirCookies={abrirCookies}
-      />
-
-      <GestorCookies abierto={cookiesAbiertas} onCerrar={cerrarCookies} />
+      <Footer />
+      <GestorCookies />
     </div>
   );
 }

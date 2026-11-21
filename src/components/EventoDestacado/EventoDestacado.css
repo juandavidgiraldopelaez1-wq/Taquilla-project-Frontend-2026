@@ -1,18 +1,18 @@
 .destacado-taquilla {
   position: relative;
   min-height: 440px;
-  border-radius: 14px;
+  border-radius: var(--radio-l);
   overflow: hidden;
 }
-.destacado-taquilla > .arte-evento {
+.destacado-taquilla > .afiche-evento {
   position: absolute;
   inset: 0;
   height: 100%;
 }
-.destacado-taquilla .arte-evento::before {
+.destacado-taquilla .afiche-evento::before {
   top: -15%;
 }
-.destacado-taquilla .arte-evento::after {
+.destacado-taquilla .afiche-evento::after {
   bottom: -25%;
 }
 .ficha-destacado {

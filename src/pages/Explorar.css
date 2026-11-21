@@ -519,7 +519,7 @@
   box-sizing: border-box;
 }
 
-.eventos-explorar-grid .arte-evento {
+.eventos-explorar-grid .afiche-evento {
   flex: 0 0 120px;
   height: 120px;
 }
@@ -822,7 +822,7 @@
     width: 100%;
   }
 
-  .eventos-explorar-grid .arte-evento {
+  .eventos-explorar-grid .afiche-evento {
     flex-basis: 176px;
     height: 176px;
   }
@@ -1328,7 +1328,7 @@
   }
 
   /* Imágenes de eventos: proporción 2:1 */
-  .pagina-explorar .eventos-explorar-grid .arte-evento {
+  .pagina-explorar .eventos-explorar-grid .afiche-evento {
     flex: 0 0 auto;
     width: 100%;
     height: auto;

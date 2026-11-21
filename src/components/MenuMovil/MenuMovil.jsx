@@ -1,5 +1,7 @@
-import "./MenuMovil.css";
 import Icono from "../Icono/Icono.jsx";
+import "./MenuMovil.css";
+
+/** Botón hamburguesa del menú móvil. Textos: textos.menuMovil.abrir/cerrar. */
 export default function MenuMovil({
   abierto,
   onAlternar,
@@ -12,7 +14,7 @@ export default function MenuMovil({
       type="button"
       ref={botonRef}
       className="boton-menu"
-      aria-label={abierto ? textos.cerrarMenu : textos.abrirMenu}
+      aria-label={abierto ? textos?.cerrar : textos?.abrir}
       aria-expanded={abierto}
       aria-controls={menuId}
       onClick={onAlternar}

@@ -124,13 +124,13 @@
 }
 
 /* Limitar eventos de Próximamente en Manizales */
-#eventos-ciudad .eventos-grid > :nth-child(n + 5) {
+#proximos .eventos-grid > :nth-child(n + 5) {
   display: none;
 }
 
 /* Mostrar máximo 3 eventos en móvil */
 @media (max-width: 640px) {
-  #eventos-ciudad .eventos-grid > :nth-child(n + 4) {
+  #proximos .eventos-grid > :nth-child(n + 4) {
     display: none;
   }
 }

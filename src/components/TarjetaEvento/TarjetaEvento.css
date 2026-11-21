@@ -57,7 +57,7 @@
 
 /* PRÓXIMAMENTE EN MANIZALES - MÓVIL */
 @media (max-width: 640px) {
-  #eventos-ciudad .eventos-grid {
+  #proximos .eventos-grid {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -67,7 +67,7 @@
     scroll-snap-type: none;
   }
 
-  #eventos-ciudad .eventos-grid > .tarjeta-evento {
+  #proximos .eventos-grid > .tarjeta-evento {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -83,14 +83,14 @@
     background: var(--fondo-superficie);
   }
 
-  #eventos-ciudad .tarjeta-evento > .arte-evento {
+  #proximos .tarjeta-evento > .afiche-evento {
     flex: 0 0 58px;
     width: 58px;
     height: 58px;
     border-radius: var(--radio-m);
   }
 
-  #eventos-ciudad .tarjeta-evento .contenido-evento {
+  #proximos .tarjeta-evento .contenido-evento {
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -99,13 +99,13 @@
     padding: 0;
   }
 
-  #eventos-ciudad .tarjeta-evento .etiqueta-evento,
-  #eventos-ciudad .tarjeta-evento .contenido-evento > p:nth-of-type(2),
-  #eventos-ciudad .tarjeta-evento .precio-evento .boton {
+  #proximos .tarjeta-evento .etiqueta-evento,
+  #proximos .tarjeta-evento .contenido-evento > p:nth-of-type(2),
+  #proximos .tarjeta-evento .precio-evento .boton {
     display: none;
   }
 
-  #eventos-ciudad .tarjeta-evento .contenido-evento h3 {
+  #proximos .tarjeta-evento .contenido-evento h3 {
     overflow: hidden;
     margin: 0 0 2px;
     font-size: var(--tamano-cuerpo-p);
@@ -114,32 +114,62 @@
     text-overflow: ellipsis;
   }
 
-  #eventos-ciudad .tarjeta-evento .contenido-evento > p {
+  #proximos .tarjeta-evento .contenido-evento > p {
     margin: 0;
     gap: 5px;
     font-size: var(--tamano-detalle);
     line-height: 16px;
   }
 
-  #eventos-ciudad .tarjeta-evento .contenido-evento > p .icono {
+  #proximos .tarjeta-evento .contenido-evento > p .icono {
     width: 13px;
     height: 13px;
   }
 
-  #eventos-ciudad .tarjeta-evento .precio-evento {
+  #proximos .tarjeta-evento .precio-evento {
     justify-content: flex-start;
     align-items: baseline;
     margin-top: 2px;
   }
 
-  #eventos-ciudad .tarjeta-evento .precio-evento > div {
+  #proximos .tarjeta-evento .precio-evento > div {
     display: flex;
     align-items: baseline;
     gap: 4px;
   }
 
-  #eventos-ciudad .tarjeta-evento .precio-evento small,
-  #eventos-ciudad .tarjeta-evento .precio-evento strong {
+  #proximos .tarjeta-evento .precio-evento small,
+  #proximos .tarjeta-evento .precio-evento strong {
     font-size: var(--tamano-detalle);
   }
+}
+
+/* Toda la tarjeta es un enlace: el título se estira sobre la tarjeta. */
+.tarjeta-evento {
+  position: relative;
+}
+
+.tarjeta-evento .enlace-tarjeta {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tarjeta-evento .enlace-tarjeta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.tarjeta-evento:hover {
+  border-color: var(--borde-fuerte);
+}
+
+.tarjeta-evento:focus-within {
+  outline: 2px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.tarjeta-evento .enlace-tarjeta:focus-visible {
+  outline: none;
 }
