@@ -1,0 +1,34 @@
+.no-encontrado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-4);
+  padding-block: var(--espacio-20);
+  text-align: center;
+}
+
+.no-encontrado-icono {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--fondo-sutil);
+  color: var(--texto-principal);
+}
+
+.no-encontrado h1 {
+  margin: 0;
+  font-size: var(--tamano-h1);
+  line-height: var(--interlineado-h1);
+  letter-spacing: var(--espaciado-h1);
+  font-weight: var(--peso-seminegrita);
+}
+
+.no-encontrado p {
+  max-width: 520px;
+  margin: 0;
+  font-size: var(--tamano-cuerpo-m);
+  line-height: var(--interlineado-cuerpo-m);
+  color: var(--texto-secundario);
+}

@@ -15,6 +15,8 @@ export const textosFaltantes = {
     precioMinimo: "Precio mínimo",
     precioMaximo: "Precio máximo",
     quitarFiltro: "Quitar filtro",
+    funciones: "Funciones",
+    localidades: "Localidades",
   },
   en: {
     navegacionPrincipal: "Main navigation",
@@ -26,5 +28,7 @@ export const textosFaltantes = {
     precioMinimo: "Minimum price",
     precioMaximo: "Maximum price",
     quitarFiltro: "Remove filter",
+    funciones: "Showtimes",
+    localidades: "Seating areas",
   },
 };
