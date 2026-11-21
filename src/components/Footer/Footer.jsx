@@ -1,114 +1,67 @@
-
+import { Link } from "react-router";
 import Marca from "../Marca/Marca.jsx";
-import { interfaz } from "../../data/interfaz.js";
+import { usePreferencias } from "../../hooks/usePreferencias.js";
+import { interpolar } from "../../utils/formato.js";
 import "./Footer.css";
 
-export default function Footer({
-  nombre,
-  tipo,
-  descripcion,
-  destino,
-  onCuenta,
-  idioma,
-  onAbrirCookies,
-}) {
-  const t = interfaz[idioma];
+/**
+ * Pie de página (Figma: «Pie de página»). Alcance de tres sprints: columnas
+ * Explora, Tu cuenta y Legal. Todos los textos salen de textos.footer.
+ */
+export default function Footer() {
+  const { textos } = usePreferencias();
+  const t = textos?.footer;
+  const columnas = t?.columnas;
 
   return (
     <footer className="pie-home">
       <div className="ancho-home">
-
         <div className="columnas-pie">
-
-          {/* Marca y descripción */}
           <div className="contenido-marca-pie">
-            <Marca nombre={nombre} tipo={tipo} />
-
-            <p>
-              {descripcion} {t.descripcionFooterExtra}
-            </p>
+            <Marca
+              nombre={textos?.navbar?.logo?.texto}
+              etiqueta={textos?.navbar?.logo?.aria}
+              inverso
+            />
+            <p>{t?.lema}</p>
           </div>
 
-          {/* Columna Explora */}
           <nav
             className="grupo-enlaces-pie"
-            aria-label={t.explora}
+            aria-label={columnas?.explora?.titulo}
           >
-            <h3>{t.explora}</h3>
-
-            <a href="#contenido">
-              {t.inicio}
-            </a>
-
-            <a href={destino}>
-              {t.explorarEventos}
-            </a>
+            <h3>{columnas?.explora?.titulo}</h3>
+            <Link to="/">{columnas?.explora?.enlaces?.inicio}</Link>
+            <Link to="/explorar">{columnas?.explora?.enlaces?.explorar}</Link>
           </nav>
 
-          {/* Columna Tu cuenta */}
           <nav
             className="grupo-enlaces-pie"
-            aria-label={t.cuenta}
+            aria-label={columnas?.cuenta?.titulo}
           >
-            <h3>{t.cuenta}</h3>
-
-            <button
-              type="button"
-              onClick={() => onCuenta("ingresar")}
-            >
-              {t.ingresar}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => onCuenta("registro")}
-            >
-              {t.registro}
-            </button>
+            <h3>{columnas?.cuenta?.titulo}</h3>
+            <Link to="/ingresar">{columnas?.cuenta?.enlaces?.ingresar}</Link>
+            <Link to="/registro">{columnas?.cuenta?.enlaces?.crearCuenta}</Link>
           </nav>
 
-          {/* Columna Legal */}
           <nav
             className="grupo-enlaces-pie"
-            aria-label={t.legal}
+            aria-label={columnas?.legal?.titulo}
           >
-            <h3>{t.legal}</h3>
-
-            <a href="#contenido">
-              {t.terminos}
-            </a>
-
-            <a href="#contenido">
-              {t.accesibilidad}
-            </a>
+            <h3>{columnas?.legal?.titulo}</h3>
+            <Link to="/terminos">{columnas?.legal?.enlaces?.terminos}</Link>
+            <Link to="/accesibilidad">
+              {columnas?.legal?.enlaces?.accesibilidad}
+            </Link>
           </nav>
-
         </div>
 
-        {/* Créditos inferiores */}
         <div className="pie-creditos">
-
           <span>
-            © 2026 {nombre} · {t.academico}
+            {interpolar(t?.legal?.derechos, { anio: new Date().getFullYear() })}
           </span>
-
-          <div className="creditos-derecha">
-
-            <span>
-              {t.avisoAcademico}
-            </span>
-
-            <button
-              type="button"
-              className="preferencias-pie"
-              onClick={onAbrirCookies}
-            >
-              {t.cookies}
-            </button>
-
-          </div>
+          <span>{t?.legal?.nota}</span>
         </div>
-
       </div>
     </footer>
   );

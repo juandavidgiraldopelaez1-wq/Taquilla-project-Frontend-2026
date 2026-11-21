@@ -1,14 +1,11 @@
-
 import { useEffect, useState } from "react";
 import {
   leerCookie,
   guardarCookie,
   borrarCookie,
 } from "../services/cookies.js";
-import { proyecto } from "../config/proyecto.js";
 import { useRecurso } from "../hooks/useRecurso.js";
 import { PreferenciasContext } from "./preferenciasContexto.js";
-
 
 const CLAVE_ACCESIBILIDAD = "preferenciasAccesibilidad";
 
@@ -29,11 +26,13 @@ const OPCIONES_ACCESIBILIDAD = [
 
 function leerPreferenciasAccesibilidad() {
   try {
-    const guardadas = JSON.parse(
-      localStorage.getItem(CLAVE_ACCESIBILIDAD),
-    );
+    const guardadas = JSON.parse(localStorage.getItem(CLAVE_ACCESIBILIDAD));
 
-    if (!guardadas || typeof guardadas !== "object" || Array.isArray(guardadas)) {
+    if (
+      !guardadas ||
+      typeof guardadas !== "object" ||
+      Array.isArray(guardadas)
+    ) {
       return { ...ACCESIBILIDAD_INICIAL };
     }
 
@@ -72,16 +71,16 @@ export function PreferenciasProvider({ children }) {
   const [errorAccesibilidad, setErrorAccesibilidad] = useState(false);
 
   // Consulta los textos correspondientes al idioma actual.
-  const { datos: respuestaTextos } = useRecurso(`/textos?idioma=${idioma}`);
+  const { datos: respuestaTextos } = useRecurso(`/textos?idioma=${idioma}`, {
+    cache: true,
+  });
 
   // Si la API todavía está cargando o falla, los textos quedan en null.
   const textos = respuestaTextos?.textos ?? null;
 
   useEffect(() => {
     document.documentElement.lang = idioma;
-    document.title = `${proyecto.nombre} · ${idioma === "en" ? "Home" : "Inicio"}`;
   }, [idioma]);
-
 
   // Expone los ajustes para que los estilos puedan aplicarlos a la página.
   useEffect(() => {

@@ -1,6 +1,6 @@
 .hero-taquilla {
-  color: #fff;
-  background: #141414;
+  color: var(--texto-inverso);
+  background: var(--marca-primario);
   padding: 72px 0;
 }
 
@@ -12,21 +12,18 @@
 }
 
 .hero-taquilla h1 {
-  font-size: clamp(calc(36px * var(--escala-texto, 1)),
-      calc(3.5vw * var(--escala-texto, 1)),
-      calc(52px * var(--escala-texto, 1)));
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-  margin: 26px 0;
-  text-wrap: initial;
+  margin: var(--espacio-6) 0;
+  font-size: var(--tamano-display);
+  line-height: var(--interlineado-display);
+  letter-spacing: var(--espaciado-display);
+  font-weight: var(--peso-seminegrita);
 }
 
 .hero-taquilla .interior-taquilla>div>p {
-  color: #b3b3b3;
-  font-size: calc(18px * var(--escala-texto, 1));
-  line-height: 1.6;
-  margin-bottom: 26px;
+  margin: 0 0 var(--espacio-6);
+  font-size: var(--tamano-cuerpo-g);
+  line-height: var(--interlineado-cuerpo-g);
+  color: var(--texto-inverso-suave);
 }
 
 .populares {
@@ -35,19 +32,19 @@
   align-items: center;
   flex-wrap: wrap;
   margin-top: 20px;
-  font-size: calc(13px * var(--escala-texto, 1));
+  font-size: var(--tamano-cuerpo-p);
 }
 
 .populares>span {
-  color: #b3b3b3;
+  color: var(--texto-inverso-suave);
 }
 
 .populares button {
   border: 0;
-  color: #fff;
+  color: var(--texto-inverso);
   background: none;
   padding: 4px 0;
-  font-size: calc(13px * var(--escala-texto, 1));
+  font-size: var(--tamano-cuerpo-p);
 }
 
 .populares button:hover {
@@ -56,7 +53,7 @@
 
 .taquilla .hero-taquilla a:focus-visible,
 .taquilla .hero-taquilla button:focus-visible {
-  outline-color: #9191ff;
+  outline-color: var(--foco);
 }
 
 @media (max-width: 1100px) {
@@ -80,14 +77,14 @@
 
 @media (max-width: 640px) {
   .hero-taquilla h1 {
-    font-size: calc(34px * var(--escala-texto, 1));
+    font-size: var(--tamano-h1);
     margin-block: 20px;
   }
 }
 
 @media (max-width: 640px) {
   .hero-taquilla .interior-taquilla>div>p {
-    font-size: calc(14px * var(--escala-texto, 1));
+    font-size: var(--tamano-cuerpo-p);
   }
 }
 
@@ -105,7 +102,7 @@
 @media (max-width: 640px) {
   .hero-taquilla {
     padding: 16px 0 28px;
-    background: #141414;
+    background: var(--marca-primario);
   }
 
   .hero-taquilla .interior-taquilla {
@@ -121,12 +118,12 @@
   .hero-taquilla h1 {
     max-width: 370px;
     margin: 0 0 18px;
-    font-size: clamp(calc(30px * var(--escala-texto, 1)),
+    font-size: clamp(var(--tamano-h1),
         calc(8.4vw * var(--escala-texto, 1)),
-        calc(34px * var(--escala-texto, 1)));
+        var(--tamano-h1));
     line-height: 1.12;
     letter-spacing: -0.04em;
-    font-weight: 600;
+    font-weight: var(--peso-seminegrita);
   }
 
   /* Ocultar descripción en la composición móvil */
@@ -165,7 +162,7 @@
   .hero-taquilla h1 {
     max-width: 370px;
     margin: 0;
-    font-size: calc(38px * var(--escala-texto, 1));
+    font-size: var(--tamano-h1);
     line-height: 1.1;
     letter-spacing: -0.04em;
   }

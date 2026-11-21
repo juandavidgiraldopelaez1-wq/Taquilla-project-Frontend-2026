@@ -1,92 +1,144 @@
+/* Buscador principal (Figma «Buscador principal»): Qué | Dónde | Cuándo + Buscar */
 .buscador-eventos {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: #fff;
-  color: #141414;
-  padding: 8px;
-  border-radius: 12px;
+  gap: var(--espacio-4);
+  padding: var(--espacio-2) var(--espacio-2) var(--espacio-2) var(--espacio-5);
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
+  border-radius: var(--radio-l);
 }
+
 .buscador-eventos label {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
   flex: 1;
   min-width: 0;
-  padding: 4px 10px;
 }
-.buscador-eventos label + label {
-  border-left: 1px solid #e5e5e5;
+
+/* Divisor de 1 × 32 px entre campos */
+.buscador-eventos label+label {
+  padding-left: var(--espacio-4);
 }
-.buscador-eventos label > svg {
+
+.buscador-eventos label+label::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1px;
+  height: 32px;
+  background: var(--borde-sutil);
+  transform: translateY(-50%);
+}
+
+.buscador-eventos label>.icono {
   flex-shrink: 0;
-  color: #595959;
+  color: var(--texto-principal);
 }
-.buscador-eventos label > span {
+
+.buscador-eventos label>span {
   display: flex;
   flex-direction: column;
-  min-width: 0;
   width: 100%;
+  min-width: 0;
 }
-.buscador-eventos label > span > span {
-  font-size: 12px;
-  color: #595959;
+
+.buscador-eventos label>span>span {
+  font-size: var(--tamano-detalle);
+  line-height: var(--interlineado-detalle);
+  font-weight: var(--peso-medio);
+  color: var(--texto-terciario);
 }
+
 .buscador-eventos input,
 .buscador-eventos select {
-  border: 0;
-  padding: 2px 0;
   width: 100%;
   min-width: 0;
-  background: #fff;
-  color: #141414;
-  font-size: 14px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--fuente-texto);
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+  font-weight: var(--peso-medio);
+  color: var(--texto-principal);
 }
+
+/* En Figma el valor elegido se ve como texto, sin caja ni flecha */
+.buscador-eventos select {
+  appearance: none;
+  cursor: pointer;
+}
+
 .buscador-eventos input::placeholder {
-  color: #595959;
+  color: var(--texto-secundario);
   opacity: 1;
 }
-.buscador-eventos .boton-home {
-  min-height: 52px;
-  padding-inline: 22px;
+
+.buscador-eventos input:focus,
+.buscador-eventos select:focus {
+  outline: none;
 }
+
+/* El foco se marca en todo el campo */
+.buscador-eventos label:focus-within {
+  border-radius: var(--radio-m);
+  box-shadow: 0 0 0 2px var(--foco);
+}
+
+@media (max-width: 1100px) {
+  .buscador-eventos label+label::before {
+    display: none;
+  }
+}
+
 @media (max-width: 1100px) {
   .buscador-eventos {
     flex-wrap: wrap;
   }
 }
+
 @media (max-width: 1100px) {
   .buscador-eventos label:first-child {
     flex-basis: 100%;
   }
 }
+
 @media (max-width: 1100px) {
   .buscador-eventos label:nth-child(2) {
     border-left: 0;
   }
 }
+
 @media (max-width: 640px) {
   .buscador-eventos {
     padding: 12px;
     gap: 12px;
   }
 }
+
 @media (max-width: 640px) {
   .buscador-eventos label {
     flex-basis: 100%;
     border: 0 !important;
-    border-bottom: 1px solid #e5e5e5 !important;
+    border-bottom: 1px solid var(--borde-sutil) !important;
     padding: 8px 0;
   }
 }
+
 @media (max-width: 640px) {
+
   .buscador-eventos input,
   .buscador-eventos select {
-    font-size: 16px;
+    font-size: var(--tamano-cuerpo-m);
   }
 }
+
 @media (max-width: 640px) {
-  .buscador-eventos .boton-home {
+  .buscador-eventos .boton {
     width: 100%;
     min-height: 44px;
   }
@@ -116,8 +168,8 @@
     box-sizing: border-box;
     width: 100%;
     padding: 6px 8px;
-    border-radius: 12px;
-    background: #ffffff;
+    border-radius: var(--radio-l);
+    background: var(--fondo-superficie);
   }
 
   /* Campo principal de búsqueda */
@@ -135,14 +187,14 @@
     border: 0 !important;
   }
 
-  .buscador-eventos .campo-consulta > svg {
+  .buscador-eventos .campo-consulta>.icono {
     width: 19px;
     height: 19px;
     flex: 0 0 19px;
-    color: #595959;
+    color: var(--texto-secundario);
   }
 
-  .buscador-eventos .campo-consulta > span {
+  .buscador-eventos .campo-consulta>span {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -150,7 +202,7 @@
     gap: 2px;
   }
 
-  .buscador-eventos .campo-consulta > span > span:first-child {
+  .buscador-eventos .campo-consulta>span>span:first-child {
     display: none;
   }
 
@@ -161,21 +213,21 @@
     border: 0;
     outline: none;
     background: transparent;
-    color: #141414;
-    font-size: 16px;
+    color: var(--texto-principal);
+    font-size: var(--tamano-cuerpo-m);
     line-height: 21px;
   }
 
   .buscador-eventos .campo-consulta input::placeholder {
-    color: #595959;
+    color: var(--texto-secundario);
     opacity: 1;
   }
 
   /* Resumen de ciudad y fecha */
   .buscador-eventos .resumen-filtros-movil {
     display: block;
-    color: #777777;
-    font-size: 12px;
+    color: var(--texto-terciario);
+    font-size: var(--tamano-detalle);
     line-height: 16px;
   }
 
@@ -191,17 +243,17 @@
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: #f0f0f0;
-    color: #141414;
+    background: var(--fondo-sutil);
+    color: var(--texto-principal);
     cursor: pointer;
   }
 
   .buscador-eventos .boton-filtros-buscador:active {
-    background: #e2e2e2;
+    background: var(--borde-sutil);
   }
 
   .buscador-eventos .boton-filtros-buscador:focus-visible {
-    outline: 2px solid #141414;
+    outline: 2px solid var(--fondo-inverso);
     outline-offset: 3px;
   }
 
@@ -215,7 +267,7 @@
     box-sizing: border-box;
     padding: 12px 8px;
     border: 0;
-    border-top: 1px solid #e5e5e5 !important;
+    border-top: 1px solid var(--borde-sutil) !important;
   }
 
   /* Al abrir filtros aparecen los dos campos */
@@ -229,23 +281,23 @@
     grid-area: fecha;
   }
 
-  .buscador-eventos .campo-ciudad > svg,
-  .buscador-eventos .campo-fecha > svg {
+  .buscador-eventos .campo-ciudad>.icono,
+  .buscador-eventos .campo-fecha>.icono {
     flex: 0 0 20px;
     width: 20px;
-    color: #595959;
+    color: var(--texto-secundario);
   }
 
-  .buscador-eventos .campo-ciudad > span,
-  .buscador-eventos .campo-fecha > span {
+  .buscador-eventos .campo-ciudad>span,
+  .buscador-eventos .campo-fecha>span {
     min-width: 0;
   }
 
-  .buscador-eventos .campo-ciudad > span > span,
-  .buscador-eventos .campo-fecha > span > span {
+  .buscador-eventos .campo-ciudad>span>span,
+  .buscador-eventos .campo-fecha>span>span {
     display: block;
-    font-size: 12px;
-    color: #595959;
+    font-size: var(--tamano-detalle);
+    color: var(--texto-secundario);
   }
 
   .buscador-eventos .campo-ciudad select,
@@ -253,15 +305,15 @@
     width: 100%;
     min-width: 0;
     padding: 3px 0;
-    font-size: 16px;
+    font-size: var(--tamano-cuerpo-m);
   }
 
   /* Buscar aparece cuando se despliegan los filtros */
-  .buscador-eventos > .boton-home {
+  .buscador-eventos>.boton {
     display: none;
   }
 
-  .buscador-eventos.filtros-moviles-abiertos > .boton-home {
+  .buscador-eventos.filtros-moviles-abiertos>.boton {
     display: flex;
     grid-area: buscar;
     align-items: center;

@@ -1,98 +1,30 @@
-
-import { useState } from "react";
 import { usePreferencias } from "../../hooks/usePreferencias.js";
-import { interfaz } from "../../data/interfaz.js";
 import BannerCookies from "../BannerCookies/BannerCookies.jsx";
-import PreferenciasCookies from "../PreferenciasCookies/PreferenciasCookies.jsx";
 import "./GestorCookies.css";
 
-export default function GestorCookies({ abierto, onCerrar }) {
-  const {
-    idioma,
-    consentimiento,
-    guardarConsentimiento,
-    error,
-    textos: textosApi,
-  } = usePreferencias();
-
-  const [mensaje, setMensaje] = useState(false);
-
-  const base = interfaz[idioma] || interfaz.es;
-
-  const apiCookies = textosApi?.cookies;
-  const apiBanner = apiCookies?.banner;
-  const apiPreferencias = apiCookies?.preferencias;
-
-  const necesarias = apiPreferencias?.categorias?.necesarias;
-  const preferencias = apiPreferencias?.categorias?.preferencias;
-
-  const t = {
-    ...base,
-
-    // Banner de consentimiento.
-    banner: apiBanner?.titulo ?? base.banner,
-    descripcion: apiBanner?.texto ?? base.descripcion,
-    aceptar: apiBanner?.botones?.aceptar ?? base.aceptar,
-    rechazar: apiBanner?.botones?.rechazar ?? base.rechazar,
-
-    // Panel de preferencias.
-    cookies: apiPreferencias?.titulo ?? base.cookies,
-    descripcionPreferencias:
-      apiPreferencias?.texto ?? base.descripcion,
-
-    necesarias: necesarias?.nombre ?? base.necesarias,
-    necesariasTexto:
-      necesarias?.descripcion ?? base.necesariasTexto,
-
-    preferencias: preferencias?.nombre ?? base.preferencias,
-    preferenciasTexto:
-      preferencias?.descripcion ?? base.preferenciasTexto,
-
-    guardar:
-      apiPreferencias?.botones?.guardarSeleccion ?? base.guardar,
-
-    cerrar:
-      textosApi?.general?.acciones?.cerrar ?? base.cerrar,
-
-    guardado:
-      apiPreferencias?.mensajes?.guardada ?? base.guardado,
-  };
-
-  function guardar(permitir) {
-    if (guardarConsentimiento(permitir)) {
-      setMensaje(true);
-      onCerrar();
-    }
-  }
+/**
+ * Aviso de cookies de la primera visita (US-TAQ-S1-06): solo Aceptar y
+ * Rechazar, sin panel de preferencias. La decisión se guarda en la cookie
+ * «consentimiento» y el aviso no vuelve a salir.
+ */
+export default function GestorCookies() {
+  const { consentimiento, guardarConsentimiento, error, textos } =
+    usePreferencias();
 
   return (
     <>
       {!consentimiento && (
         <BannerCookies
-          textos={t}
-          onAceptar={() => guardar(true)}
-          onRechazar={() => guardar(false)}
+          textos={textos?.cookies?.banner}
+          onAceptar={() => guardarConsentimiento(true)}
+          onRechazar={() => guardarConsentimiento(false)}
         />
       )}
-
-      {error && !abierto && (
+      {error && (
         <p className="error-cookies" role="alert">
-          {t.error}
+          {textos?.errores?.generico}
         </p>
       )}
-
-      <PreferenciasCookies
-        abierto={abierto}
-        textos={t}
-        permitir={consentimiento === "aceptado"}
-        onGuardar={guardar}
-        onCerrar={onCerrar}
-        error={error}
-      />
-
-      <span className="solo-lectores" role="status">
-        {mensaje ? t.guardado : ""}
-      </span>
     </>
   );
 }

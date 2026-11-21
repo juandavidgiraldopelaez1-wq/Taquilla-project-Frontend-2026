@@ -1,6 +1,9 @@
-import { proyecto } from "../config/proyecto.js";
+// Cookies del sitio con los nombres que piden las historias:
+// «consentimiento» (US-TAQ-S1-06) e «idioma» (US-TAQ-S1-05).
+const nombre = (clave) => clave;
 
-const nombre = (clave) => `${proyecto.id}_${clave}`;
+// Seis meses en segundos.
+const DURACION = 60 * 60 * 24 * 180;
 
 export function leerCookie(clave) {
   const prefijo = `${nombre(clave)}=`;
@@ -15,7 +18,7 @@ export function leerCookie(clave) {
 }
 
 export function guardarCookie(clave, valor) {
-  document.cookie = `${nombre(clave)}=${encodeURIComponent(valor)}; Path=/; Max-Age=15552000; SameSite=Lax${location.protocol === "https:" ? "; Secure" : ""}`;
+  document.cookie = `${nombre(clave)}=${encodeURIComponent(valor)}; Path=/; Max-Age=${DURACION}; SameSite=Lax${location.protocol === "https:" ? "; Secure" : ""}`;
   if (leerCookie(clave) !== valor) throw new Error("cookie_no_guardada");
 }
 
