@@ -1,0 +1,105 @@
+.menu-cuenta {
+  position: relative;
+}
+
+.avatar-cuenta {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-pildora);
+  background: var(--fondo-sutil);
+  font-family: var(--fuente-texto);
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+  font-weight: var(--peso-medio);
+  color: var(--texto-principal);
+  cursor: pointer;
+}
+
+.avatar-cuenta:focus-visible {
+  outline: 2px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.avatar-cuenta--oscuro {
+  flex-shrink: 0;
+  border: 0;
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
+  cursor: default;
+}
+
+.panel-cuenta {
+  position: absolute;
+  top: calc(100% + var(--espacio-2));
+  right: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-1);
+  width: 272px;
+  padding: var(--espacio-2);
+  background: var(--fondo-superficie);
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-m);
+  box-shadow: var(--sombra-flotante);
+}
+
+.persona-cuenta {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-3);
+  padding: var(--espacio-2) var(--espacio-2) var(--espacio-3);
+  border-bottom: 1px solid var(--borde-sutil);
+}
+
+.persona-cuenta > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.persona-cuenta strong {
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+  font-weight: var(--peso-medio);
+}
+
+.persona-cuenta small {
+  overflow: hidden;
+  font-size: var(--tamano-detalle);
+  line-height: var(--interlineado-detalle);
+  color: var(--texto-secundario);
+  text-overflow: ellipsis;
+}
+
+.opcion-cuenta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px var(--espacio-2);
+  border: 0;
+  border-radius: var(--radio-m);
+  background: transparent;
+  font-family: var(--fuente-texto);
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+  font-weight: var(--peso-medio);
+  color: var(--texto-principal);
+  text-align: left;
+  cursor: pointer;
+}
+
+.opcion-cuenta:hover {
+  background: var(--fondo-sutil);
+}
+
+.opcion-cuenta:focus-visible {
+  outline: 2px solid var(--foco);
+  outline-offset: -2px;
+}

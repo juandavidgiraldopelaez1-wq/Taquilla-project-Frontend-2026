@@ -819,3 +819,19 @@
     filter: brightness(0) invert(1);
   }
 }
+
+/* Sesión iniciada: avatar en web, botón «Cerrar sesión» en el menú móvil. */
+.cerrar-sesion-movil {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .menu-cuenta-escritorio {
+    display: none;
+  }
+
+  .cerrar-sesion-movil {
+    display: inline-flex;
+    width: 100%;
+  }
+}
