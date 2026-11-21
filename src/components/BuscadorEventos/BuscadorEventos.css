@@ -1,76 +1,125 @@
+/* Buscador principal (Figma «Buscador principal»): Qué | Dónde | Cuándo + Buscar */
 .buscador-eventos {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--espacio-4);
+  padding: var(--espacio-2) var(--espacio-2) var(--espacio-2) var(--espacio-5);
   background: var(--fondo-superficie);
   color: var(--texto-principal);
-  padding: 8px;
   border-radius: var(--radio-l);
 }
+
 .buscador-eventos label {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
   flex: 1;
   min-width: 0;
-  padding: 4px 10px;
 }
-.buscador-eventos label + label {
-  border-left: 1px solid var(--borde-sutil);
+
+/* Divisor de 1 × 32 px entre campos */
+.buscador-eventos label+label {
+  padding-left: var(--espacio-4);
 }
-.buscador-eventos label > .icono {
+
+.buscador-eventos label+label::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1px;
+  height: 32px;
+  background: var(--borde-sutil);
+  transform: translateY(-50%);
+}
+
+.buscador-eventos label>.icono {
   flex-shrink: 0;
-  color: var(--texto-secundario);
+  color: var(--texto-principal);
 }
-.buscador-eventos label > span {
+
+.buscador-eventos label>span {
   display: flex;
   flex-direction: column;
-  min-width: 0;
   width: 100%;
+  min-width: 0;
 }
-.buscador-eventos label > span > span {
+
+.buscador-eventos label>span>span {
   font-size: var(--tamano-detalle);
-  color: var(--texto-secundario);
+  line-height: var(--interlineado-detalle);
+  font-weight: var(--peso-medio);
+  color: var(--texto-terciario);
 }
+
 .buscador-eventos input,
 .buscador-eventos select {
-  border: 0;
-  padding: 2px 0;
   width: 100%;
   min-width: 0;
-  background: var(--fondo-superficie);
-  color: var(--texto-principal);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--fuente-texto);
   font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+  font-weight: var(--peso-medio);
+  color: var(--texto-principal);
 }
+
+/* En Figma el valor elegido se ve como texto, sin caja ni flecha */
+.buscador-eventos select {
+  appearance: none;
+  cursor: pointer;
+}
+
 .buscador-eventos input::placeholder {
   color: var(--texto-secundario);
   opacity: 1;
 }
-.buscador-eventos .boton {
-  min-height: 52px;
-  padding-inline: 22px;
+
+.buscador-eventos input:focus,
+.buscador-eventos select:focus {
+  outline: none;
 }
+
+/* El foco se marca en todo el campo */
+.buscador-eventos label:focus-within {
+  border-radius: var(--radio-m);
+  box-shadow: 0 0 0 2px var(--foco);
+}
+
+@media (max-width: 1100px) {
+  .buscador-eventos label+label::before {
+    display: none;
+  }
+}
+
 @media (max-width: 1100px) {
   .buscador-eventos {
     flex-wrap: wrap;
   }
 }
+
 @media (max-width: 1100px) {
   .buscador-eventos label:first-child {
     flex-basis: 100%;
   }
 }
+
 @media (max-width: 1100px) {
   .buscador-eventos label:nth-child(2) {
     border-left: 0;
   }
 }
+
 @media (max-width: 640px) {
   .buscador-eventos {
     padding: 12px;
     gap: 12px;
   }
 }
+
 @media (max-width: 640px) {
   .buscador-eventos label {
     flex-basis: 100%;
@@ -79,12 +128,15 @@
     padding: 8px 0;
   }
 }
+
 @media (max-width: 640px) {
+
   .buscador-eventos input,
   .buscador-eventos select {
     font-size: var(--tamano-cuerpo-m);
   }
 }
+
 @media (max-width: 640px) {
   .buscador-eventos .boton {
     width: 100%;
@@ -135,14 +187,14 @@
     border: 0 !important;
   }
 
-  .buscador-eventos .campo-consulta > .icono {
+  .buscador-eventos .campo-consulta>.icono {
     width: 19px;
     height: 19px;
     flex: 0 0 19px;
     color: var(--texto-secundario);
   }
 
-  .buscador-eventos .campo-consulta > span {
+  .buscador-eventos .campo-consulta>span {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -150,7 +202,7 @@
     gap: 2px;
   }
 
-  .buscador-eventos .campo-consulta > span > span:first-child {
+  .buscador-eventos .campo-consulta>span>span:first-child {
     display: none;
   }
 
@@ -229,20 +281,20 @@
     grid-area: fecha;
   }
 
-  .buscador-eventos .campo-ciudad > .icono,
-  .buscador-eventos .campo-fecha > .icono {
+  .buscador-eventos .campo-ciudad>.icono,
+  .buscador-eventos .campo-fecha>.icono {
     flex: 0 0 20px;
     width: 20px;
     color: var(--texto-secundario);
   }
 
-  .buscador-eventos .campo-ciudad > span,
-  .buscador-eventos .campo-fecha > span {
+  .buscador-eventos .campo-ciudad>span,
+  .buscador-eventos .campo-fecha>span {
     min-width: 0;
   }
 
-  .buscador-eventos .campo-ciudad > span > span,
-  .buscador-eventos .campo-fecha > span > span {
+  .buscador-eventos .campo-ciudad>span>span,
+  .buscador-eventos .campo-fecha>span>span {
     display: block;
     font-size: var(--tamano-detalle);
     color: var(--texto-secundario);
@@ -257,11 +309,11 @@
   }
 
   /* Buscar aparece cuando se despliegan los filtros */
-  .buscador-eventos > .boton {
+  .buscador-eventos>.boton {
     display: none;
   }
 
-  .buscador-eventos.filtros-moviles-abiertos > .boton {
+  .buscador-eventos.filtros-moviles-abiertos>.boton {
     display: flex;
     grid-area: buscar;
     align-items: center;

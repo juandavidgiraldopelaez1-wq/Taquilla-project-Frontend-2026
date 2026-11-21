@@ -27,13 +27,10 @@ export default function Icono({ nombre, tamano = 20, className = "" }) {
   if (!url) return null;
 
   return (
-    <span
+    <i
       className={`icono ${className}`.trim()}
       aria-hidden="true"
-      style={{
-        "--icono-url": `url("${url}")`,
-        "--icono-tamano": `${tamano}px`,
-      }}
+      style={{ "--icono-url": `url("${url}")`, "--icono-tamano": `${tamano}px` }}
     />
   );
 }
