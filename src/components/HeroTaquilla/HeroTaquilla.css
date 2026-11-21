@@ -12,9 +12,11 @@
 }
 
 .hero-taquilla h1 {
-  font-size: clamp(var(--tamano-h1),
-      calc(3.5vw * var(--escala-texto, 1)),
-      var(--tamano-display));
+  font-size: clamp(
+    var(--tamano-h1),
+    calc(3.5vw * var(--escala-texto, 1)),
+    var(--tamano-display)
+  );
   font-weight: var(--peso-seminegrita);
   line-height: 1.1;
   letter-spacing: -0.035em;
@@ -22,7 +24,7 @@
   text-wrap: initial;
 }
 
-.hero-taquilla .interior-taquilla>div>p {
+.hero-taquilla .interior-taquilla > div > p {
   color: var(--texto-inverso-suave);
   font-size: var(--tamano-cuerpo-g);
   line-height: 1.6;
@@ -38,7 +40,7 @@
   font-size: var(--tamano-cuerpo-p);
 }
 
-.populares>span {
+.populares > span {
   color: var(--texto-inverso-suave);
 }
 
@@ -86,7 +88,7 @@
 }
 
 @media (max-width: 640px) {
-  .hero-taquilla .interior-taquilla>div>p {
+  .hero-taquilla .interior-taquilla > div > p {
     font-size: var(--tamano-cuerpo-p);
   }
 }
@@ -113,7 +115,7 @@
   }
 
   /* Ocultar etiqueta de temporada */
-  .hero-taquilla .interior-taquilla>div>.etiqueta-evento {
+  .hero-taquilla .interior-taquilla > div > .etiqueta-evento {
     display: none;
   }
 
@@ -121,16 +123,18 @@
   .hero-taquilla h1 {
     max-width: 370px;
     margin: 0 0 18px;
-    font-size: clamp(var(--tamano-h1),
-        calc(8.4vw * var(--escala-texto, 1)),
-        var(--tamano-h1));
+    font-size: clamp(
+      var(--tamano-h1),
+      calc(8.4vw * var(--escala-texto, 1)),
+      var(--tamano-h1)
+    );
     line-height: 1.12;
     letter-spacing: -0.04em;
     font-weight: var(--peso-seminegrita);
   }
 
   /* Ocultar descripción en la composición móvil */
-  .hero-taquilla .interior-taquilla>div>p {
+  .hero-taquilla .interior-taquilla > div > p {
     display: none;
   }
 
@@ -145,7 +149,7 @@
   }
 
   /* La tarjeta destacada se muestra en las secciones inferiores */
-  .hero-taquilla .interior-taquilla> :nth-child(2) {
+  .hero-taquilla .interior-taquilla > :nth-child(2) {
     display: none;
   }
 }
@@ -156,7 +160,7 @@
     padding: 8px 0 28px;
   }
 
-  .hero-taquilla .interior-taquilla>div:first-child {
+  .hero-taquilla .interior-taquilla > div:first-child {
     display: flex;
     flex-direction: column;
     gap: 16px;

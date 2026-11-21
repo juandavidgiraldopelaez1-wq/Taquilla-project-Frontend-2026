@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import {
   leerCookie,
@@ -8,7 +7,6 @@ import {
 import { proyecto } from "../config/proyecto.js";
 import { useRecurso } from "../hooks/useRecurso.js";
 import { PreferenciasContext } from "./preferenciasContexto.js";
-
 
 const CLAVE_ACCESIBILIDAD = "preferenciasAccesibilidad";
 
@@ -29,11 +27,13 @@ const OPCIONES_ACCESIBILIDAD = [
 
 function leerPreferenciasAccesibilidad() {
   try {
-    const guardadas = JSON.parse(
-      localStorage.getItem(CLAVE_ACCESIBILIDAD),
-    );
+    const guardadas = JSON.parse(localStorage.getItem(CLAVE_ACCESIBILIDAD));
 
-    if (!guardadas || typeof guardadas !== "object" || Array.isArray(guardadas)) {
+    if (
+      !guardadas ||
+      typeof guardadas !== "object" ||
+      Array.isArray(guardadas)
+    ) {
       return { ...ACCESIBILIDAD_INICIAL };
     }
 
@@ -81,7 +81,6 @@ export function PreferenciasProvider({ children }) {
     document.documentElement.lang = idioma;
     document.title = `${proyecto.nombre} · ${idioma === "en" ? "Home" : "Inicio"}`;
   }, [idioma]);
-
 
   // Expone los ajustes para que los estilos puedan aplicarlos a la página.
   useEffect(() => {

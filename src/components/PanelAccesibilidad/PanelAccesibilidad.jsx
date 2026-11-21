@@ -1,12 +1,7 @@
-
 import { usePreferencias } from "../../hooks/usePreferencias.js";
 import "./PanelAccesibilidad.css";
 
-export default function PanelAccesibilidad({
-  abierto,
-  onCerrar,
-  idioma,
-}) {
+export default function PanelAccesibilidad({ abierto, onCerrar, idioma }) {
   const {
     accesibilidad,
     ajustarTamanoTexto,
@@ -68,9 +63,7 @@ export default function PanelAccesibilidad({
           className="panel-accesibilidad-cerrar"
           onClick={onCerrar}
           aria-label={
-            en
-              ? "Close accessibility panel"
-              : "Cerrar panel de accesibilidad"
+            en ? "Close accessibility panel" : "Cerrar panel de accesibilidad"
           }
         >
           <svg
@@ -146,9 +139,7 @@ export default function PanelAccesibilidad({
             type="button"
             onClick={() => ajustarTamanoTexto(1)}
             disabled={accesibilidad.tamanoTexto >= 150}
-            aria-label={
-              en ? "Increase text size" : "Aumentar tamaño del texto"
-            }
+            aria-label={en ? "Increase text size" : "Aumentar tamaño del texto"}
           >
             <svg
               width="9"
@@ -184,9 +175,7 @@ export default function PanelAccesibilidad({
                 aria-checked={activa}
                 aria-label={opcion.titulo}
                 className="interruptor-accesibilidad"
-                onClick={() =>
-                  cambiarOpcionAccesibilidad(opcion.id, !activa)
-                }
+                onClick={() => cambiarOpcionAccesibilidad(opcion.id, !activa)}
               >
                 <svg
                   width="44"
@@ -228,9 +217,7 @@ export default function PanelAccesibilidad({
 
         <footer>
           <a href="#declaracion-accesibilidad">
-            {en
-              ? "Accessibility statement"
-              : "Declaración de accesibilidad"}
+            {en ? "Accessibility statement" : "Declaración de accesibilidad"}
           </a>
 
           <button

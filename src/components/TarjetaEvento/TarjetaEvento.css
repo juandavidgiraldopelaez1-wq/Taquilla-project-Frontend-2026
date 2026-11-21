@@ -16,7 +16,7 @@
   margin: 12px 0;
 }
 
-.contenido-evento>p {
+.contenido-evento > p {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -25,7 +25,7 @@
   margin-top: 10px;
 }
 
-.contenido-evento>p svg {
+.contenido-evento > p svg {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
@@ -67,7 +67,7 @@
     scroll-snap-type: none;
   }
 
-  #eventos-ciudad .eventos-grid>.tarjeta-evento {
+  #eventos-ciudad .eventos-grid > .tarjeta-evento {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -83,7 +83,7 @@
     background: var(--fondo-superficie);
   }
 
-  #eventos-ciudad .tarjeta-evento>.arte-evento {
+  #eventos-ciudad .tarjeta-evento > .arte-evento {
     flex: 0 0 58px;
     width: 58px;
     height: 58px;
@@ -100,7 +100,7 @@
   }
 
   #eventos-ciudad .tarjeta-evento .etiqueta-evento,
-  #eventos-ciudad .tarjeta-evento .contenido-evento>p:nth-of-type(2),
+  #eventos-ciudad .tarjeta-evento .contenido-evento > p:nth-of-type(2),
   #eventos-ciudad .tarjeta-evento .precio-evento .boton-home {
     display: none;
   }
@@ -114,14 +114,14 @@
     text-overflow: ellipsis;
   }
 
-  #eventos-ciudad .tarjeta-evento .contenido-evento>p {
+  #eventos-ciudad .tarjeta-evento .contenido-evento > p {
     margin: 0;
     gap: 5px;
     font-size: var(--tamano-detalle);
     line-height: 16px;
   }
 
-  #eventos-ciudad .tarjeta-evento .contenido-evento>p svg {
+  #eventos-ciudad .tarjeta-evento .contenido-evento > p svg {
     width: 13px;
     height: 13px;
   }
@@ -132,7 +132,7 @@
     margin-top: 2px;
   }
 
-  #eventos-ciudad .tarjeta-evento .precio-evento>div {
+  #eventos-ciudad .tarjeta-evento .precio-evento > div {
     display: flex;
     align-items: baseline;
     gap: 4px;

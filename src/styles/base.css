@@ -200,7 +200,6 @@ select {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   .landing *,
   .landing *::before,
   .landing *::after {
@@ -268,17 +267,9 @@ html[data-subrayar-enlaces="true"] a {
 }
 
 /* Espaciado de lectura */
-html[data-espaciado-lectura="true"] .taquilla :is(p,
-  li,
-  a,
-  label,
-  button,
-  input,
-  select,
-  h1,
-  h2,
-  h3,
-  small) {
+html[data-espaciado-lectura="true"]
+  .taquilla
+  :is(p, li, a, label, button, input, select, h1, h2, h3, small) {
   line-height: 1.8 !important;
   letter-spacing: 0.04em !important;
   word-spacing: 0.12em !important;

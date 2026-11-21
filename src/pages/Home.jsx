@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 
 import LayoutPublico from "../components/LayoutPublico/LayoutPublico.jsx";
@@ -29,12 +28,9 @@ function interpolar(texto, valores = {}) {
 }
 
 function textoCantidad(plantillas, cantidad, fallback) {
-  const plantilla =
-    Number(cantidad) === 1 ? plantillas?.uno : plantillas?.otro;
+  const plantilla = Number(cantidad) === 1 ? plantillas?.uno : plantillas?.otro;
 
-  return plantilla
-    ? interpolar(plantilla, { cantidad })
-    : fallback;
+  return plantilla ? interpolar(plantilla, { cantidad }) : fallback;
 }
 
 // Convierte la fecha de la API a fecha local de Colombia.
@@ -57,17 +53,14 @@ function horarioEvento(fecha, idioma) {
 
   if (Number.isNaN(valor.getTime())) return "";
 
-  return new Intl.DateTimeFormat(
-    idioma === "en" ? "en-US" : "es-CO",
-    {
-      timeZone: "America/Bogota",
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      hour: "numeric",
-      minute: "2-digit",
-    },
-  ).format(valor);
+  return new Intl.DateTimeFormat(idioma === "en" ? "en-US" : "es-CO", {
+    timeZone: "America/Bogota",
+    weekday: "short",
+    day: "numeric",
+    month: "short",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(valor);
 }
 
 // Adapta los eventos de la API al formato de los componentes existentes.
@@ -158,43 +151,30 @@ export default function Home() {
   );
 
   // Mantener el sistema de búsqueda y filtros existente.
-  const {
-    filtros,
-    resultados,
-    buscar,
-    setFiltros,
-    filtrarCategoria,
-  } = useEventos(eventos);
+  const { filtros, resultados, buscar, setFiltros, filtrarCategoria } =
+    useEventos(eventos);
 
   // Obtener las categorías y cantidades reales.
-  const categorias = categoriasApi.map(
-    (categoria) => categoria.nombre,
-  );
+  const categorias = categoriasApi.map((categoria) => categoria.nombre);
 
-  const cantidades = categoriasApi.map(
-    (categoria) => categoria.eventos ?? 0,
-  );
+  const cantidades = categoriasApi.map((categoria) => categoria.eventos ?? 0);
 
   // Mostrar el detalle del evento seleccionado.
   function abrirEvento(evento) {
     const original = evento.original;
     const disponibilidad = original?.disponibilidad?.disponibles;
 
-    const formatoLugar = interpolar(
-      general?.formatos?.lugarYCiudad,
-      {
-        lugar: evento.lugar,
-        ciudad: evento.ciudad,
-      },
-    );
+    const formatoLugar = interpolar(general?.formatos?.lugarYCiudad, {
+      lugar: evento.lugar,
+      ciudad: evento.ciudad,
+    });
 
-    const descripcion =
-      general?.formatos?.fechaYLugar
-        ? interpolar(general.formatos.fechaYLugar, {
+    const descripcion = general?.formatos?.fechaYLugar
+      ? interpolar(general.formatos.fechaYLugar, {
           fecha: evento.horario,
           lugar: formatoLugar,
         })
-        : `${evento.horario} · ${formatoLugar || evento.lugar}`;
+      : `${evento.horario} · ${formatoLugar || evento.lugar}`;
 
     const plantillaEntradas =
       disponibilidad === 1
@@ -203,8 +183,8 @@ export default function Home() {
 
     const textoDisponibilidad = plantillaEntradas
       ? interpolar(plantillaEntradas, {
-        cantidad: disponibilidad,
-      })
+          cantidad: disponibilidad,
+        })
       : en
         ? `${disponibilidad} tickets available`
         : `${disponibilidad} entradas disponibles`;
@@ -218,13 +198,10 @@ export default function Home() {
 
           <p>{dinero(evento.precio)} COP</p>
 
-          {disponibilidad !== undefined && (
-            <small>{textoDisponibilidad}</small>
-          )}
+          {disponibilidad !== undefined && <small>{textoDisponibilidad}</small>}
         </div>
       ),
-      cerrar:
-        general?.acciones?.cerrar ?? (en ? "Close" : "Cerrar"),
+      cerrar: general?.acciones?.cerrar ?? (en ? "Close" : "Cerrar"),
     });
   }
 
@@ -235,12 +212,10 @@ export default function Home() {
     if (errorDestacados) recargarDestacados();
   }
 
-  const hayErrores =
-    errorCategorias || errorCatalogo || errorDestacados;
+  const hayErrores = errorCategorias || errorCatalogo || errorDestacados;
 
   const estadoCarga =
-    textos?.estados?.cargando?.indicador ??
-    (en ? "Loading..." : "Cargando...");
+    textos?.estados?.cargando?.indicador ?? (en ? "Loading..." : "Cargando...");
 
   const textoError =
     textos?.estados?.error?.texto ??
@@ -253,30 +228,27 @@ export default function Home() {
     general?.acciones?.reintentar ??
     (en ? "Retry" : "Reintentar");
 
-  const tituloResultados =
-    filtros
-      ? textoCantidad(
+  const tituloResultados = filtros
+    ? textoCantidad(
         textos?.paginas?.explorar?.resultadosCorto,
         resultados.length,
         `${resultados.length} ${en ? "events" : "eventos"}`,
       )
-      : inicio?.destacados?.titulo ?? t.destacadosSemana;
+    : (inicio?.destacados?.titulo ?? t.destacadosSemana);
 
-  const descripcionResultados =
-    filtros
-      ? textoCantidad(
+  const descripcionResultados = filtros
+    ? textoCantidad(
         textos?.paginas?.explorar?.resultados,
         resultados.length,
-        `${resultados.length} ${en ? "events match your filters" : "eventos coinciden con tus filtros"
+        `${resultados.length} ${
+          en ? "events match your filters" : "eventos coinciden con tus filtros"
         }`,
       )
-      : inicio?.destacados?.subtitulo ??
-      t.descripcionDestacadosSemana;
+    : (inicio?.destacados?.subtitulo ?? t.descripcionDestacadosSemana);
 
-  const tituloProximos = interpolar(
-    inicio?.proximos?.titulo,
-    { ciudad: "Manizales" },
-  ) || t.proximamenteManizales;
+  const tituloProximos =
+    interpolar(inicio?.proximos?.titulo, { ciudad: "Manizales" }) ||
+    t.proximamenteManizales;
 
   return (
     <LayoutPublico
@@ -317,9 +289,7 @@ export default function Home() {
           </div>
         )}
 
-        {cargandoCategorias && (
-          <p role="status">{estadoCarga}</p>
-        )}
+        {cargandoCategorias && <p role="status">{estadoCarga}</p>}
 
         <CategoriasEventos
           categorias={categorias}
@@ -332,9 +302,7 @@ export default function Home() {
           filtrarCategoria={filtrarCategoria}
         />
 
-        {cargandoDestacados && !filtros && (
-          <p role="status">{estadoCarga}</p>
-        )}
+        {cargandoDestacados && !filtros && <p role="status">{estadoCarga}</p>}
 
         {!cargandoDestacados && (
           <SeccionEventos
@@ -354,9 +322,7 @@ export default function Home() {
           />
         )}
 
-        {cargandoCatalogo && (
-          <p role="status">{estadoCarga}</p>
-        )}
+        {cargandoCatalogo && <p role="status">{estadoCarga}</p>}
 
         {!filtros && !cargandoCatalogo && !errorCatalogo && (
           <SeccionEventos
@@ -367,12 +333,9 @@ export default function Home() {
               (en ? "This weekend" : "Este fin de semana")
             }
             descripcion={
-              inicio?.proximos?.subtitulo ??
-              t.descripcionProximamenteManizales
+              inicio?.proximos?.subtitulo ?? t.descripcionProximamenteManizales
             }
-            eventos={eventos.filter(
-              (evento) => evento.ciudad === "Manizales",
-            )}
+            eventos={eventos.filter((evento) => evento.ciudad === "Manizales")}
             en={en}
             textos={textos}
             onAbrir={abrirEvento}
@@ -381,10 +344,7 @@ export default function Home() {
         )}
       </div>
 
-      <DialogoDetalle
-        detalle={detalle}
-        onCerrar={() => setDetalle(null)}
-      />
+      <DialogoDetalle detalle={detalle} onCerrar={() => setDetalle(null)} />
     </LayoutPublico>
   );
 }

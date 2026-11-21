@@ -1,4 +1,3 @@
-
 import IconoEvento from "../IconoEvento/IconoEvento.jsx";
 import "./CategoriasEventos.css";
 
@@ -19,17 +18,15 @@ export default function CategoriasEventos({
     const numero = Number(cantidad ?? 0);
 
     const plantilla =
-      numero === 1
-        ? textosInicio?.eventos?.uno
-        : textosInicio?.eventos?.otro;
+      numero === 1 ? textosInicio?.eventos?.uno : textosInicio?.eventos?.otro;
 
     if (plantilla) {
       return plantilla.replace("{cantidad}", String(numero));
     }
 
-    return `${numero} ${numero === 1
-      ? (en ? "event" : "evento")
-      : (en ? "events" : "eventos")}`;
+    return `${numero} ${
+      numero === 1 ? (en ? "event" : "evento") : en ? "events" : "eventos"
+    }`;
   }
 
   function obtenerNombre(categoria, indice) {

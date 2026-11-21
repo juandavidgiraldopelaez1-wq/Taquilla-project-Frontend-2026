@@ -24,12 +24,12 @@
   display: contents;
 }
 
-.menu-home .enlaces-menu-movil>a {
+.menu-home .enlaces-menu-movil > a {
   color: var(--texto-secundario);
 }
 
-.menu-home .enlaces-menu-movil>a:hover,
-.menu-home .enlaces-menu-movil>a.active {
+.menu-home .enlaces-menu-movil > a:hover,
+.menu-home .enlaces-menu-movil > a.active {
   color: var(--texto-principal);
 }
 
@@ -73,7 +73,7 @@
   order: 4;
 }
 
-.taquilla .grupo-sesion-menu>.boton-home.primario {
+.taquilla .grupo-sesion-menu > .boton-home.primario {
   order: 5;
 }
 
@@ -93,7 +93,6 @@
    ======================================== */
 
 @media (max-width: 640px) {
-
   /* Encabezado integrado visualmente con el Hero */
   .taquilla .cabecera-home {
     min-height: 56px;
@@ -247,7 +246,7 @@
     padding: 16px 12px;
   }
 
-  .menu-home .enlaces-menu-movil>a {
+  .menu-home .enlaces-menu-movil > a {
     display: flex;
     align-items: center;
     flex: 0 0 52px;
@@ -260,7 +259,7 @@
     text-decoration: none;
   }
 
-  .menu-home .enlaces-menu-movil>a.active {
+  .menu-home .enlaces-menu-movil > a.active {
     background: var(--fondo-sutil);
   }
 
@@ -339,7 +338,7 @@
 
   /* Botones: 302 × 40 px */
   .menu-home .grupo-sesion-menu .ingresar-home,
-  .menu-home .grupo-sesion-menu>.boton-home.primario {
+  .menu-home .grupo-sesion-menu > .boton-home.primario {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -362,7 +361,7 @@
     color: var(--texto-principal);
   }
 
-  .menu-home .grupo-sesion-menu>.boton-home.primario {
+  .menu-home .grupo-sesion-menu > .boton-home.primario {
     border: 1px solid var(--fondo-inverso);
     background: var(--marca-primario);
     color: var(--texto-inverso);
@@ -403,7 +402,7 @@
   white-space: normal;
 }
 
-.taquilla .grupo-sesion-menu>.boton-home.primario {
+.taquilla .grupo-sesion-menu > .boton-home.primario {
   box-sizing: border-box;
   flex: 0 1 auto;
   min-width: 121px;
@@ -618,7 +617,6 @@
   }
 }
 
-
 /* =========================================
    NAVBAR EXPLORAR: TABLET Y MÓVIL
    ========================================= */
@@ -637,7 +635,7 @@
     gap: 14px;
   }
 
-  .taquilla .cabecera-explorar .fila-cabecera>.marca-home {
+  .taquilla .cabecera-explorar .fila-cabecera > .marca-home {
     margin-right: auto;
     color: var(--texto-principal);
   }
@@ -664,7 +662,6 @@
    ========================================= */
 
 @media (min-width: 641px) and (max-width: 1024px) {
-
   .taquilla .cabecera-explorar .buscar-movil,
   .taquilla .cabecera-explorar .ingreso-movil {
     display: flex;
@@ -750,7 +747,7 @@
     padding: 16px 12px;
   }
 
-  .taquilla .cabecera-explorar .enlaces-menu-movil>a {
+  .taquilla .cabecera-explorar .enlaces-menu-movil > a {
     display: flex;
     align-items: center;
     min-height: 52px;
@@ -804,7 +801,7 @@
 
 /* Logo de Explorar según Figma: 32 × 32 px */
 @media (max-width: 1024px) {
-  .taquilla .cabecera-explorar .fila-cabecera>.marca-home .emblema {
+  .taquilla .cabecera-explorar .fila-cabecera > .marca-home .emblema {
     display: grid;
     place-items: center;
     flex: 0 0 32px;
@@ -815,7 +812,7 @@
     color: var(--texto-inverso);
   }
 
-  .taquilla .cabecera-explorar .fila-cabecera>.marca-home .emblema svg {
+  .taquilla .cabecera-explorar .fila-cabecera > .marca-home .emblema svg {
     display: block;
     width: 24px;
     height: 24px;

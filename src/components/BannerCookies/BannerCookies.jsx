@@ -1,11 +1,6 @@
-
 import "./BannerCookies.css";
 
-export default function BannerCookies({
-  textos,
-  onAceptar,
-  onRechazar,
-}) {
+export default function BannerCookies({ textos, onAceptar, onRechazar }) {
   return (
     <aside className="banner-cookies" aria-label={textos.banner}>
       <div className="banner-cookies-contenido">
