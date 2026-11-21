@@ -1,66 +1,66 @@
+import { Link } from "react-router";
 import AficheEvento from "../AficheEvento/AficheEvento.jsx";
 import IconoEvento from "../IconoEvento/IconoEvento.jsx";
-import { dinero } from "../../data/catalogo.js";
-import "./TarjetaEvento.css";
+import Etiqueta from "../Etiqueta/Etiqueta.jsx";
 import Boton from "../Boton/Boton.jsx";
+import { usePreferencias } from "../../hooks/usePreferencias.js";
+import {
+  formatoFechaHora,
+  formatoPrecio,
+  interpolar,
+} from "../../utils/formato.js";
+import "./TarjetaEvento.css";
 
-export default function TarjetaEvento({ evento, onAbrir, en, textos }) {
-  const textosTarjeta = textos?.paginas?.inicio?.tarjeta;
-  const categoriasAPI = textos?.general?.categorias;
-
-  // Traduce la categoría usando su identificador original de la API.
-  const categoriaId = evento.original?.categoria;
-
-  const categoria = en
-    ? (categoriasAPI?.[categoriaId] ?? evento.etiqueta)
-    : evento.etiqueta;
-
-  const textoDesde = textosTarjeta?.desde ?? (en ? "From" : "Desde");
-
-  const textoVerEvento =
-    textosTarjeta?.botones?.verEvento ?? (en ? "View event" : "Ver evento");
-
-  const fecha = new Date(`${evento.fecha}T12:00:00`);
-
-  const fechaFormateada = en
-    ? fecha.toLocaleDateString("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-      })
-    : evento.horario;
+/**
+ * Tarjeta de evento (Figma: «Tarjeta de evento»). Recibe el evento tal como
+ * lo entrega la API. Toda la tarjeta lleva al detalle /eventos/:slug.
+ */
+export default function TarjetaEvento({ evento }) {
+  const { idioma, textos } = usePreferencias();
+  const t = textos?.paginas?.inicio?.tarjeta;
+  const general = textos?.general;
+  const ruta = `/eventos/${evento.slug}`;
 
   return (
     <article className="tarjeta-evento">
-      <AficheEvento variante={evento.arte} />
-
+      <AficheEvento afiche={evento.afiche} />
       <div className="contenido-evento">
-        <span className="etiqueta-evento">{categoria}</span>
-
-        <h3>{evento.nombre}</h3>
-
+        <Etiqueta tono="marca">
+          {general?.categorias?.singular?.[evento.categoria] ??
+            evento.categoria}
+        </Etiqueta>
+        <h3>
+          <Link to={ruta} className="enlace-tarjeta">
+            {evento.titulo}
+          </Link>
+        </h3>
         <p>
-          <IconoEvento tipo="fecha" />
-          {fechaFormateada}
+          <IconoEvento tipo="fecha" tamano={16} />
+          {formatoFechaHora(
+            evento.fecha,
+            idioma,
+            general?.formatos?.fechaYHora,
+          )}
         </p>
-
         <p>
-          <IconoEvento tipo="lugar" />
-          {evento.lugar}, {evento.ciudad}
+          <IconoEvento tipo="lugar" tamano={16} />
+          {interpolar(general?.formatos?.lugarYCiudad, {
+            lugar: evento.recinto?.nombre,
+            ciudad: evento.recinto?.ciudad,
+          })}
         </p>
-
         <div className="precio-evento">
           <div>
-            <small>{textoDesde}</small>
-            <strong>{dinero(evento.precio)}</strong>
+            <small>{t?.desde}</small>
+            <strong>{formatoPrecio(evento.precioDesde)}</strong>
           </div>
-
           <Boton
             variante="secundario"
-            aria-label={`${textoVerEvento}: ${evento.nombre}`}
-            onClick={() => onAbrir(evento)}
+            to={ruta}
+            tabIndex={-1}
+            aria-hidden="true"
           >
-            {textoVerEvento}
+            {t?.botones?.verEvento}
           </Boton>
         </div>
       </div>

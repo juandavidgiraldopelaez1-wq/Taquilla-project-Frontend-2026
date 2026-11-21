@@ -1,0 +1,26 @@
+.estado-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-2);
+  padding: var(--espacio-12) var(--espacio-6);
+  background: var(--fondo-superficie);
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-l);
+  text-align: center;
+}
+
+.estado-vacio h2 {
+  margin: 0;
+  font-size: var(--tamano-h3);
+  line-height: var(--interlineado-h3);
+  letter-spacing: var(--espaciado-h3);
+  font-weight: var(--peso-seminegrita);
+}
+
+.estado-vacio p {
+  margin: 0 0 var(--espacio-2);
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+  color: var(--texto-secundario);
+}

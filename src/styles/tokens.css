@@ -48,6 +48,7 @@
   /* Color de apoyo derivado de los tokens: velo sobre afiches y modales. */
   --velo-oscuro: rgb(20 20 20 / 50%);
   --velo-claro: rgb(255 255 255 / 12%);
+  --velo-sombra: rgb(0 0 0 / 12%);
 
   /* Foco visible: Figma marca el foco con borde de 2 px en fondo inverso. */
   --foco: var(--fondo-inverso);

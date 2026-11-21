@@ -1,36 +1,28 @@
+import { Link } from "react-router";
 import Flecha from "../Flecha/Flecha.jsx";
 import TarjetaEvento from "../TarjetaEvento/TarjetaEvento.jsx";
+import EstadoCarga from "../EstadoCarga/EstadoCarga.jsx";
+import EstadoError from "../EstadoError/EstadoError.jsx";
+import EstadoVacio from "../EstadoVacio/EstadoVacio.jsx";
 import "./SeccionEventos.css";
-import Boton from "../Boton/Boton.jsx";
 
+/**
+ * Sección con título, enlace «Ver todos» y cuadrícula de tarjetas.
+ * `estado` es el resultado de useRecurso: { cargando, error, recargar }.
+ */
 export default function SeccionEventos({
   id,
   titulo,
   tituloMovil,
   descripcion,
+  verTodos,
   eventos,
-  en,
+  estado,
   textos,
-  onAbrir,
-  onVerTodos,
-  vistaCompleta = false,
 }) {
-  const acciones = textos?.general?.acciones;
-  const vacio = textos?.paginas?.explorar?.vacio;
-
-  const textoVerTodos = acciones?.verTodos ?? (en ? "View all" : "Ver todos");
-
-  const textoSinEventos =
-    vacio?.titulo ?? (en ? "No events found" : "No encontramos eventos");
-
-  const descripcionSinEventos =
-    vacio?.texto ?? (en ? "Try another search." : "Prueba con otra búsqueda.");
-
   return (
     <section
-      className={`seccion-eventos ${
-        vistaCompleta ? "seccion-eventos-completa" : ""
-      }`}
+      className="seccion-eventos"
       id={id}
       aria-labelledby={`${id}-titulo`}
     >
@@ -40,36 +32,28 @@ export default function SeccionEventos({
             <span className="titulo-escritorio">{titulo}</span>
             <span className="titulo-movil">{tituloMovil ?? titulo}</span>
           </h2>
-          <p role="status">{descripcion}</p>
+          <p>{descripcion}</p>
         </div>
-
-        <button type="button" className="enlace-home" onClick={onVerTodos}>
-          {textoVerTodos}
-          <Flecha />
-        </button>
+        {verTodos && (
+          <Link className="enlace-home" to={verTodos.to}>
+            {verTodos.texto}
+            <Flecha />
+          </Link>
+        )}
       </div>
 
-      <div className="eventos-grid">
-        {eventos.map((evento) => (
-          <TarjetaEvento
-            key={evento.id ?? evento.nombre}
-            evento={evento}
-            en={en}
-            textos={textos}
-            onAbrir={onAbrir}
-          />
-        ))}
-      </div>
-
-      {!eventos.length && (
-        <div className="sin-resultados">
-          <h3>{textoSinEventos}</h3>
-          <p>{descripcionSinEventos}</p>
-
-          <Boton variante="primario" onClick={onVerTodos}>
-            {textoVerTodos}
-          </Boton>
+      {estado?.cargando ? (
+        <EstadoCarga textos={textos} tarjetas={eventos?.length || 4} />
+      ) : estado?.error ? (
+        <EstadoError error={estado.error} onReintentar={estado.recargar} />
+      ) : eventos.length ? (
+        <div className="eventos-grid">
+          {eventos.map((evento) => (
+            <TarjetaEvento key={evento.id} evento={evento} />
+          ))}
         </div>
+      ) : (
+        <EstadoVacio textos={textos} />
       )}
     </section>
   );

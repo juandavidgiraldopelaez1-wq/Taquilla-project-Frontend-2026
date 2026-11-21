@@ -1,0 +1,82 @@
+.estado-carga--tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--espacio-6);
+}
+
+.esqueleto-tarjeta {
+  overflow: hidden;
+  background: var(--fondo-superficie);
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-l);
+}
+
+.esqueleto-contenido {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-3);
+  padding: var(--espacio-4);
+}
+
+.esqueleto-bloque {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+}
+
+.esqueleto {
+  border-radius: var(--radio-s);
+  background: linear-gradient(
+    90deg,
+    var(--fondo-sutil) 25%,
+    var(--fondo-presionado) 50%,
+    var(--fondo-sutil) 75%
+  );
+  background-size: 200% 100%;
+  animation: esqueleto-brillo 1.2s ease-in-out infinite;
+}
+
+.esqueleto-imagen {
+  height: 176px;
+  border-radius: 0;
+}
+
+.esqueleto-bloque .esqueleto-imagen {
+  height: 360px;
+  border-radius: var(--radio-l);
+}
+
+.esqueleto-etiqueta {
+  width: 72px;
+  height: 22px;
+}
+
+.esqueleto-titulo {
+  width: 80%;
+  height: var(--interlineado-h3);
+}
+
+.esqueleto-linea {
+  width: 100%;
+  height: var(--interlineado-cuerpo-p);
+}
+
+.esqueleto-linea.corta {
+  width: 60%;
+}
+
+@keyframes esqueleto-brillo {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .esqueleto {
+    animation: none;
+  }
+}

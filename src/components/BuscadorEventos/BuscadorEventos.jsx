@@ -1,163 +1,103 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import IconoEvento from "../IconoEvento/IconoEvento.jsx";
-import "./BuscadorEventos.css";
 import Boton from "../Boton/Boton.jsx";
 import Icono from "../Icono/Icono.jsx";
+import { interpolar } from "../../utils/formato.js";
+import { rangoFecha } from "../../utils/filtros.js";
+import { useEsMovil } from "../../hooks/useEsMovil.js";
+import "./BuscadorEventos.css";
 
-const CONSULTA_MOVIL = "(max-width: 640px)";
+// Atajos de fecha del diseño; sus nombres salen de paginas.explorar.filtros.fecha.
+const ATAJOS_FECHA = ["hoy", "finDeSemana", "mes"];
 
-function ciudadInicial(filtrosAplicados) {
-  return filtrosAplicados === null
-    ? "Manizales"
-    : (filtrosAplicados?.ciudad ?? "");
-}
-
+/**
+ * Buscador principal del hero (Figma: «Buscador principal»).
+ * Qué, Dónde (GET /ciudades) y Cuándo. Al buscar, lleva a Explorar con los
+ * filtros en la URL. La ciudad elegida también cambia «Próximamente en…».
+ */
 export default function BuscadorEventos({
-  en,
-  eventos,
   textos,
+  ciudades,
+  ciudad,
+  onCambiarCiudad,
   onBuscar,
-  filtrosAplicados = null,
 }) {
-  const [consulta, setConsulta] = useState(
-    () => filtrosAplicados?.consulta ?? "",
-  );
-  const [ciudad, setCiudad] = useState(() => ciudadInicial(filtrosAplicados));
-  const [fecha, setFecha] = useState(() => filtrosAplicados?.fecha ?? "");
-  const [filtrosPrevios, setFiltrosPrevios] = useState(filtrosAplicados);
-  const [esMovil, setEsMovil] = useState(
-    () => window.matchMedia(CONSULTA_MOVIL).matches,
-  );
-  const [filtrosMovilesAbiertos, setFiltrosMovilesAbiertos] = useState(false);
+  const [consulta, setConsulta] = useState("");
+  const [atajo, setAtajo] = useState("");
+  const [filtrosAbiertos, setFiltrosAbiertos] = useState(false);
+  const esMovil = useEsMovil();
 
   const buscador = textos?.paginas?.inicio?.hero?.buscador;
-  const etiquetas = buscador?.etiquetas;
-  const placeholders = buscador?.placeholders;
-
-  const textoBuscar = buscador?.botones?.buscar ?? (en ? "Search" : "Buscar");
-
-  const textoCiudadTodas = en ? "All cities" : "Todas las ciudades";
-
-  useEffect(() => {
-    const media = window.matchMedia(CONSULTA_MOVIL);
-
-    function actualizarVista(evento) {
-      setEsMovil(evento.matches);
-    }
-
-    media.addEventListener("change", actualizarVista);
-
-    return () => {
-      media.removeEventListener("change", actualizarVista);
-    };
-  }, []);
-
-  // Si cambian los filtros aplicados desde afuera, se reflejan en el formulario.
-  if (filtrosPrevios !== filtrosAplicados) {
-    setFiltrosPrevios(filtrosAplicados);
-    setConsulta(filtrosAplicados?.consulta ?? "");
-    setCiudad(ciudadInicial(filtrosAplicados));
-    setFecha(filtrosAplicados?.fecha ?? "");
-  }
+  const fechas = textos?.paginas?.explorar?.filtros?.fecha;
+  const etiquetaFecha = atajo
+    ? fechas?.[atajo]
+    : buscador?.placeholders?.cuando;
 
   function buscar(evento) {
     evento.preventDefault();
-    onBuscar({ consulta, ciudad, fecha });
-    setFiltrosMovilesAbiertos(false);
+    setFiltrosAbiertos(false);
+    onBuscar({ q: consulta.trim(), ciudad, ...rangoFecha(atajo) });
   }
-
-  const etiquetaFecha = fecha
-    ? new Intl.DateTimeFormat(en ? "en-US" : "es-CO", {
-        day: "numeric",
-        month: "short",
-      }).format(new Date(`${fecha}T12:00:00`))
-    : (placeholders?.cuando ?? (en ? "Any date" : "Cualquier fecha"));
-
-  const plantillaResumen = buscador?.resumenMovil ?? "{ciudad} · {fecha}";
-
-  const resumenFiltros = plantillaResumen
-    .replace("{ciudad}", ciudad || textoCiudadTodas)
-    .replace("{fecha}", etiquetaFecha);
 
   return (
     <form
-      id="buscador-eventos"
-      className={`buscador-eventos ${
-        filtrosMovilesAbiertos ? "filtros-moviles-abiertos" : ""
-      }`}
+      className={`buscador-eventos ${filtrosAbiertos ? "filtros-moviles-abiertos" : ""}`}
       role="search"
+      aria-label={textos?.navbar?.buscador?.aria}
       onSubmit={buscar}
-      aria-label={en ? "Find events" : "Buscar eventos"}
     >
       <label className="campo-consulta">
-        <IconoEvento tipo="buscar" />
-
+        <IconoEvento tipo="buscar" tamano={18} />
         <span>
-          <span>{etiquetas?.que ?? (en ? "What" : "Qué")}</span>
-
+          <span>{buscador?.etiquetas?.que}</span>
           <input
             type="search"
             value={consulta}
             onChange={(evento) => setConsulta(evento.target.value)}
             placeholder={
               esMovil
-                ? (placeholders?.movil ??
-                  (en ? "Event, artist or venue" : "Evento, artista o lugar"))
-                : (placeholders?.que ??
-                  (en ? "Event or artist" : "Evento o artista"))
+                ? buscador?.placeholders?.movil
+                : buscador?.placeholders?.que
             }
           />
-
-          <small className="resumen-filtros-movil">{resumenFiltros}</small>
+          <small className="resumen-filtros-movil">
+            {interpolar(buscador?.resumenMovil, {
+              ciudad,
+              fecha: etiquetaFecha,
+            })}
+          </small>
         </span>
       </label>
 
       <label className="campo-ciudad">
-        <IconoEvento tipo="lugar" />
-
+        <IconoEvento tipo="lugar" tamano={18} />
         <span>
-          <span>{etiquetas?.donde ?? (en ? "Where" : "Dónde")}</span>
-
+          <span>{buscador?.etiquetas?.donde}</span>
           <select
             value={ciudad}
-            onChange={(evento) => setCiudad(evento.target.value)}
+            onChange={(evento) => onCambiarCiudad(evento.target.value)}
           >
-            <option value="">{textoCiudadTodas}</option>
-
-            {["Manizales", "Pereira", "Bogotá", "Medellín", "Armenia"].map(
-              (valor) => (
-                <option key={valor} value={valor}>
-                  {valor}
-                </option>
-              ),
-            )}
+            {ciudades.map((opcion) => (
+              <option key={opcion.nombre} value={opcion.nombre}>
+                {opcion.nombre}
+              </option>
+            ))}
           </select>
         </span>
       </label>
 
       <label className="campo-fecha">
-        <IconoEvento tipo="fecha" />
-
+        <IconoEvento tipo="fecha" tamano={18} />
         <span>
-          <span>{etiquetas?.cuando ?? (en ? "When" : "Cuándo")}</span>
-
+          <span>{buscador?.etiquetas?.cuando}</span>
           <select
-            value={fecha}
-            onChange={(evento) => setFecha(evento.target.value)}
+            value={atajo}
+            onChange={(evento) => setAtajo(evento.target.value)}
           >
-            <option value="">
-              {placeholders?.cuando ?? (en ? "Any date" : "Cualquier fecha")}
-            </option>
-
-            {eventos.map((evento) => (
-              <option key={evento.fecha} value={evento.fecha}>
-                {new Date(`${evento.fecha}T12:00:00`).toLocaleDateString(
-                  en ? "en" : "es-CO",
-                  {
-                    day: "numeric",
-                    month: "short",
-                  },
-                )}
+            <option value="">{buscador?.placeholders?.cuando}</option>
+            {ATAJOS_FECHA.map((valor) => (
+              <option key={valor} value={valor}>
+                {fechas?.[valor]}
               </option>
             ))}
           </select>
@@ -167,15 +107,15 @@ export default function BuscadorEventos({
       <button
         type="button"
         className="boton-filtros-buscador"
-        aria-label={en ? "Search filters" : "Filtros de búsqueda"}
-        aria-expanded={filtrosMovilesAbiertos}
-        onClick={() => setFiltrosMovilesAbiertos((actual) => !actual)}
+        aria-label={textos?.paginas?.explorar?.filtros?.titulo}
+        aria-expanded={filtrosAbiertos}
+        onClick={() => setFiltrosAbiertos((actual) => !actual)}
       >
         <Icono nombre="sliders" tamano={18} />
       </button>
 
-      <Boton variante="primario" type="submit">
-        {textoBuscar}
+      <Boton variante="primario" tamano="g" type="submit">
+        {buscador?.botones?.buscar}
       </Boton>
     </form>
   );

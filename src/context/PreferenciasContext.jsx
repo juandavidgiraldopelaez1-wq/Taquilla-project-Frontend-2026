@@ -4,7 +4,6 @@ import {
   guardarCookie,
   borrarCookie,
 } from "../services/cookies.js";
-import { proyecto } from "../config/proyecto.js";
 import { useRecurso } from "../hooks/useRecurso.js";
 import { PreferenciasContext } from "./preferenciasContexto.js";
 
@@ -72,14 +71,15 @@ export function PreferenciasProvider({ children }) {
   const [errorAccesibilidad, setErrorAccesibilidad] = useState(false);
 
   // Consulta los textos correspondientes al idioma actual.
-  const { datos: respuestaTextos } = useRecurso(`/textos?idioma=${idioma}`);
+  const { datos: respuestaTextos } = useRecurso(`/textos?idioma=${idioma}`, {
+    cache: true,
+  });
 
   // Si la API todavía está cargando o falla, los textos quedan en null.
   const textos = respuestaTextos?.textos ?? null;
 
   useEffect(() => {
     document.documentElement.lang = idioma;
-    document.title = `${proyecto.nombre} · ${idioma === "en" ? "Home" : "Inicio"}`;
   }, [idioma]);
 
   // Expone los ajustes para que los estilos puedan aplicarlos a la página.
