@@ -1,64 +1,38 @@
-.marca-home {
+.marca {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--espacio-2);
   flex-shrink: 0;
-  font-family: "Syne", sans-serif;
-  font-size: var(--tamano-h2);
+  font-family: var(--fuente-texto);
+  font-size: var(--tamano-h3);
+  line-height: var(--interlineado-h3);
   font-weight: var(--peso-seminegrita);
+  letter-spacing: var(--espaciado-h3);
+  color: var(--texto-principal);
+  text-decoration: none;
 }
 
-.emblema {
+.marca-emblema {
   display: grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
-  background: var(--marca-primario);
-  color: var(--texto-inverso);
-  border-radius: 50%;
-}
-
-.emblema svg {
   width: 32px;
   height: 32px;
-}
-
-@media (max-width: 640px) {
-  .marca-home {
-    font-size: var(--tamano-h3);
-  }
-}
-
-.taquilla .marca-home {
-  font-family: "Instrument Sans", sans-serif;
-}
-
-.taquilla .emblema {
-  background: var(--marca-primario);
-  color: var(--texto-inverso);
   border-radius: var(--radio-m);
-  width: 32px;
-  height: 32px;
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
 }
 
-.taquilla .emblema svg {
-  width: 18px;
-  height: 18px;
+.marca--inverso {
+  color: var(--texto-inverso);
 }
 
-/* Ajuste exclusivo del logo en móvil */
-@media (max-width: 640px) {
-  .taquilla .cabecera-home .fila-cabecera > .marca-home .emblema {
-    width: 32px;
-    height: 32px;
-    flex: 0 0 32px;
-    border-radius: var(--radio-m);
-    background: var(--fondo-superficie);
-    color: var(--texto-principal);
-  }
+.marca--inverso .marca-emblema {
+  background: var(--texto-inverso);
+  color: var(--texto-principal);
+}
 
-  .taquilla .cabecera-home .fila-cabecera > .marca-home .emblema svg {
-    width: 18px;
-    height: 18px;
-  }
+.marca:focus-visible {
+  outline: 2px solid var(--foco);
+  outline-offset: 4px;
+  border-radius: var(--radio-m);
 }
