@@ -1,7 +1,7 @@
-
 import Flecha from "../Flecha/Flecha.jsx";
 import TarjetaEvento from "../TarjetaEvento/TarjetaEvento.jsx";
 import "./SeccionEventos.css";
+import Boton from "../Boton/Boton.jsx";
 
 export default function SeccionEventos({
   id,
@@ -18,8 +18,7 @@ export default function SeccionEventos({
   const acciones = textos?.general?.acciones;
   const vacio = textos?.paginas?.explorar?.vacio;
 
-  const textoVerTodos =
-    acciones?.verTodos ?? (en ? "View all" : "Ver todos");
+  const textoVerTodos = acciones?.verTodos ?? (en ? "View all" : "Ver todos");
 
   const textoSinEventos =
     vacio?.titulo ?? (en ? "No events found" : "No encontramos eventos");
@@ -29,8 +28,9 @@ export default function SeccionEventos({
 
   return (
     <section
-      className={`seccion-eventos ${vistaCompleta ? "seccion-eventos-completa" : ""
-        }`}
+      className={`seccion-eventos ${
+        vistaCompleta ? "seccion-eventos-completa" : ""
+      }`}
       id={id}
       aria-labelledby={`${id}-titulo`}
     >
@@ -43,11 +43,7 @@ export default function SeccionEventos({
           <p role="status">{descripcion}</p>
         </div>
 
-        <button
-          type="button"
-          className="enlace-home"
-          onClick={onVerTodos}
-        >
+        <button type="button" className="enlace-home" onClick={onVerTodos}>
           {textoVerTodos}
           <Flecha />
         </button>
@@ -70,13 +66,9 @@ export default function SeccionEventos({
           <h3>{textoSinEventos}</h3>
           <p>{descripcionSinEventos}</p>
 
-          <button
-            type="button"
-            className="boton-home primario"
-            onClick={onVerTodos}
-          >
+          <Boton variante="primario" onClick={onVerTodos}>
             {textoVerTodos}
-          </button>
+          </Boton>
         </div>
       )}
     </section>

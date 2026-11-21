@@ -2,27 +2,27 @@
   width: min(480px, calc(100% - 32px));
   max-height: calc(100dvh - 40px);
   padding: 36px;
-  border: 1px solid var(--borde);
-  border-radius: 16px;
-  background: var(--superficie);
-  color: var(--tinta);
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-xl);
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
 }
 .detalle-home::backdrop {
-  background: rgb(0 0 0 / 65%);
+  background: var(--velo-oscuro);
 }
 .detalle-home h2 {
   padding-right: 28px;
-  font-size: 28px;
+  font-size: var(--tamano-h2);
 }
 .detalle-home p {
   margin: 16px 0 24px;
-  color: var(--suave);
+  color: var(--texto-secundario);
 }
 .detalle-home > svg {
   display: block;
   width: 100%;
   max-width: 240px;
-  border-radius: 12px;
+  border-radius: var(--radio-l);
   margin: 0 auto 24px;
 }
 .cerrar-detalle {
@@ -33,8 +33,8 @@
   height: 44px;
   border: 0;
   background: none;
-  color: var(--tinta);
-  font-size: 28px !important;
+  color: var(--texto-principal);
+  font-size: var(--tamano-h2) !important;
 }
 body:has(.detalle-home[open]) {
   overflow: hidden;
@@ -45,10 +45,10 @@ body:has(.detalle-home[open]) {
   }
 }
 .resumen-evento .arte-evento {
-  border-radius: 10px;
+  border-radius: var(--radio-l);
 }
 .resumen-evento small {
   display: block;
   margin-bottom: 24px;
-  color: #595959;
+  color: var(--texto-secundario);
 }

@@ -1,4 +1,5 @@
 cat > IA.md <<'EOF'
+
 # Uso de inteligencia artificial
 
 ## Herramienta utilizada

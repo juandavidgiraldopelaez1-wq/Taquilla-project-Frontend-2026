@@ -1,4 +1,3 @@
-
 import "./Marca.css";
 
 export default function Marca({ nombre, tipo }) {

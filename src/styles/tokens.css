@@ -1,20 +1,126 @@
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap");
 
+/*
+ * Tokens del sistema de diseño de Taquilla.
+ * Fuente: Figma, página «Sistema de diseño». Los nombres de color son los
+ * nombres de variable CSS que Figma muestra en Dev Mode; no se cambian.
+ * Ningún componente debe usar colores, tamaños de letra, radios ni sombras
+ * escritos a mano: siempre una de estas variables.
+ */
 :root {
-  --fondo: #f7f7f7;
-  --superficie: #fff;
-  --tinta: #141414;
-  --suave: #595959;
-  --acento: #141414;
-  --sobre-acento: #fff;
-  --borde: #dedede;
-  --fuente-texto: "Instrument Sans", sans-serif;
-  --fuente-titulos: "Instrument Sans", sans-serif;
-  --color-foco: #713bfa;
-  --espacio-1: 0.5rem;
-  --espacio-2: 1rem;
-  --espacio-3: 1.5rem;
-  --espacio-4: 2rem;
-  --radio: 0.75rem;
+  /* Color · fondo */
+  --fondo-pagina: #f7f7f7;
+  --fondo-superficie: #ffffff;
+  --fondo-sutil: #f0f0f0;
+  --fondo-presionado: #e5e5e5;
+  --fondo-inverso: #141414;
+  --fondo-inverso-2: #262626;
+  --fondo-inverso-presionado: #3a3a3a;
+
+  /* Color · marca */
+  --marca-primario: #141414;
+  --marca-primario-hover: #2e2e2e;
+  --marca-primario-presionado: #000000;
+  --marca-primario-suave: #f0f0f0;
+  --marca-acento: #c9a24d;
+
+  /* Color · texto */
+  --texto-principal: #141414;
+  --texto-secundario: #525252;
+  --texto-terciario: #6b6b6b;
+  --texto-inverso: #ffffff;
+  --texto-inverso-suave: #a8a8a8;
+  --texto-marca: #141414;
+
+  /* Color · borde */
+  --borde-sutil: #e5e5e5;
+  --borde-fuerte: #8c8c8c;
+  --borde-inverso: #3a3a3a;
+
+  /* Color · estado */
+  --estado-exito: #1a7f4b;
+  --estado-exito-suave: #e8f5ec;
+  --estado-alerta: #9a6700;
+  --estado-alerta-suave: #fff4d6;
+  --estado-error: #c5221f;
+  --estado-error-suave: #fce8e6;
+
+  /* Color de apoyo derivado de los tokens: velo sobre afiches y modales. */
+  --velo-oscuro: rgb(20 20 20 / 50%);
+  --velo-claro: rgb(255 255 255 / 12%);
+
+  /* Foco visible: Figma marca el foco con borde de 2 px en fondo inverso. */
+  --foco: var(--fondo-inverso);
+  --foco-inverso: var(--texto-inverso);
+
+  /* Tipografía · una sola familia (Instrument Sans) */
+  --fuente-texto: "Instrument Sans", system-ui, sans-serif;
+  --peso-regular: 400;
+  --peso-medio: 500;
+  --peso-seminegrita: 600;
+
+  /*
+   * Escala tipográfica de Figma. Cada tamaño se multiplica por
+   * --escala-texto, que ajusta el panel de accesibilidad (80 % a 150 %).
+   */
+  --tamano-display: calc(52px * var(--escala-texto, 1));
+  --tamano-h1: calc(34px * var(--escala-texto, 1));
+  --tamano-h2: calc(24px * var(--escala-texto, 1));
+  --tamano-h3: calc(20px * var(--escala-texto, 1));
+  --tamano-h4: calc(16px * var(--escala-texto, 1));
+  --tamano-cifra: calc(30px * var(--escala-texto, 1));
+  --tamano-cuerpo-g: calc(18px * var(--escala-texto, 1));
+  --tamano-cuerpo-m: calc(16px * var(--escala-texto, 1));
+  --tamano-cuerpo-p: calc(14px * var(--escala-texto, 1));
+  --tamano-detalle: calc(12px * var(--escala-texto, 1));
+
+  --interlineado-display: calc(56px * var(--escala-texto, 1));
+  --interlineado-h1: calc(40px * var(--escala-texto, 1));
+  --interlineado-h2: calc(30px * var(--escala-texto, 1));
+  --interlineado-h3: calc(26px * var(--escala-texto, 1));
+  --interlineado-h4: calc(22px * var(--escala-texto, 1));
+  --interlineado-cifra: calc(34px * var(--escala-texto, 1));
+  --interlineado-cuerpo-g: calc(28px * var(--escala-texto, 1));
+  --interlineado-cuerpo-m: calc(24px * var(--escala-texto, 1));
+  --interlineado-cuerpo-p: calc(20px * var(--escala-texto, 1));
+  --interlineado-detalle: calc(16px * var(--escala-texto, 1));
+
+  /* Figma expresa el espaciado entre letras en porcentaje del tamaño. */
+  --espaciado-display: -0.025em;
+  --espaciado-h1: -0.02em;
+  --espaciado-h2: -0.015em;
+  --espaciado-h3: -0.01em;
+  --espaciado-h4: -0.005em;
+
+  /* Radios usados en los componentes de Figma */
+  --radio-s: 6px;
+  --radio-m: 8px;
+  --radio-l: 12px;
+  --radio-xl: 16px;
+  --radio-xxl: 24px;
+  --radio-pildora: 999px;
+
+  /* Sombras (estilo de efecto «Sombra/Flotante») */
+  --sombra-flotante: 0 8px 24px rgb(20 20 20 / 10%);
+  --sombra-modal: 0 16px 48px rgb(20 20 20 / 18%);
+
+  /* Espaciado en múltiplos de 4 px */
+  --espacio-1: 4px;
+  --espacio-2: 8px;
+  --espacio-3: 12px;
+  --espacio-4: 16px;
+  --espacio-5: 20px;
+  --espacio-6: 24px;
+  --espacio-8: 32px;
+  --espacio-10: 40px;
+  --espacio-12: 48px;
+  --espacio-16: 64px;
+  --espacio-20: 80px;
+
+  /* Diseño de página: 1440 px con 80 px de margen lateral en web */
   --ancho-contenido: 1280px;
+  --margen-pagina: 80px;
+  --margen-pagina-movil: 20px;
+  --alto-navegacion: 72px;
+  --alto-navegacion-movil: 60px;
 }

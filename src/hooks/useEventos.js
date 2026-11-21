@@ -17,9 +17,7 @@ export function useEventos(eventos) {
   function buscar(valores) {
     setFiltros(valores);
 
-    document
-      .getElementById("eventos")
-      ?.scrollIntoView({ block: "start" });
+    document.getElementById("eventos")?.scrollIntoView({ block: "start" });
   }
 
   function filtrarCategoria(categoria) {

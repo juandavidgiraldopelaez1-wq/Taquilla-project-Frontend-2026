@@ -1,11 +1,7 @@
-
 import "./BannerCookies.css";
+import Boton from "../Boton/Boton.jsx";
 
-export default function BannerCookies({
-  textos,
-  onAceptar,
-  onRechazar,
-}) {
+export default function BannerCookies({ textos, onAceptar, onRechazar }) {
   return (
     <aside className="banner-cookies" aria-label={textos.banner}>
       <div className="banner-cookies-contenido">
@@ -14,21 +10,13 @@ export default function BannerCookies({
       </div>
 
       <div className="banner-cookies-acciones">
-        <button
-          type="button"
-          className="boton-home secundario"
-          onClick={onRechazar}
-        >
+        <Boton variante="secundario" onClick={onRechazar}>
           {textos.rechazar}
-        </button>
+        </Boton>
 
-        <button
-          type="button"
-          className="boton-home primario"
-          onClick={onAceptar}
-        >
+        <Boton variante="primario" onClick={onAceptar}>
           {textos.aceptar}
-        </button>
+        </Boton>
       </div>
     </aside>
   );

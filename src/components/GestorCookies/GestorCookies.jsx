@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { usePreferencias } from "../../hooks/usePreferencias.js";
 import { interfaz } from "../../data/interfaz.js";
@@ -37,25 +36,19 @@ export default function GestorCookies({ abierto, onCerrar }) {
 
     // Panel de preferencias.
     cookies: apiPreferencias?.titulo ?? base.cookies,
-    descripcionPreferencias:
-      apiPreferencias?.texto ?? base.descripcion,
+    descripcionPreferencias: apiPreferencias?.texto ?? base.descripcion,
 
     necesarias: necesarias?.nombre ?? base.necesarias,
-    necesariasTexto:
-      necesarias?.descripcion ?? base.necesariasTexto,
+    necesariasTexto: necesarias?.descripcion ?? base.necesariasTexto,
 
     preferencias: preferencias?.nombre ?? base.preferencias,
-    preferenciasTexto:
-      preferencias?.descripcion ?? base.preferenciasTexto,
+    preferenciasTexto: preferencias?.descripcion ?? base.preferenciasTexto,
 
-    guardar:
-      apiPreferencias?.botones?.guardarSeleccion ?? base.guardar,
+    guardar: apiPreferencias?.botones?.guardarSeleccion ?? base.guardar,
 
-    cerrar:
-      textosApi?.general?.acciones?.cerrar ?? base.cerrar,
+    cerrar: textosApi?.general?.acciones?.cerrar ?? base.cerrar,
 
-    guardado:
-      apiPreferencias?.mensajes?.guardada ?? base.guardado,
+    guardado: apiPreferencias?.mensajes?.guardada ?? base.guardado,
   };
 
   function guardar(permitir) {

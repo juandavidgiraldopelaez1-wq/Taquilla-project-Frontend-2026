@@ -1,0 +1,114 @@
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--espacio-2);
+  border: 0;
+  border-radius: var(--radio-m);
+  font-family: var(--fuente-texto);
+  font-weight: var(--peso-medio);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* Tamaños: M = Cuerpo/P fuerte, G = Cuerpo/M fuerte */
+.boton--m {
+  padding: 10px 18px;
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+}
+
+.boton--g {
+  padding: 14px 26px;
+  font-size: var(--tamano-cuerpo-m);
+  line-height: var(--interlineado-cuerpo-m);
+}
+
+.boton--primario {
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
+}
+
+.boton--primario:hover {
+  background: var(--marca-primario-hover);
+}
+
+.boton--primario:active {
+  background: var(--marca-primario-presionado);
+}
+
+.boton--secundario {
+  background: var(--fondo-superficie);
+  border: 1px solid var(--borde-fuerte);
+  color: var(--texto-principal);
+}
+
+.boton--secundario:hover {
+  background: var(--fondo-sutil);
+}
+
+.boton--secundario:active {
+  background: var(--fondo-presionado);
+}
+
+.boton--fantasma {
+  background: transparent;
+  color: var(--texto-principal);
+}
+
+.boton--fantasma:hover {
+  background: var(--fondo-sutil);
+}
+
+.boton--fantasma:active {
+  background: var(--fondo-presionado);
+}
+
+.boton--inverso {
+  background: var(--fondo-inverso);
+  color: var(--texto-inverso);
+}
+
+.boton--inverso:hover {
+  background: var(--fondo-inverso-2);
+}
+
+.boton--inverso:active {
+  background: var(--fondo-inverso-presionado);
+}
+
+.boton:focus-visible {
+  outline: 2px solid var(--foco);
+  outline-offset: 2px;
+}
+
+.boton:disabled,
+.boton[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* En pantallas táctiles no hay hover: solo se ve Presionado. */
+@media (hover: none) {
+  .boton--primario:hover {
+    background: var(--marca-primario);
+  }
+
+  .boton--secundario:hover {
+    background: var(--fondo-superficie);
+  }
+
+  .boton--fantasma:hover {
+    background: transparent;
+  }
+
+  .boton--inverso:hover {
+    background: var(--fondo-inverso);
+  }
+}

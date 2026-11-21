@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { proyecto } from "../../config/proyecto.js";
 import { usePreferencias } from "../../hooks/usePreferencias.js";
@@ -66,10 +65,7 @@ export default function LayoutPublico({
         onAbrirCookies={abrirCookies}
       />
 
-      <GestorCookies
-        abierto={cookiesAbiertas}
-        onCerrar={cerrarCookies}
-      />
+      <GestorCookies abierto={cookiesAbiertas} onCerrar={cerrarCookies} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useId } from "react";
 import "./DialogoDetalle.css";
+import Boton from "../Boton/Boton.jsx";
 export default function DialogoDetalle({ detalle, onCerrar }) {
   const dialogo = useRef(null);
   const id = useId();
@@ -24,12 +25,9 @@ export default function DialogoDetalle({ detalle, onCerrar }) {
       <h2 id={id}>{detalle?.titulo}</h2>
       <p>{detalle?.descripcion}</p>
       {detalle?.contenido}
-      <button
-        className="boton-home primario"
-        onClick={() => dialogo.current.close()}
-      >
+      <Boton variante="primario" onClick={() => dialogo.current.close()}>
         {detalle?.cerrar ?? "Cerrar"}
-      </button>
+      </Boton>
     </dialog>
   );
 }

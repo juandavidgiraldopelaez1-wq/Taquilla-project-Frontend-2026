@@ -16,13 +16,13 @@
 
   padding: 24px 32px;
 
-  border: 1px solid #8c8c8c;
-  border-radius: 16px;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-xl);
 
-  background: #ffffff;
-  color: #141414;
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
 
-  box-shadow: 0 8px 24px rgba(20, 20, 20, 0.1);
+  box-shadow: var(--sombra-flotante);
 
   max-height: calc(100dvh - 32px);
   overflow: auto;
@@ -35,18 +35,18 @@
 
 .banner-cookies h2 {
   margin: 0 0 4px;
-  font-size: calc(14px * var(--escala-texto, 1));
-  font-weight: 600;
+  font-size: var(--tamano-cuerpo-p);
+  font-weight: var(--peso-seminegrita);
   line-height: 20px;
-  color: #141414;
+  color: var(--texto-principal);
 }
 
 .banner-cookies p {
   margin: 0;
-  font-size: calc(12px * var(--escala-texto, 1));
-  font-weight: 400;
+  font-size: var(--tamano-detalle);
+  font-weight: var(--peso-regular);
   line-height: 16px;
-  color: #525252;
+  color: var(--texto-secundario);
 }
 
 .banner-cookies-acciones {
@@ -56,34 +56,34 @@
   gap: 12px;
 }
 
-.banner-cookies .boton-home {
+.banner-cookies .boton {
   box-sizing: border-box;
   height: 41px;
   min-height: 41px;
   padding: 0 12px;
-  border-radius: 8px;
-  font-size: calc(12px * var(--escala-texto, 1));
-  font-weight: 500;
+  border-radius: var(--radio-m);
+  font-size: var(--tamano-detalle);
+  font-weight: var(--peso-medio);
   line-height: 1.2;
   transform: none;
 }
 
-.banner-cookies .boton-home.secundario {
+.banner-cookies .boton--secundario {
   width: 98px;
-  border: 1px solid #8c8c8c;
-  background: #ffffff;
-  color: #141414;
+  border: 1px solid var(--borde-fuerte);
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
 }
 
-.banner-cookies .boton-home.primario {
+.banner-cookies .boton--primario {
   width: 89px;
-  border: 1px solid #141414;
-  background: #141414;
-  color: #ffffff;
+  border: 1px solid var(--fondo-inverso);
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
 }
 
-.banner-cookies .boton-home:focus-visible {
-  outline: 2px solid #141414;
+.banner-cookies .boton:focus-visible {
+  outline: 2px solid var(--fondo-inverso);
   outline-offset: 3px;
 }
 
@@ -113,8 +113,8 @@
     gap: 12px;
   }
 
-  .banner-cookies .boton-home.secundario,
-  .banner-cookies .boton-home.primario {
+  .banner-cookies .boton--secundario,
+  .banner-cookies .boton--primario {
     width: 100%;
     min-width: 0;
   }
@@ -134,7 +134,7 @@
     justify-content: space-between;
     gap: 16px;
 
-    border-radius: 16px;
+    border-radius: var(--radio-xl);
   }
 
   .banner-cookies-contenido {
@@ -148,8 +148,8 @@
     gap: 12px;
   }
 
-  .banner-cookies .boton-home.secundario,
-  .banner-cookies .boton-home.primario {
+  .banner-cookies .boton--secundario,
+  .banner-cookies .boton--primario {
     width: 100%;
     min-width: 0;
     padding-inline: 8px;

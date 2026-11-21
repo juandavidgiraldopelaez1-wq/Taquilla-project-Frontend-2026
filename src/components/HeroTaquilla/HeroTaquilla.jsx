@@ -1,4 +1,3 @@
-
 import EventoDestacado from "../EventoDestacado/EventoDestacado.jsx";
 import "./HeroTaquilla.css";
 
@@ -67,9 +66,7 @@ export default function HeroTaquilla({
     <section className="hero-taquilla">
       <div className="ancho-home interior-taquilla">
         <div>
-          <span className="etiqueta-evento">
-            {temporada}
-          </span>
+          <span className="etiqueta-evento">{temporada}</span>
 
           <h1>{titulo}</h1>
 

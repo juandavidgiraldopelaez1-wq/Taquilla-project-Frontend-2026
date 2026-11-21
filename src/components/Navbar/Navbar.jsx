@@ -1,10 +1,5 @@
-
 import { useId, useRef, useState } from "react";
-import {
-  NavLink,
-  useLocation,
-  useNavigate,
-} from "react-router";
+import { NavLink, useLocation, useNavigate } from "react-router";
 
 import Marca from "../Marca/Marca.jsx";
 import MenuMovil from "../MenuMovil/MenuMovil.jsx";
@@ -13,6 +8,7 @@ import PanelAccesibilidad from "../PanelAccesibilidad/PanelAccesibilidad.jsx";
 
 import { interfaz } from "../../data/interfaz.js";
 import "./Navbar.css";
+import Boton from "../Boton/Boton.jsx";
 
 function leerBusqueda(search) {
   return new URLSearchParams(search).get("q") || "";
@@ -65,21 +61,13 @@ export default function Navbar({
     cerrarMenu: apiMenu?.cerrar ?? base.cerrarMenu,
 
     idioma:
-      apiMenu?.secciones?.idioma ??
-      textos?.idioma?.tituloMovil ??
-      base.idioma,
+      apiMenu?.secciones?.idioma ?? textos?.idioma?.tituloMovil ?? base.idioma,
 
-    idiomaAria:
-      apiNavbar?.aria?.idioma ??
-      base.idioma,
+    idiomaAria: apiNavbar?.aria?.idioma ?? base.idioma,
 
-    accesibilidad:
-      apiMenu?.secciones?.accesibilidad ??
-      base.accesibilidad,
+    accesibilidad: apiMenu?.secciones?.accesibilidad ?? base.accesibilidad,
 
-    accesibilidadAria:
-      apiNavbar?.aria?.accesibilidad ??
-      base.accesibilidad,
+    accesibilidadAria: apiNavbar?.aria?.accesibilidad ?? base.accesibilidad,
 
     navegacion: base.navegacion,
   };
@@ -107,8 +95,9 @@ export default function Navbar({
 
   return (
     <header
-      className={`cabecera-home ${abierto ? "menu-abierto" : ""
-        } ${esExplorar ? "cabecera-explorar" : ""}`}
+      className={`cabecera-home ${
+        abierto ? "menu-abierto" : ""
+      } ${esExplorar ? "cabecera-explorar" : ""}`}
       onKeyDown={(evento) => {
         if (evento.key !== "Escape") return;
 
@@ -136,11 +125,7 @@ export default function Navbar({
       <div className="ancho-home fila-cabecera">
         <Marca nombre={nombre} tipo={tipo} />
 
-        <a
-          className="buscar-movil"
-          href="/explorar"
-          aria-label={t.buscarAria}
-        >
+        <a className="buscar-movil" href="/explorar" aria-label={t.buscarAria}>
           <svg
             viewBox="0 0 24 24"
             width="20"
@@ -233,9 +218,7 @@ export default function Navbar({
                 </form>
 
                 <div className="grupo-menu-movil grupo-idioma-menu">
-                  <span className="etiqueta-menu-movil">
-                    {t.idioma}
-                  </span>
+                  <span className="etiqueta-menu-movil">{t.idioma}</span>
 
                   <SelectorIdioma
                     idioma={idioma}
@@ -245,9 +228,7 @@ export default function Navbar({
                 </div>
 
                 <div className="grupo-menu-movil grupo-accesibilidad-menu">
-                  <span className="etiqueta-menu-movil">
-                    {t.accesibilidad}
-                  </span>
+                  <span className="etiqueta-menu-movil">{t.accesibilidad}</span>
 
                   <div className="accesibilidad-home">
                     <button
@@ -321,13 +302,12 @@ export default function Navbar({
                     {t.ingresar}
                   </button>
 
-                  <button
-                    type="button"
-                    className="boton-home primario"
+                  <Boton
+                    variante="primario"
                     onClick={() => onCuenta("registro")}
                   >
                     {t.registro}
-                  </button>
+                  </Boton>
                 </div>
               </>
             )}

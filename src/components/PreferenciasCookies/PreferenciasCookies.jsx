@@ -1,6 +1,6 @@
-
 import { useEffect, useId, useRef, useState } from "react";
 import "./PreferenciasCookies.css";
+import Boton from "../Boton/Boton.jsx";
 
 export default function PreferenciasCookies({
   abierto,
@@ -40,9 +40,7 @@ export default function PreferenciasCookies({
     >
       <h2 id={id}>{textos.cookies}</h2>
 
-      <p>
-        {textos.descripcionPreferencias || textos.descripcion}
-      </p>
+      <p>{textos.descripcionPreferencias || textos.descripcion}</p>
 
       <section>
         <h3>{textos.necesarias}</h3>
@@ -62,26 +60,16 @@ export default function PreferenciasCookies({
         </span>
       </label>
 
-      {error && (
-        <p role="alert">{textos.error}</p>
-      )}
+      {error && <p role="alert">{textos.error}</p>}
 
       <div className="grupo-botones">
-        <button
-          type="button"
-          className="boton-home primario"
-          onClick={() => onGuardar(seleccion)}
-        >
+        <Boton variante="primario" onClick={() => onGuardar(seleccion)}>
           {textos.guardar}
-        </button>
+        </Boton>
 
-        <button
-          type="button"
-          className="boton-home secundario"
-          onClick={() => dialogo.current.close()}
-        >
+        <Boton variante="secundario" onClick={() => dialogo.current.close()}>
           {textos.cerrar}
-        </button>
+        </Boton>
       </div>
     </dialog>
   );
