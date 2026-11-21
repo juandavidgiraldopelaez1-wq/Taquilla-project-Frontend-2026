@@ -1,7 +1,7 @@
 
 import { useRef, useState } from "react";
 import { proyecto } from "../../config/proyecto.js";
-import { usePreferencias } from "../../context/PreferenciasContext.jsx";
+import { usePreferencias } from "../../hooks/usePreferencias.js";
 import { interfaz } from "../../data/interfaz.js";
 import Navbar from "../Navbar/Navbar.jsx";
 import Footer from "../Footer/Footer.jsx";

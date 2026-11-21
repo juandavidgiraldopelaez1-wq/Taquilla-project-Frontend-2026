@@ -9,7 +9,7 @@ import SeccionEventos from "../components/SeccionEventos/SeccionEventos.jsx";
 import AficheEvento from "../components/AficheEvento/AficheEvento.jsx";
 import DialogoDetalle from "../components/DialogoDetalle/DialogoDetalle.jsx";
 
-import { usePreferencias } from "../context/PreferenciasContext.jsx";
+import { usePreferencias } from "../hooks/usePreferencias.js";
 import { useDetalle } from "../hooks/useDetalle.js";
 import { useEventos } from "../hooks/useEventos.js";
 import { useRecurso } from "../hooks/useRecurso.js";

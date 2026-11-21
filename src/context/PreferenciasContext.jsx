@@ -1,5 +1,5 @@
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   leerCookie,
   guardarCookie,
@@ -7,8 +7,8 @@ import {
 } from "../services/cookies.js";
 import { proyecto } from "../config/proyecto.js";
 import { useRecurso } from "../hooks/useRecurso.js";
+import { PreferenciasContext } from "./preferenciasContexto.js";
 
-const PreferenciasContext = createContext(null);
 
 const CLAVE_ACCESIBILIDAD = "preferenciasAccesibilidad";
 
@@ -190,16 +190,4 @@ export function PreferenciasProvider({ children }) {
       {children}
     </PreferenciasContext.Provider>
   );
-}
-
-// El hook vive junto al Provider porque comparten el mismo contexto.
-// eslint-disable-next-line react-refresh/only-export-components
-export function usePreferencias() {
-  const valor = useContext(PreferenciasContext);
-
-  if (!valor) {
-    throw new Error("PreferenciasProvider requerido");
-  }
-
-  return valor;
 }
