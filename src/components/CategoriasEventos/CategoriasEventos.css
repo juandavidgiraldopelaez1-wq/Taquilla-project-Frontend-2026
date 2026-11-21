@@ -9,35 +9,35 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid #dedede;
-  border-radius: 12px;
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-l);
   padding: 16px;
-  background: #fff;
-  color: #141414;
+  background: var(--fondo-superficie);
+  color: var(--texto-principal);
   text-align: left;
-  font-size: calc(16px * var(--escala-texto, 1));
+  font-size: var(--tamano-cuerpo-m);
 }
 
 .categorias-eventos button[aria-pressed="true"],
 .categorias-eventos button:hover {
-  border-color: #141414;
-  background: #ededed;
+  border-color: var(--fondo-inverso);
+  background: var(--borde-sutil);
 }
 
 .icono-categoria {
   display: grid;
   place-items: center;
-  background: #f0f0f0;
+  background: var(--fondo-sutil);
   width: 44px;
   height: 44px;
-  border-radius: 8px;
+  border-radius: var(--radio-m);
   flex-shrink: 0;
 }
 
 .categorias-eventos small {
   display: block;
-  font-size: calc(12px * var(--escala-texto, 1));
-  color: #595959;
+  font-size: var(--tamano-detalle);
+  color: var(--texto-secundario);
 }
 
 @media (max-width: 1100px) {
@@ -58,7 +58,7 @@
   .categorias-eventos button {
     padding: 10px;
     gap: 8px;
-    font-size: calc(14px * var(--escala-texto, 1));
+    font-size: var(--tamano-cuerpo-p);
   }
 }
 
@@ -93,10 +93,10 @@
     width: max-content;
     min-height: 40px;
     padding: 10px 16px;
-    border-radius: 999px;
+    border-radius: var(--radio-pildora);
     gap: 0;
     white-space: nowrap;
-    font-size: 14px;
+    font-size: var(--tamano-cuerpo-p);
     scroll-snap-align: start;
   }
 
@@ -109,9 +109,9 @@
   }
 
   .categorias-eventos button[aria-pressed="true"] {
-    color: #fff;
-    background: #141414;
-    border-color: #141414;
+    color: var(--texto-inverso);
+    background: var(--marca-primario);
+    border-color: var(--fondo-inverso);
   }
 }
 
@@ -146,9 +146,9 @@
     width: max-content;
     min-height: 40px;
     padding: 10px 16px;
-    border-radius: 999px;
+    border-radius: var(--radio-pildora);
     white-space: nowrap;
-    font-size: 14px;
+    font-size: var(--tamano-cuerpo-p);
     scroll-snap-align: start;
   }
 
@@ -162,9 +162,9 @@
   }
 
   .categorias-eventos button[aria-pressed="true"] {
-    border-color: #141414;
-    background: #141414;
-    color: #ffffff;
+    border-color: var(--fondo-inverso);
+    background: var(--marca-primario);
+    color: var(--texto-inverso);
   }
 }
 

@@ -15,7 +15,7 @@
   aspect-ratio: 1;
   right: -20%;
   top: -45%;
-  background: rgb(255 255 255 / 12%);
+  background: var(--velo-claro);
 }
 .arte-evento::after {
   width: 50%;
@@ -37,7 +37,7 @@
   background: linear-gradient(135deg, #a69ac4, #ba8779);
 }
 .arte-evento-5 {
-  background: linear-gradient(135deg, #222126, #a29ac8);
+  background: linear-gradient(135deg, var(--fondo-inverso-2), #a29ac8);
 }
 .arte-evento-6 {
   background: linear-gradient(135deg, #ba829a, #b8b084);

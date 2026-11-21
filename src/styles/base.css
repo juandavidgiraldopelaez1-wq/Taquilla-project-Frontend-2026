@@ -6,8 +6,8 @@ body {
   margin: 0;
   font-family: var(--fuente-texto);
   line-height: 1.6;
-  background: var(--fondo);
-  color: var(--tinta);
+  background: var(--fondo-pagina);
+  color: var(--texto-principal);
 }
 
 h1,
@@ -36,10 +36,10 @@ select {
 }
 
 .landing {
-  background: var(--fondo);
-  color: var(--tinta);
+  background: var(--fondo-pagina);
+  color: var(--texto-principal);
   min-height: 100dvh;
-  font-family: "DM Sans", sans-serif;
+  font-family: var(--fuente-texto);
 }
 
 .landing h1,
@@ -87,7 +87,7 @@ select {
 .landing a:focus-visible,
 .landing input:focus-visible,
 .landing select:focus-visible {
-  outline: 3px solid var(--acento);
+  outline: 3px solid var(--marca-primario);
   outline-offset: 5px;
 }
 
@@ -111,13 +111,13 @@ select {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid var(--borde);
-  border-radius: 99px;
-  font-weight: 700;
-  font-size: calc(14px * var(--escala-texto, 1));
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-pildora);
+  font-weight: var(--peso-seminegrita);
+  font-size: var(--tamano-cuerpo-p);
   line-height: 1.4;
   text-align: center;
-  color: var(--tinta);
+  color: var(--texto-principal);
   background: transparent;
   transition:
     transform 160ms ease,
@@ -125,9 +125,9 @@ select {
 }
 
 .boton-home.primario {
-  background: var(--acento);
-  border-color: var(--acento);
-  color: var(--sobre-acento);
+  background: var(--marca-primario);
+  border-color: var(--marca-primario);
+  color: var(--texto-inverso);
 }
 
 .boton-home:hover {
@@ -150,18 +150,18 @@ select {
 }
 
 .titulo-seccion h2 {
-  font-size: calc(28px * var(--escala-texto, 1));
+  font-size: var(--tamano-h2);
 }
 
 .enlace-home {
-  color: var(--acento) !important;
+  color: var(--marca-primario) !important;
   display: inline-flex;
   gap: 8px;
   align-items: center;
   background: none;
   border: 0;
-  font-size: calc(14px * var(--escala-texto, 1));
-  font-weight: 600;
+  font-size: var(--tamano-cuerpo-p);
+  font-weight: var(--peso-seminegrita);
 }
 
 .enlace-home:hover {
@@ -188,13 +188,13 @@ select {
 
 @media (max-width: 640px) {
   .titulo-seccion h2 {
-    font-size: calc(21px * var(--escala-texto, 1));
+    font-size: var(--tamano-h3);
   }
 }
 
 @media (max-width: 640px) {
   .enlace-home {
-    font-size: calc(12px * var(--escala-texto, 1));
+    font-size: var(--tamano-detalle);
     flex-shrink: 0;
   }
 }
@@ -221,9 +221,9 @@ select {
 }
 
 .taquilla .boton-home {
-  border-radius: 8px;
-  font-size: calc(14px * var(--escala-texto, 1));
-  font-weight: 500;
+  border-radius: var(--radio-m);
+  font-size: var(--tamano-cuerpo-p);
+  font-weight: var(--peso-medio);
   padding: 10px 18px;
   min-height: 42px;
 }
@@ -231,10 +231,10 @@ select {
 .etiqueta-evento {
   display: inline-block;
   padding: 3px 8px;
-  border-radius: 6px;
-  background: #f0f0f0;
-  color: #141414;
-  font-size: calc(12px * var(--escala-texto, 1));
+  border-radius: var(--radio-s);
+  background: var(--fondo-sutil);
+  color: var(--texto-principal);
+  font-size: var(--tamano-detalle);
   line-height: 1.4;
 }
 
@@ -242,14 +242,14 @@ select {
 
 /* Alto contraste */
 html[data-alto-contraste="true"] {
-  --fondo: #ffffff;
-  --superficie: #ffffff;
-  --tinta: #000000;
-  --suave: #141414;
-  --acento: #000000;
-  --sobre-acento: #ffffff;
-  --borde: #000000;
-  --color-foco: #000000;
+  --fondo: var(--texto-inverso);
+  --superficie: var(--texto-inverso);
+  --tinta: var(--texto-principal);
+  --suave: var(--texto-principal);
+  --acento: var(--texto-principal);
+  --sobre-acento: var(--texto-inverso);
+  --borde: var(--texto-principal);
+  --color-foco: var(--texto-principal);
 }
 
 /* Reducir movimiento */

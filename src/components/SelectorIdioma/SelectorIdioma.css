@@ -8,9 +8,9 @@
   width: 98px;
   height: 40px;
   padding: 3px;
-  background: #ffffff;
-  border: 1px solid #8c8c8c;
-  border-radius: 999px;
+  background: var(--fondo-superficie);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-pildora);
 }
 
 .idiomas-home button {
@@ -22,17 +22,17 @@
   height: 32px;
   padding: 0;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--radio-pildora);
   background: transparent;
-  color: #141414;
+  color: var(--texto-principal);
   font-family: "Instrument Sans", sans-serif;
-  font-size: calc(14px * var(--escala-texto, 1));
-  font-weight: 500;
+  font-size: var(--tamano-cuerpo-p);
+  font-weight: var(--peso-medio);
   line-height: 20px;
   cursor: pointer;
 }
 
 .idiomas-home button[aria-pressed="true"] {
-  background: #141414;
-  color: #ffffff;
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
 }

@@ -5,8 +5,8 @@
   gap: 10px;
   flex-shrink: 0;
   font-family: "Syne", sans-serif;
-  font-size: 22px;
-  font-weight: 700;
+  font-size: var(--tamano-h2);
+  font-weight: var(--peso-seminegrita);
 }
 
 .emblema {
@@ -14,8 +14,8 @@
   place-items: center;
   width: 36px;
   height: 36px;
-  background: var(--acento);
-  color: var(--sobre-acento);
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
   border-radius: 50%;
 }
 
@@ -26,7 +26,7 @@
 
 @media (max-width: 640px) {
   .marca-home {
-    font-size: 20px;
+    font-size: var(--tamano-h3);
   }
 }
 
@@ -35,9 +35,9 @@
 }
 
 .taquilla .emblema {
-  background: #141414;
-  color: #ffffff;
-  border-radius: 8px;
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
+  border-radius: var(--radio-m);
   width: 32px;
   height: 32px;
 }
@@ -53,9 +53,9 @@
     width: 32px;
     height: 32px;
     flex: 0 0 32px;
-    border-radius: 8px;
-    background: #ffffff;
-    color: #141414;
+    border-radius: var(--radio-m);
+    background: var(--fondo-superficie);
+    color: var(--texto-principal);
   }
 
   .taquilla .cabecera-home .fila-cabecera > .marca-home .emblema svg {

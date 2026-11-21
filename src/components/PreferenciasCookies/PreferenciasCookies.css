@@ -3,22 +3,22 @@
   max-height: calc(100dvh - 32px);
   overflow: auto;
   padding: 28px;
-  border: 1px solid var(--borde);
-  border-radius: var(--radio);
-  color: var(--tinta);
-  background: var(--superficie);
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-l);
+  color: var(--texto-principal);
+  background: var(--fondo-superficie);
 }
 .preferencias-dialogo::backdrop {
-  background: rgb(0 0 0 / 65%);
+  background: var(--velo-oscuro);
 }
 .preferencias-dialogo p {
   margin-block: 12px 20px;
 }
 .preferencias-dialogo h2 {
-  font-size: 26px;
+  font-size: var(--tamano-h2);
 }
 .preferencias-dialogo h3 {
-  font-size: 18px;
+  font-size: var(--tamano-cuerpo-g);
 }
 .opcion-cookie {
   display: flex;
@@ -26,14 +26,14 @@
   gap: 16px;
   margin-block: 24px;
   padding: 16px;
-  border: 1px solid var(--borde);
-  border-radius: 8px;
+  border: 1px solid var(--borde-sutil);
+  border-radius: var(--radio-m);
   cursor: pointer;
 }
 .opcion-cookie input {
   width: 24px;
   height: 24px;
-  accent-color: var(--acento);
+  accent-color: var(--marca-primario);
   flex-shrink: 0;
 }
 .opcion-cookie span span {
