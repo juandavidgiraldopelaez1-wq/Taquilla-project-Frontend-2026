@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import IconoEvento from "../IconoEvento/IconoEvento.jsx";
 import "./BuscadorEventos.css";
 import Boton from "../Boton/Boton.jsx";
+import Icono from "../Icono/Icono.jsx";
 
 const CONSULTA_MOVIL = "(max-width: 640px)";
 
@@ -170,23 +171,7 @@ export default function BuscadorEventos({
         aria-expanded={filtrosMovilesAbiertos}
         onClick={() => setFiltrosMovilesAbiertos((actual) => !actual)}
       >
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 40 40"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <rect width="40" height="40" rx="20" fill="#F0F0F0" />
-          <path
-            d="M14 26.75V21.5M14 21.5H12.5M14 21.5H15.5M14 18.5V13.25M20 26.75V20M20 17V13.25M20 17H18.5M20 17H21.5M26 26.75V23M26 23H24.5M26 23H27.5M26 20V13.25"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            stroke="#141414"
-          />
-        </svg>
+        <Icono nombre="sliders" tamano={18} />
       </button>
 
       <Boton variante="primario" type="submit">

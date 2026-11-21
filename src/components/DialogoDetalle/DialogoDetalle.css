@@ -18,7 +18,7 @@
   margin: 16px 0 24px;
   color: var(--texto-secundario);
 }
-.detalle-home > svg {
+.detalle-home > .icono {
   display: block;
   width: 100%;
   max-width: 240px;

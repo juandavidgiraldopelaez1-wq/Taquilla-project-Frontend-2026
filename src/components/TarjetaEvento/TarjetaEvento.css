@@ -25,7 +25,7 @@
   margin-top: 10px;
 }
 
-.contenido-evento > p svg {
+.contenido-evento > p .icono {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
@@ -121,7 +121,7 @@
     line-height: 16px;
   }
 
-  #eventos-ciudad .tarjeta-evento .contenido-evento > p svg {
+  #eventos-ciudad .tarjeta-evento .contenido-evento > p .icono {
     width: 13px;
     height: 13px;
   }

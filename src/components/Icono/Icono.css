@@ -1,0 +1,8 @@
+.icono {
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--icono-tamano);
+  height: var(--icono-tamano);
+  background-color: currentColor;
+  mask: var(--icono-url) center / contain no-repeat;
+}

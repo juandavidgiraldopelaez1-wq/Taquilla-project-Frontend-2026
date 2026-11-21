@@ -1,5 +1,6 @@
 import { usePreferencias } from "../../hooks/usePreferencias.js";
 import "./PanelAccesibilidad.css";
+import Icono from "../Icono/Icono.jsx";
 
 export default function PanelAccesibilidad({ abierto, onCerrar, idioma }) {
   const {
@@ -66,22 +67,7 @@ export default function PanelAccesibilidad({ abierto, onCerrar, idioma }) {
             en ? "Close accessibility panel" : "Cerrar panel de accesibilidad"
           }
         >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M15 5L10 10M10 10L5 15M10 10L5 5M10 10L15 15"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              stroke="#141414"
-            />
-          </svg>
+          <Icono nombre="cerrar" />
         </button>
       </header>
 

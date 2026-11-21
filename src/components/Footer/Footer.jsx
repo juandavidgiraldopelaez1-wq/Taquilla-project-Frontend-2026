@@ -4,7 +4,6 @@ import "./Footer.css";
 
 export default function Footer({
   nombre,
-  tipo,
   descripcion,
   destino,
   onCuenta,
@@ -19,7 +18,7 @@ export default function Footer({
         <div className="columnas-pie">
           {/* Marca y descripción */}
           <div className="contenido-marca-pie">
-            <Marca nombre={nombre} tipo={tipo} />
+            <Marca nombre={nombre} etiqueta={t.inicio} />
 
             <p>
               {descripcion} {t.descripcionFooterExtra}

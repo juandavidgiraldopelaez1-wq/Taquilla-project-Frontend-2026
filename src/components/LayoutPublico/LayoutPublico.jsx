@@ -56,7 +56,6 @@ export default function LayoutPublico({
 
       <Footer
         nombre={proyecto.nombre}
-        tipo={proyecto.id}
         idioma={idioma}
         descripcion={descripcion}
         destino={destino}

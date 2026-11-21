@@ -118,7 +118,7 @@
 
 /* Ocultar flecha de Ver todos exclusivamente en móvil */
 @media (max-width: 640px) {
-  .seccion-eventos .titulo-seccion .enlace-home svg {
+  .seccion-eventos .titulo-seccion .enlace-home .icono {
     display: none;
   }
 }

@@ -552,7 +552,7 @@
   font-size: var(--tamano-detalle);
 }
 
-.eventos-explorar-grid .contenido-evento > p svg {
+.eventos-explorar-grid .contenido-evento > p .icono {
   width: 15px;
   height: 15px;
 }
@@ -1188,7 +1188,7 @@
     background: var(--fondo-sutil);
   }
 
-  .pagina-explorar .buscador-filtros-explorar .busqueda-explorar svg {
+  .pagina-explorar .buscador-filtros-explorar .busqueda-explorar .icono {
     display: block;
     flex: 0 0 16px;
     width: 16px;
@@ -1227,7 +1227,7 @@
     cursor: pointer;
   }
 
-  .pagina-explorar .buscador-filtros-explorar .boton-filtros-movil svg {
+  .pagina-explorar .buscador-filtros-explorar .boton-filtros-movil .icono {
     display: block;
     flex: none;
     width: 48px;

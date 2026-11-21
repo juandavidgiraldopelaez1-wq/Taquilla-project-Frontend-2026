@@ -18,7 +18,7 @@
 .buscador-eventos label + label {
   border-left: 1px solid var(--borde-sutil);
 }
-.buscador-eventos label > svg {
+.buscador-eventos label > .icono {
   flex-shrink: 0;
   color: var(--texto-secundario);
 }
@@ -135,7 +135,7 @@
     border: 0 !important;
   }
 
-  .buscador-eventos .campo-consulta > svg {
+  .buscador-eventos .campo-consulta > .icono {
     width: 19px;
     height: 19px;
     flex: 0 0 19px;
@@ -229,8 +229,8 @@
     grid-area: fecha;
   }
 
-  .buscador-eventos .campo-ciudad > svg,
-  .buscador-eventos .campo-fecha > svg {
+  .buscador-eventos .campo-ciudad > .icono,
+  .buscador-eventos .campo-fecha > .icono {
     flex: 0 0 20px;
     width: 20px;
     color: var(--texto-secundario);

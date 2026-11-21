@@ -21,6 +21,7 @@ import {
 
 import "./Explorar.css";
 import Boton from "../components/Boton/Boton.jsx";
+import Icono from "../components/Icono/Icono.jsx";
 
 const POR_PAGINA = 12;
 const PRECIO_MINIMO = 30000;
@@ -722,19 +723,7 @@ export default function Explorar() {
                 role="search"
                 onSubmit={buscarPorTexto}
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="m16 16 4 4" />
-                </svg>
+                <Icono nombre="search" />
 
                 <input
                   type="search"
@@ -760,23 +749,7 @@ export default function Explorar() {
                 onClick={() => setFiltrosMovilesAbiertos((actual) => !actual)}
               >
                 {/* SVG original del botón de filtros de Figma */}
-                <svg
-                  width="48"
-                  height="48"
-                  viewBox="0 0 48 48"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <rect width="48" height="48" rx="8" fill="#141414" />
-                  <path
-                    d="M18 30.75V25.5M18 25.5H16.5M18 25.5H19.5M18 22.5V17.25M24 30.75V24M24 21V17.25M24 21H22.5M24 21H25.5M30 30.75V27M30 27H28.5M30 27H31.5M30 24V17.25"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    stroke="white"
-                  />
-                </svg>
+                <Icono nombre="sliders" tamano={18} />
               </button>
             </div>
 

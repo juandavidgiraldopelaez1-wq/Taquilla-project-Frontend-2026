@@ -9,6 +9,7 @@ import PanelAccesibilidad from "../PanelAccesibilidad/PanelAccesibilidad.jsx";
 import { interfaz } from "../../data/interfaz.js";
 import "./Navbar.css";
 import Boton from "../Boton/Boton.jsx";
+import Icono from "../Icono/Icono.jsx";
 
 function leerBusqueda(search) {
   return new URLSearchParams(search).get("q") || "";
@@ -123,22 +124,10 @@ export default function Navbar({
       )}
 
       <div className="ancho-home fila-cabecera">
-        <Marca nombre={nombre} tipo={tipo} />
+        <Marca nombre={nombre} etiqueta={t.inicio} />
 
         <a className="buscar-movil" href="/explorar" aria-label={t.buscarAria}>
-          <svg
-            viewBox="0 0 24 24"
-            width="20"
-            height="20"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            aria-hidden="true"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <path d="m16 16 4 4" />
-          </svg>
+          <Icono nombre="search" />
         </a>
 
         <button
@@ -163,7 +152,7 @@ export default function Navbar({
           aria-label={t.navegacion}
         >
           <div className="menu-movil-cabecera">
-            <Marca nombre={nombre} tipo={tipo} />
+            <Marca nombre={nombre} etiqueta={t.inicio} />
           </div>
 
           <div className="enlaces-menu-movil">
@@ -201,19 +190,7 @@ export default function Navbar({
                     aria-label={t.buscarAria}
                     disabled={!busquedaCabecera.trim()}
                   >
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="18"
-                      height="18"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.3"
-                      strokeLinecap="round"
-                      aria-hidden="true"
-                    >
-                      <circle cx="11" cy="11" r="7" />
-                      <path d="m16 16 4 4" />
-                    </svg>
+                    <Icono nombre="search" />
                   </button>
                 </form>
 
@@ -243,43 +220,7 @@ export default function Navbar({
                         setAccesibilidadAbierta((actual) => !actual)
                       }
                     >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M11.4583 3.74996C11.4583 4.55537 10.8054 5.20829 9.99996 5.20829C9.19454 5.20829 8.54163 4.55537 8.54163 3.74996C8.54163 2.94454 9.19454 2.29163 9.99996 2.29163C10.8054 2.29163 11.4583 2.94454 11.4583 3.74996Z"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          stroke="#141414"
-                        />
-                        <path
-                          d="M4.16663 7.08337L9.99996 8.33337L15.8333 7.08337"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          stroke="#141414"
-                        />
-                        <path
-                          d="M10 8.33337V12.0834L7.08337 17.0834"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          stroke="#141414"
-                        />
-                        <path
-                          d="M10 12.0834L12.9167 17.0834"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          stroke="#141414"
-                        />
-                      </svg>
+                      <Icono nombre="accesibilidad" tamano={24} />
                     </button>
 
                     <PanelAccesibilidad
