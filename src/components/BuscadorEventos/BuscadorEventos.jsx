@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import IconoEvento from "../IconoEvento/IconoEvento.jsx";
 import "./BuscadorEventos.css";
+import Boton from "../Boton/Boton.jsx";
 
 const CONSULTA_MOVIL = "(max-width: 640px)";
 
@@ -188,9 +189,9 @@ export default function BuscadorEventos({
         </svg>
       </button>
 
-      <button className="boton-home primario" type="submit">
+      <Boton variante="primario" type="submit">
         {textoBuscar}
-      </button>
+      </Boton>
     </form>
   );
 }

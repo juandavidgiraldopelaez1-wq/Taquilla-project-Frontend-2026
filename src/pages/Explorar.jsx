@@ -20,6 +20,7 @@ import {
 } from "../data/catalogo.js";
 
 import "./Explorar.css";
+import Boton from "../components/Boton/Boton.jsx";
 
 const POR_PAGINA = 12;
 const PRECIO_MINIMO = 30000;
@@ -1179,13 +1180,9 @@ export default function Explorar() {
 
                     <p>{descripcionVacio}</p>
 
-                    <button
-                      type="button"
-                      className="boton-home primario"
-                      onClick={limpiarFiltros}
-                    >
+                    <Boton variante="primario" onClick={limpiarFiltros}>
                       {botonLimpiarVacio}
-                    </button>
+                    </Boton>
                   </div>
                 )}
 

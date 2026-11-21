@@ -100,39 +100,8 @@ select {
 }
 
 .ancho-home {
-  width: min(1280px, calc(100% - 80px));
+  width: min(var(--ancho-contenido), calc(100% - 2 * var(--margen-pagina)));
   margin-inline: auto;
-}
-
-.boton-home {
-  min-height: 44px;
-  padding: 12px 24px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  border: 1px solid var(--borde-sutil);
-  border-radius: var(--radio-pildora);
-  font-weight: var(--peso-seminegrita);
-  font-size: var(--tamano-cuerpo-p);
-  line-height: 1.4;
-  text-align: center;
-  color: var(--texto-principal);
-  background: transparent;
-  transition:
-    transform 160ms ease,
-    filter 160ms ease;
-}
-
-.boton-home.primario {
-  background: var(--marca-primario);
-  border-color: var(--marca-primario);
-  color: var(--texto-inverso);
-}
-
-.boton-home:hover {
-  filter: brightness(0.94);
-  transform: translateY(-2px);
 }
 
 .grupo-botones {
@@ -210,21 +179,13 @@ select {
 }
 
 .taquilla {
-  font-family: "Instrument Sans", sans-serif;
+  font-family: var(--fuente-texto);
 }
 
 .taquilla h1,
 .taquilla h2,
 .taquilla h3 {
-  font-family: "Instrument Sans", sans-serif;
-}
-
-.taquilla .boton-home {
-  border-radius: var(--radio-m);
-  font-size: var(--tamano-cuerpo-p);
-  font-weight: var(--peso-medio);
-  padding: 10px 18px;
-  min-height: 42px;
+  font-family: var(--fuente-texto);
 }
 
 .etiqueta-evento {

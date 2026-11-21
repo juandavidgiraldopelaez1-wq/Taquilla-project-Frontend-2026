@@ -46,7 +46,7 @@
   color: var(--texto-secundario);
   opacity: 1;
 }
-.buscador-eventos .boton-home {
+.buscador-eventos .boton {
   min-height: 52px;
   padding-inline: 22px;
 }
@@ -86,7 +86,7 @@
   }
 }
 @media (max-width: 640px) {
-  .buscador-eventos .boton-home {
+  .buscador-eventos .boton {
     width: 100%;
     min-height: 44px;
   }
@@ -257,11 +257,11 @@
   }
 
   /* Buscar aparece cuando se despliegan los filtros */
-  .buscador-eventos > .boton-home {
+  .buscador-eventos > .boton {
     display: none;
   }
 
-  .buscador-eventos.filtros-moviles-abiertos > .boton-home {
+  .buscador-eventos.filtros-moviles-abiertos > .boton {
     display: flex;
     grid-area: buscar;
     align-items: center;

@@ -1,0 +1,67 @@
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.campo-etiqueta {
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+  font-weight: var(--peso-medio);
+  color: var(--texto-principal);
+}
+
+.campo-caja {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-2);
+  min-height: 48px;
+  padding-inline: 13px;
+  background: var(--fondo-superficie);
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-m);
+}
+
+/* Foco: borde de 2 px en fondo inverso. Se compensa el padding para no saltar. */
+.campo-caja:focus-within {
+  border: 2px solid var(--fondo-inverso);
+  padding-inline: 12px;
+}
+
+.campo--error .campo-caja {
+  border: 2px solid var(--estado-error);
+  padding-inline: 12px;
+}
+
+.campo-control {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font-family: var(--fuente-texto);
+  font-size: var(--tamano-cuerpo-m);
+  line-height: var(--interlineado-cuerpo-m);
+  color: var(--texto-principal);
+}
+
+.campo-control::placeholder {
+  color: var(--texto-terciario);
+}
+
+.campo-control:focus {
+  outline: none;
+}
+
+.campo-control:disabled {
+  cursor: not-allowed;
+  color: var(--texto-terciario);
+}
+
+.campo-mensaje {
+  margin: 0;
+  font-size: var(--tamano-detalle);
+  line-height: var(--interlineado-detalle);
+  color: var(--estado-error);
+}

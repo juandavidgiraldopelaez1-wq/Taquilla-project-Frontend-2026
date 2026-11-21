@@ -1,0 +1,56 @@
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  padding: 3px var(--espacio-2);
+  border-radius: var(--radio-s);
+  font-size: var(--tamano-detalle);
+  line-height: var(--interlineado-detalle);
+  font-weight: var(--peso-medio);
+  white-space: nowrap;
+}
+
+.etiqueta--neutro {
+  background: var(--fondo-sutil);
+  color: var(--texto-secundario);
+}
+
+.etiqueta--marca {
+  background: var(--fondo-sutil);
+  color: var(--texto-principal);
+}
+
+.etiqueta--inverso {
+  background: var(--fondo-inverso);
+  color: var(--texto-inverso);
+}
+
+.etiqueta--exito,
+.etiqueta--alerta,
+.etiqueta--error {
+  padding: 2px 0;
+  background: transparent;
+  color: var(--texto-principal);
+}
+
+.etiqueta--exito::before,
+.etiqueta--alerta::before,
+.etiqueta--error::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.etiqueta--exito::before {
+  background: var(--estado-exito);
+}
+
+.etiqueta--alerta::before {
+  background: var(--estado-alerta);
+}
+
+.etiqueta--error::before {
+  background: var(--estado-error);
+}

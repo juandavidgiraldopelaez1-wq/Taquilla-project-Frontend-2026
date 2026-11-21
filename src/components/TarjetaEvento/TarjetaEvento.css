@@ -50,7 +50,7 @@
   font-weight: var(--peso-medio);
 }
 
-.precio-evento .boton-home {
+.precio-evento .boton {
   border-color: var(--borde-fuerte);
   padding: 9px 16px;
 }
@@ -101,7 +101,7 @@
 
   #eventos-ciudad .tarjeta-evento .etiqueta-evento,
   #eventos-ciudad .tarjeta-evento .contenido-evento > p:nth-of-type(2),
-  #eventos-ciudad .tarjeta-evento .precio-evento .boton-home {
+  #eventos-ciudad .tarjeta-evento .precio-evento .boton {
     display: none;
   }
 

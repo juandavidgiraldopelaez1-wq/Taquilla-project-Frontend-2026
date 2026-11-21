@@ -73,7 +73,7 @@
   order: 4;
 }
 
-.taquilla .grupo-sesion-menu > .boton-home.primario {
+.taquilla .grupo-sesion-menu > .boton--primario {
   order: 5;
 }
 
@@ -338,7 +338,7 @@
 
   /* Botones: 302 × 40 px */
   .menu-home .grupo-sesion-menu .ingresar-home,
-  .menu-home .grupo-sesion-menu > .boton-home.primario {
+  .menu-home .grupo-sesion-menu > .boton--primario {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -361,7 +361,7 @@
     color: var(--texto-principal);
   }
 
-  .menu-home .grupo-sesion-menu > .boton-home.primario {
+  .menu-home .grupo-sesion-menu > .boton--primario {
     border: 1px solid var(--fondo-inverso);
     background: var(--marca-primario);
     color: var(--texto-inverso);
@@ -402,7 +402,7 @@
   white-space: normal;
 }
 
-.taquilla .grupo-sesion-menu > .boton-home.primario {
+.taquilla .grupo-sesion-menu > .boton--primario {
   box-sizing: border-box;
   flex: 0 1 auto;
   min-width: 121px;

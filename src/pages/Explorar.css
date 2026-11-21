@@ -571,7 +571,7 @@
   font-size: var(--tamano-cuerpo-p);
 }
 
-.eventos-explorar-grid .precio-evento .boton-home {
+.eventos-explorar-grid .precio-evento .boton {
   flex: 0 1 auto;
   min-width: 0;
   max-width: 100%;
@@ -1361,7 +1361,7 @@
     font-size: var(--tamano-detalle);
   }
 
-  .eventos-explorar-grid .precio-evento .boton-home {
+  .eventos-explorar-grid .precio-evento .boton {
     padding: 7px 9px;
   }
 }

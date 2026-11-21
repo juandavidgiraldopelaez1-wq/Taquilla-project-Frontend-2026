@@ -15,6 +15,7 @@ import { useRecurso } from "../hooks/useRecurso.js";
 
 import { categoriasEn, dinero } from "../data/catalogo.js";
 import { interfaz } from "../data/interfaz.js";
+import Boton from "../components/Boton/Boton.jsx";
 
 // Sustituye variables dinámicas de los textos de la API.
 function interpolar(texto, valores = {}) {
@@ -279,13 +280,9 @@ export default function Home() {
           <div role="alert">
             <p>{textoError}</p>
 
-            <button
-              type="button"
-              className="boton-home"
-              onClick={reintentarCargas}
-            >
+            <Boton variante="secundario" onClick={reintentarCargas}>
               {textoReintentar}
-            </button>
+            </Boton>
           </div>
         )}
 

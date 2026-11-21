@@ -1,6 +1,7 @@
 import Flecha from "../Flecha/Flecha.jsx";
 import TarjetaEvento from "../TarjetaEvento/TarjetaEvento.jsx";
 import "./SeccionEventos.css";
+import Boton from "../Boton/Boton.jsx";
 
 export default function SeccionEventos({
   id,
@@ -65,13 +66,9 @@ export default function SeccionEventos({
           <h3>{textoSinEventos}</h3>
           <p>{descripcionSinEventos}</p>
 
-          <button
-            type="button"
-            className="boton-home primario"
-            onClick={onVerTodos}
-          >
+          <Boton variante="primario" onClick={onVerTodos}>
             {textoVerTodos}
-          </button>
+          </Boton>
         </div>
       )}
     </section>

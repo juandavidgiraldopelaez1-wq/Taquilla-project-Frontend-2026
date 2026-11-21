@@ -2,6 +2,7 @@ import AficheEvento from "../AficheEvento/AficheEvento.jsx";
 import IconoEvento from "../IconoEvento/IconoEvento.jsx";
 import { dinero } from "../../data/catalogo.js";
 import "./TarjetaEvento.css";
+import Boton from "../Boton/Boton.jsx";
 
 export default function TarjetaEvento({ evento, onAbrir, en, textos }) {
   const textosTarjeta = textos?.paginas?.inicio?.tarjeta;
@@ -54,14 +55,13 @@ export default function TarjetaEvento({ evento, onAbrir, en, textos }) {
             <strong>{dinero(evento.precio)}</strong>
           </div>
 
-          <button
-            type="button"
-            className="boton-home secundario"
+          <Boton
+            variante="secundario"
             aria-label={`${textoVerEvento}: ${evento.nombre}`}
             onClick={() => onAbrir(evento)}
           >
             {textoVerEvento}
-          </button>
+          </Boton>
         </div>
       </div>
     </article>

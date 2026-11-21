@@ -8,6 +8,7 @@ import PanelAccesibilidad from "../PanelAccesibilidad/PanelAccesibilidad.jsx";
 
 import { interfaz } from "../../data/interfaz.js";
 import "./Navbar.css";
+import Boton from "../Boton/Boton.jsx";
 
 function leerBusqueda(search) {
   return new URLSearchParams(search).get("q") || "";
@@ -301,13 +302,12 @@ export default function Navbar({
                     {t.ingresar}
                   </button>
 
-                  <button
-                    type="button"
-                    className="boton-home primario"
+                  <Boton
+                    variante="primario"
                     onClick={() => onCuenta("registro")}
                   >
                     {t.registro}
-                  </button>
+                  </Boton>
                 </div>
               </>
             )}

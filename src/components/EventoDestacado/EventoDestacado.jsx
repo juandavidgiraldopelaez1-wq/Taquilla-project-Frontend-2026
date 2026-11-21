@@ -1,6 +1,7 @@
 import AficheEvento from "../AficheEvento/AficheEvento.jsx";
 import { dinero } from "../../data/catalogo.js";
 import "./EventoDestacado.css";
+import Boton from "../Boton/Boton.jsx";
 
 export default function EventoDestacado({ evento, en, textos, onAbrir }) {
   if (!evento) return null;
@@ -33,13 +34,9 @@ export default function EventoDestacado({ evento, en, textos, onAbrir }) {
         <div>
           <strong>{textoDesde}</strong>
 
-          <button
-            type="button"
-            className="boton-home primario"
-            onClick={() => onAbrir(evento)}
-          >
+          <Boton variante="primario" onClick={() => onAbrir(evento)}>
             {textoVerEvento}
-          </button>
+          </Boton>
         </div>
       </div>
     </div>
