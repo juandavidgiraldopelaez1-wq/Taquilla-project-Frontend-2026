@@ -7,7 +7,7 @@ import TarjetaEvento from "../components/TarjetaEvento/TarjetaEvento.jsx";
 import AficheEvento from "../components/AficheEvento/AficheEvento.jsx";
 import DialogoDetalle from "../components/DialogoDetalle/DialogoDetalle.jsx";
 
-import { usePreferencias } from "../context/PreferenciasContext.jsx";
+import { usePreferencias } from "../hooks/usePreferencias.js";
 import { useDetalle } from "../hooks/useDetalle.js";
 import { useRecurso } from "../hooks/useRecurso.js";
 

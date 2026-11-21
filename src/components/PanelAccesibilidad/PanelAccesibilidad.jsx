@@ -1,5 +1,5 @@
 
-import { usePreferencias } from "../../context/PreferenciasContext.jsx";
+import { usePreferencias } from "../../hooks/usePreferencias.js";
 import "./PanelAccesibilidad.css";
 
 export default function PanelAccesibilidad({
