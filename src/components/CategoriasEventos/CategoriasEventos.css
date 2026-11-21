@@ -33,10 +33,20 @@
   flex-shrink: 0;
 }
 
+.categorias-eventos a>span:last-child {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--tamano-cuerpo-m);
+  line-height: var(--interlineado-cuerpo-m);
+  font-weight: var(--peso-medio);
+}
+
 .categorias-eventos small {
   display: block;
   font-size: var(--tamano-detalle);
-  color: var(--texto-secundario);
+  line-height: var(--interlineado-detalle);
+  font-weight: var(--peso-regular);
+  color: var(--texto-terciario);
 }
 
 @media (max-width: 1100px) {
