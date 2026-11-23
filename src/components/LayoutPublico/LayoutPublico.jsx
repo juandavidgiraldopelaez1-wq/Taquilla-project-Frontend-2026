@@ -10,12 +10,21 @@ import "./LayoutPublico.css";
  * encabezado, <main>, pie y aviso de cookies.
  * `titulo` y `descripcion` son los metadatos de la página: React 19 lleva
  * <title> y <meta> al <head> (equivalente a generateMetadata de Next.js).
+ * `sinNavbarMovil` oculta el encabezado en celular, como en el detalle de
+ * evento de Figma, donde la imagen ocupa la parte superior.
  */
-export default function LayoutPublico({ titulo, descripcion, children }) {
+export default function LayoutPublico({
+  titulo,
+  descripcion,
+  sinNavbarMovil = false,
+  children,
+}) {
   const { textos } = usePreferencias();
 
   return (
-    <div className="landing taquilla">
+    <div
+      className={`landing taquilla ${sinNavbarMovil ? "sin-navbar-movil" : ""}`}
+    >
       {titulo && <title>{titulo}</title>}
       {descripcion && <meta name="description" content={descripcion} />}
 
