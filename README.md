@@ -13,7 +13,7 @@ Frontend del proyecto Taquilla (Universidad de Caldas): cartelera de conciertos,
 
 ```sh
 npm ci
-cp .env.example .env    # revisa que VITE_API_URL tenga la dirección de la API
+cp .env.example .env
 npm run dev
 ```
 
