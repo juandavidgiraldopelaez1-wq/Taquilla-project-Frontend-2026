@@ -1,29 +1,34 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { Link, useSearchParams } from "react-router";
 
 import LayoutPublico from "../components/LayoutPublico/LayoutPublico.jsx";
 import TarjetaEvento from "../components/TarjetaEvento/TarjetaEvento.jsx";
+import Boton from "../components/Boton/Boton.jsx";
+import Icono from "../components/Icono/Icono.jsx";
 import EstadoCarga from "../components/EstadoCarga/EstadoCarga.jsx";
 import EstadoError from "../components/EstadoError/EstadoError.jsx";
 import EstadoVacio from "../components/EstadoVacio/EstadoVacio.jsx";
 
+import { useEsMovil } from "../hooks/useEsMovil.js";
 import { usePreferencias } from "../hooks/usePreferencias.js";
 import { useRecurso } from "../hooks/useRecurso.js";
 
 import { consultar } from "../services/api.js";
 
 import { textosFaltantes } from "../config/textosFaltantes.js";
-import { formatoPrecio, plural } from "../utils/formato.js";
+import { formatoPrecio, interpolar, plural } from "../utils/formato.js";
 import { atajoDeRango, rangoFecha } from "../utils/filtros.js";
 
 import "./Explorar.css";
-import Boton from "../components/Boton/Boton.jsx";
-import Icono from "../components/Icono/Icono.jsx";
 
 const POR_PAGINA = 12;
 const PRECIO_MINIMO = 30000;
 const PRECIO_MAXIMO = 150000;
 const PRECIO_ESCALA_MAXIMO = 200000;
+
+// Hasta este ancho los filtros se abren como panel (Figma «filtros abiertos — Móvil»).
+// Debe coincidir con el @media de Explorar.css.
+const CONSULTA_PANEL_FILTROS = "(max-width: 1024px)";
 
 function ordenarEventos(eventos, orden) {
   const copia = [...eventos];
@@ -63,6 +68,14 @@ export default function Explorar() {
   const [busqueda, setBusqueda] = useState(searchParams.get("q") || "");
 
   const [filtrosMovilesAbiertos, setFiltrosMovilesAbiertos] = useState(false);
+
+  // En pantallas anchas los filtros siempre se ven en la columna izquierda,
+  // así que el panel solo cuenta como abierto en celular y tableta.
+  const filtrosComoPanel = useEsMovil(CONSULTA_PANEL_FILTROS);
+  const panelAbierto = filtrosComoPanel && filtrosMovilesAbiertos;
+
+  const botonFiltrosRef = useRef(null);
+  const cerrarPanelRef = useRef(null);
 
   const [fechasPersonalizadasAbiertas, setFechasPersonalizadasAbiertas] =
     useState(() =>
@@ -251,10 +264,9 @@ export default function Explorar() {
 
         const paginaActual = Math.max(1, Number(parametros.get("pagina")) || 1);
 
-        const precioMinimo = Math.max(
-          PRECIO_MINIMO,
-          Number(parametros.get("precioMin")) || PRECIO_MINIMO,
-        );
+        // La API no tiene «precioMin»: si la persona lo elige, se filtra aquí.
+        // Sin elegirlo no se oculta ningún evento.
+        const precioMinimo = Number(parametros.get("precioMin")) || 0;
 
         parametros.delete("categoria");
         parametros.delete("precioMin");
@@ -360,6 +372,30 @@ export default function Explorar() {
     };
   }, [filtrosURL, intento]);
 
+  // Panel de filtros en celular: bloquea el scroll de fondo, cierra con Escape
+  // y devuelve el foco al botón que lo abrió.
+  useEffect(() => {
+    if (!panelAbierto) return undefined;
+
+    const botonFiltros = botonFiltrosRef.current;
+    const overflowAnterior = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+    cerrarPanelRef.current?.focus();
+
+    function alPresionarTecla(evento) {
+      if (evento.key === "Escape") setFiltrosMovilesAbiertos(false);
+    }
+
+    document.addEventListener("keydown", alPresionarTecla);
+
+    return () => {
+      document.body.style.overflow = overflowAnterior;
+      document.removeEventListener("keydown", alPresionarTecla);
+      botonFiltros?.focus();
+    };
+  }, [panelAbierto]);
+
   // Si cambia la búsqueda en la URL, se refleja en el campo de texto.
   const [consultaPrevia, setConsultaPrevia] = useState(consulta);
   if (consultaPrevia !== consulta) {
@@ -433,6 +469,10 @@ export default function Explorar() {
 
   const textoBreadcrumb = faltantes.migas;
 
+  const textoVerResultados = interpolar(filtrosTexto?.botones?.verResultados, {
+    cantidad: totalEventos,
+  });
+
   return (
     <LayoutPublico
       titulo={explorar?.seo?.titulo}
@@ -441,9 +481,9 @@ export default function Explorar() {
       <div className="pagina-explorar">
         <div className="ancho-explorar">
           <nav className="migas-explorar" aria-label={textoBreadcrumb}>
-            <a href="/">{textos?.navbar?.enlaces?.inicio}</a>
+            <Link to="/">{textos?.navbar?.enlaces?.inicio}</Link>
 
-            <span aria-hidden="true">›</span>
+            <Icono nombre="chevR" tamano={14} />
 
             <span aria-current="page">{textos?.navbar?.enlaces?.explorar}</span>
           </nav>
@@ -463,20 +503,22 @@ export default function Explorar() {
                   type="search"
                   value={busqueda}
                   onChange={(evento) => setBusqueda(evento.target.value)}
-                  placeholder={textos?.navbar?.buscador?.placeholder}
+                  placeholder={
+                    textos?.paginas?.inicio?.hero?.buscador?.placeholders?.movil
+                  }
                   aria-label={textos?.navbar?.buscador?.aria}
                 />
               </form>
 
               <button
+                ref={botonFiltrosRef}
                 type="button"
                 className="boton-filtros-movil"
                 aria-label={tituloFiltros}
-                aria-expanded={filtrosMovilesAbiertos}
+                aria-expanded={panelAbierto}
                 aria-controls="panel-filtros-explorar"
-                onClick={() => setFiltrosMovilesAbiertos((actual) => !actual)}
+                onClick={() => setFiltrosMovilesAbiertos(true)}
               >
-                {/* SVG original del botón de filtros de Figma */}
                 <Icono nombre="sliders" tamano={18} />
               </button>
             </div>
@@ -489,233 +531,265 @@ export default function Explorar() {
           <div className="contenido-explorar">
             <aside
               id="panel-filtros-explorar"
-              className={`panel-filtros ${
-                filtrosMovilesAbiertos ? "filtros-abiertos" : ""
-              }`}
+              className={`panel-filtros ${panelAbierto ? "filtros-abiertos" : ""}`}
               aria-label={tituloFiltros}
+              role={panelAbierto ? "dialog" : undefined}
+              aria-modal={panelAbierto ? "true" : undefined}
             >
               <div className="encabezado-filtros">
                 <h2>{tituloFiltros}</h2>
 
-                <button type="button" onClick={limpiarFiltros}>
-                  {textoLimpiar}
-                </button>
+                <div className="acciones-filtros">
+                  <button
+                    type="button"
+                    className="limpiar-filtros"
+                    onClick={limpiarFiltros}
+                  >
+                    {textoLimpiar}
+                  </button>
+
+                  <button
+                    ref={cerrarPanelRef}
+                    type="button"
+                    className="cerrar-filtros"
+                    aria-label={general?.aria?.cerrarDialogo}
+                    onClick={() => setFiltrosMovilesAbiertos(false)}
+                  >
+                    <Icono nombre="x" tamano={16} />
+                  </button>
+                </div>
               </div>
 
-              <section className="grupo-filtro">
-                <h3>{tituloCategoria}</h3>
+              <div className="opciones-filtros">
+                <section className="grupo-filtro">
+                  <h3>{tituloCategoria}</h3>
 
-                {categorias.map((categoria) => {
-                  const seleccionada = categoriasSeleccionadas.includes(
-                    categoria.id,
-                  );
+                  {categorias.map((categoria) => {
+                    const seleccionada = categoriasSeleccionadas.includes(
+                      categoria.id,
+                    );
 
-                  const nombreCategoria =
-                    categoriasTexto?.[categoria.id] ?? categoria.nombre;
+                    const nombreCategoria =
+                      categoriasTexto?.[categoria.id] ?? categoria.nombre;
 
-                  return (
-                    <label className="opcion-categoria" key={categoria.id}>
-                      <input
-                        type="checkbox"
-                        checked={seleccionada}
-                        onChange={() => seleccionarCategoria(categoria.id)}
-                      />
+                    return (
+                      <label className="opcion-categoria" key={categoria.id}>
+                        <input
+                          type="checkbox"
+                          checked={seleccionada}
+                          onChange={() => seleccionarCategoria(categoria.id)}
+                        />
 
-                      <span>{nombreCategoria}</span>
+                        <span>{nombreCategoria}</span>
 
-                      <small>{categoria.eventos ?? "—"}</small>
-                    </label>
-                  );
-                })}
+                        <small>{categoria.eventos ?? "—"}</small>
+                      </label>
+                    );
+                  })}
 
-                {errorCategorias && (
-                  <button
-                    type="button"
-                    className="reintentar-filtro"
-                    onClick={recargarCategorias}
-                  >
-                    {textoReintentar}
-                  </button>
-                )}
+                  {errorCategorias && (
+                    <button
+                      type="button"
+                      className="reintentar-filtro"
+                      onClick={recargarCategorias}
+                    >
+                      {textoReintentar}
+                    </button>
+                  )}
 
-                {cargandoCategorias && <small>{textoCargando}</small>}
-              </section>
+                  {cargandoCategorias && <small>{textoCargando}</small>}
+                </section>
 
-              <section className="grupo-filtro filtro-fechas">
-                <h3>{fechasTexto?.titulo}</h3>
+                <section className="grupo-filtro filtro-fechas">
+                  <h3>{fechasTexto?.titulo}</h3>
 
-                <div className="opciones-fecha">
-                  <button
-                    type="button"
-                    className={estadoFecha === "hoy" ? "seleccionado" : ""}
-                    onClick={() => seleccionarFecha("hoy")}
-                  >
-                    {fechasTexto?.hoy}
-                  </button>
+                  <div className="opciones-fecha">
+                    <button
+                      type="button"
+                      className={estadoFecha === "hoy" ? "seleccionado" : ""}
+                      onClick={() => seleccionarFecha("hoy")}
+                    >
+                      {fechasTexto?.hoy}
+                    </button>
 
-                  <button
-                    type="button"
-                    className={
-                      estadoFecha === "finDeSemana" ? "seleccionado" : ""
-                    }
-                    onClick={() => seleccionarFecha("fin-de-semana")}
-                  >
-                    {fechasTexto?.finDeSemana}
-                  </button>
-
-                  <button
-                    type="button"
-                    className={estadoFecha === "mes" ? "seleccionado" : ""}
-                    onClick={() => seleccionarFecha("mes")}
-                  >
-                    {fechasTexto?.mes}
-                  </button>
-
-                  <button
-                    type="button"
-                    className={
-                      fechasPersonalizadasAbiertas ||
-                      estadoFecha === "personalizada"
-                        ? "seleccionado"
-                        : ""
-                    }
-                    aria-expanded={fechasPersonalizadasAbiertas}
-                    onClick={() => {
-                      if (fechasPersonalizadasAbiertas) {
-                        setFechasPersonalizadasAbiertas(false);
-                        return;
+                    <button
+                      type="button"
+                      className={
+                        estadoFecha === "finDeSemana" ? "seleccionado" : ""
                       }
+                      onClick={() => seleccionarFecha("fin-de-semana")}
+                    >
+                      {fechasTexto?.finDeSemana}
+                    </button>
 
-                      setFechasPersonalizadasAbiertas(true);
+                    <button
+                      type="button"
+                      className={estadoFecha === "mes" ? "seleccionado" : ""}
+                      onClick={() => seleccionarFecha("mes")}
+                    >
+                      {fechasTexto?.mes}
+                    </button>
 
-                      if (
-                        estadoFecha === "hoy" ||
-                        estadoFecha === "finDeSemana" ||
-                        estadoFecha === "mes"
-                      ) {
+                    <button
+                      type="button"
+                      className={
+                        fechasPersonalizadasAbiertas ||
+                          estadoFecha === "personalizada"
+                          ? "seleccionado"
+                          : ""
+                      }
+                      aria-expanded={fechasPersonalizadasAbiertas}
+                      onClick={() => {
+                        if (fechasPersonalizadasAbiertas) {
+                          setFechasPersonalizadasAbiertas(false);
+                          return;
+                        }
+
+                        setFechasPersonalizadasAbiertas(true);
+
+                        if (
+                          estadoFecha === "hoy" ||
+                          estadoFecha === "finDeSemana" ||
+                          estadoFecha === "mes"
+                        ) {
+                          actualizarParametros({
+                            desde: "",
+                            hasta: "",
+                          });
+                        }
+                      }}
+                    >
+                      {fechasTexto?.elegir}
+                    </button>
+                  </div>
+
+                  {fechasPersonalizadasAbiertas && (
+                    <div className="fechas-personalizadas">
+                      <label>
+                        <span>{textoDesde}</span>
+
+                        <input
+                          type="date"
+                          value={desde}
+                          onChange={(evento) =>
+                            actualizarParametros({
+                              desde: evento.target.value,
+                            })
+                          }
+                        />
+                      </label>
+
+                      <label>
+                        <span>{textoHasta}</span>
+
+                        <input
+                          type="date"
+                          min={desde || undefined}
+                          value={hasta}
+                          onChange={(evento) =>
+                            actualizarParametros({
+                              hasta: evento.target.value,
+                            })
+                          }
+                        />
+                      </label>
+                    </div>
+                  )}
+                </section>
+
+                <section className="grupo-filtro">
+                  <h3>{tituloCiudad}</h3>
+
+                  <div className="selector-filtro">
+                    <select
+                      value={ciudad}
+                      onChange={(evento) =>
                         actualizarParametros({
-                          desde: "",
-                          hasta: "",
-                        });
+                          ciudad: evento.target.value,
+                        })
                       }
+                      aria-label={tituloCiudad}
+                    >
+                      <option value="">{textoTodasCiudades}</option>
+
+                      {ciudadesApi.map((item) => (
+                        <option key={item.nombre} value={item.nombre}>
+                          {item.nombre}
+                        </option>
+                      ))}
+                    </select>
+
+                    <Icono nombre="chevD" tamano={16} />
+                  </div>
+
+                  {errorCiudades && (
+                    <button
+                      type="button"
+                      className="reintentar-filtro"
+                      onClick={recargarCiudades}
+                    >
+                      {textoReintentar}
+                    </button>
+                  )}
+
+                  {cargandoCiudades && <small>{textoCargando}</small>}
+                </section>
+
+                <section className="grupo-filtro filtro-precio">
+                  <h3>{tituloPrecio}</h3>
+
+                  <div
+                    className="controles-precio"
+                    style={{
+                      "--precio-inicio": posicionPrecioMinimo,
+                      "--precio-fin": posicionPrecioMaximo,
                     }}
                   >
-                    {fechasTexto?.elegir}
-                  </button>
-                </div>
+                    <input
+                      className="rango-precio rango-precio-minimo"
+                      type="range"
+                      min="0"
+                      max={PRECIO_ESCALA_MAXIMO}
+                      step="5000"
+                      value={precioMinimo}
+                      aria-label={faltantes.precioMinimo}
+                      aria-valuetext={formatoPrecio(precioMinimo)}
+                      onChange={(evento) =>
+                        cambiarPrecioMinimo(evento.target.value)
+                      }
+                    />
 
-                {fechasPersonalizadasAbiertas && (
-                  <div className="fechas-personalizadas">
-                    <label>
-                      <span>{textoDesde}</span>
-
-                      <input
-                        type="date"
-                        value={desde}
-                        onChange={(evento) =>
-                          actualizarParametros({
-                            desde: evento.target.value,
-                          })
-                        }
-                      />
-                    </label>
-
-                    <label>
-                      <span>{textoHasta}</span>
-
-                      <input
-                        type="date"
-                        min={desde || undefined}
-                        value={hasta}
-                        onChange={(evento) =>
-                          actualizarParametros({
-                            hasta: evento.target.value,
-                          })
-                        }
-                      />
-                    </label>
+                    <input
+                      className="rango-precio rango-precio-maximo"
+                      type="range"
+                      min="0"
+                      max={PRECIO_ESCALA_MAXIMO}
+                      step="5000"
+                      value={precioMaximo}
+                      aria-label={faltantes.precioMaximo}
+                      aria-valuetext={formatoPrecio(precioMaximo)}
+                      onChange={(evento) =>
+                        cambiarPrecioMaximo(evento.target.value)
+                      }
+                    />
                   </div>
-                )}
-              </section>
 
-              <section className="grupo-filtro">
-                <h3>{tituloCiudad}</h3>
+                  <div className="etiquetas-precio">
+                    <span>{formatoPrecio(precioMinimo)}</span>
+                    <span>{formatoPrecio(precioMaximo)}</span>
+                  </div>
+                </section>
+              </div>
 
-                <select
-                  value={ciudad}
-                  onChange={(evento) =>
-                    actualizarParametros({
-                      ciudad: evento.target.value,
-                    })
-                  }
-                  aria-label={tituloCiudad}
+              <div className="pie-filtros">
+                <Boton
+                  variante="primario"
+                  tamano="g"
+                  onClick={() => setFiltrosMovilesAbiertos(false)}
                 >
-                  <option value="">{textoTodasCiudades}</option>
-
-                  {ciudadesApi.map((item) => (
-                    <option key={item.nombre} value={item.nombre}>
-                      {item.nombre}
-                    </option>
-                  ))}
-                </select>
-
-                {errorCiudades && (
-                  <button
-                    type="button"
-                    className="reintentar-filtro"
-                    onClick={recargarCiudades}
-                  >
-                    {textoReintentar}
-                  </button>
-                )}
-
-                {cargandoCiudades && <small>{textoCargando}</small>}
-              </section>
-
-              <section className="grupo-filtro filtro-precio">
-                <h3>{tituloPrecio}</h3>
-
-                <div
-                  className="controles-precio"
-                  style={{
-                    "--precio-inicio": posicionPrecioMinimo,
-                    "--precio-fin": posicionPrecioMaximo,
-                  }}
-                >
-                  <input
-                    className="rango-precio rango-precio-minimo"
-                    type="range"
-                    min="0"
-                    max={PRECIO_ESCALA_MAXIMO}
-                    step="5000"
-                    value={precioMinimo}
-                    aria-label={faltantes.precioMinimo}
-                    aria-valuetext={formatoPrecio(precioMinimo)}
-                    onChange={(evento) =>
-                      cambiarPrecioMinimo(evento.target.value)
-                    }
-                  />
-
-                  <input
-                    className="rango-precio rango-precio-maximo"
-                    type="range"
-                    min="0"
-                    max={PRECIO_ESCALA_MAXIMO}
-                    step="5000"
-                    value={precioMaximo}
-                    aria-label={faltantes.precioMaximo}
-                    aria-valuetext={formatoPrecio(precioMaximo)}
-                    onChange={(evento) =>
-                      cambiarPrecioMaximo(evento.target.value)
-                    }
-                  />
-                </div>
-
-                <div className="etiquetas-precio">
-                  <span>{formatoPrecio(precioMinimo)}</span>
-                  <span>{formatoPrecio(precioMaximo)}</span>
-                </div>
-              </section>
+                  {textoVerResultados}
+                </Boton>
+              </div>
             </aside>
 
             <section className="resultados-explorar">
@@ -724,69 +798,69 @@ export default function Explorar() {
                   etiquetaFecha ||
                   ciudad ||
                   consulta) && (
-                  <div className="filtros-activos">
-                    {categoriasSeleccionadas.map((id) => {
-                      const categoria = categorias.find(
-                        (item) => String(item.id) === String(id),
-                      );
+                    <div className="filtros-activos">
+                      {categoriasSeleccionadas.map((id) => {
+                        const categoria = categorias.find(
+                          (item) => String(item.id) === String(id),
+                        );
 
-                      const nombre =
-                        categoriasTexto?.[id] ?? categoria?.nombre ?? id;
+                        const nombre =
+                          categoriasTexto?.[id] ?? categoria?.nombre ?? id;
 
-                      return (
+                        return (
+                          <button
+                            type="button"
+                            key={id}
+                            onClick={() => seleccionarCategoria(id)}
+                            aria-label={`${faltantes.quitarFiltro}: ${nombre}`}
+                          >
+                            {nombre}
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        );
+                      })}
+
+                      {etiquetaFecha && (
                         <button
                           type="button"
-                          key={id}
-                          onClick={() => seleccionarCategoria(id)}
-                          aria-label={`${faltantes.quitarFiltro}: ${nombre}`}
+                          onClick={() => {
+                            setFechasPersonalizadasAbiertas(false);
+
+                            actualizarParametros({
+                              desde: "",
+                              hasta: "",
+                            });
+                          }}
                         >
-                          {nombre}
+                          {etiquetaFecha}
                           <span aria-hidden="true">×</span>
                         </button>
-                      );
-                    })}
+                      )}
 
-                    {etiquetaFecha && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setFechasPersonalizadasAbiertas(false);
+                      {ciudad && (
+                        <button
+                          type="button"
+                          onClick={() => actualizarParametros({ ciudad: "" })}
+                        >
+                          {ciudad}
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      )}
 
-                          actualizarParametros({
-                            desde: "",
-                            hasta: "",
-                          });
-                        }}
-                      >
-                        {etiquetaFecha}
-                        <span aria-hidden="true">×</span>
-                      </button>
-                    )}
-
-                    {ciudad && (
-                      <button
-                        type="button"
-                        onClick={() => actualizarParametros({ ciudad: "" })}
-                      >
-                        {ciudad}
-                        <span aria-hidden="true">×</span>
-                      </button>
-                    )}
-
-                    {consulta && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setBusqueda("");
-                          actualizarParametros({ q: "" });
-                        }}
-                      >
-                        {consulta}
-                        <span aria-hidden="true">×</span>
-                      </button>
-                    )}
-                  </div>
-                )}
+                      {consulta && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setBusqueda("");
+                            actualizarParametros({ q: "" });
+                          }}
+                        >
+                          {consulta}
+                          <span aria-hidden="true">×</span>
+                        </button>
+                      )}
+                    </div>
+                  )}
 
                 <span className="conteo-resultados-movil">
                   {respuestaEventos.cargando ? textoCargando : resultadosCorto}
@@ -811,6 +885,8 @@ export default function Explorar() {
                       {opcionesOrden?.popularidad}
                     </option>
                   </select>
+
+                  <Icono nombre="chevD" tamano={16} />
                 </label>
               </div>
 
@@ -857,7 +933,7 @@ export default function Explorar() {
                       }
                       aria-label={explorar?.paginacion?.anterior}
                     >
-                      ‹
+                      <Icono nombre="chevL" tamano={16} />
                     </button>
 
                     {Array.from(
@@ -907,7 +983,7 @@ export default function Explorar() {
                       }
                       aria-label={explorar?.paginacion?.siguiente}
                     >
-                      ›
+                      <Icono nombre="chevR" tamano={16} />
                     </button>
                   </nav>
                 )}
