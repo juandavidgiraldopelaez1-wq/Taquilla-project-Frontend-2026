@@ -11,8 +11,19 @@
   align-items: center;
 }
 
+/* Columna de texto (Figma): etiqueta, título, subtítulo, buscador y populares con 24 px entre sí */
+.interior-taquilla>div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-6);
+  min-width: 0;
+}
+
+.interior-taquilla>div:first-child>.etiqueta {
+  align-self: flex-start;
+}
+
 .hero-taquilla h1 {
-  margin: var(--espacio-6) 0;
   font-size: var(--tamano-display);
   line-height: var(--interlineado-display);
   letter-spacing: var(--espaciado-display);
@@ -20,7 +31,6 @@
 }
 
 .hero-taquilla .interior-taquilla>div>p {
-  margin: 0 0 var(--espacio-6);
   font-size: var(--tamano-cuerpo-g);
   line-height: var(--interlineado-cuerpo-g);
   color: var(--texto-inverso-suave);
@@ -31,7 +41,6 @@
   gap: 16px;
   align-items: center;
   flex-wrap: wrap;
-  margin-top: 20px;
   font-size: var(--tamano-cuerpo-p);
 }
 
