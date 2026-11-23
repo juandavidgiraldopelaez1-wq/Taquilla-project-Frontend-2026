@@ -35,8 +35,11 @@ function locale(idioma) {
   return idioma === "en" ? "en-US" : "es-CO";
 }
 
-/** «Sáb 14 nov» (formato de Figma: día abreviado, número y mes abreviado). */
-export function formatoFecha(fecha, idioma) {
+/**
+ * «Sáb 14 nov» (formato de Figma: día abreviado, número y mes abreviado).
+ * Con { anio: true }: «Sáb 14 nov 2026», como en el detalle del evento.
+ */
+export function formatoFecha(fecha, idioma, { anio = false } = {}) {
   const valor = new Date(fecha);
   if (Number.isNaN(valor.getTime())) return "";
   const partes = Object.fromEntries(
@@ -45,6 +48,7 @@ export function formatoFecha(fecha, idioma) {
       weekday: "short",
       day: "numeric",
       month: "short",
+      ...(anio && { year: "numeric" }),
     })
       .formatToParts(valor)
       .map(({ type, value }) => [type, value.replace(".", "")]),
@@ -53,6 +57,7 @@ export function formatoFecha(fecha, idioma) {
     idioma === "en"
       ? [partes.weekday, partes.month, partes.day]
       : [partes.weekday, partes.day, partes.month];
+  if (anio) orden.push(partes.year);
   return capitalizar(orden.join(" "));
 }
 

@@ -1,9 +1,20 @@
-/* Vista 3 · Detalle de evento (Figma 5:588 web y 10:227 móvil). */
+/* =========================================================
+   Vista 3 · Detalle de evento
+   Figma: «3 · Detalle de evento — Web» (5:588) y «— Móvil» (10:227).
+   ========================================================= */
+
 .detalle-evento {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espacio-12);
-  padding-block: var(--espacio-8) var(--espacio-20);
+  padding-bottom: 72px;
+}
+
+.detalle-evento .solo-movil {
+  display: none;
+}
+
+/* ---------- Migas y portada ---------- */
+
+.portada-contenedor {
+  padding-top: var(--espacio-8);
 }
 
 .migas-detalle {
@@ -23,35 +34,58 @@
 
 .migas-detalle a:hover {
   color: var(--texto-principal);
+  text-decoration: underline;
 }
 
 .migas-detalle [aria-current] {
-  color: var(--texto-principal);
+  overflow: hidden;
   font-weight: var(--peso-medio);
+  color: var(--texto-principal);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.portada-detalle.afiche-evento {
+.portada-detalle {
+  position: relative;
+}
+
+/* Imagen de 1280 × 360 con los círculos en la posición de Figma */
+.afiche-evento.afiche-detalle {
   height: 360px;
   border-radius: var(--radio-l);
 }
 
-.portada-detalle.afiche-evento::before {
+.afiche-evento.afiche-detalle::before {
   top: -89%;
   left: 50%;
   width: 70%;
 }
 
-.portada-detalle.afiche-evento::after {
-  bottom: -60%;
+.afiche-evento.afiche-detalle::after {
+  top: 11%;
+  bottom: auto;
   left: -12%;
   width: 45%;
+}
+
+/* Botones redondos sobre la imagen: solo en celular */
+.boton-portada {
+  display: none;
+}
+
+/* ---------- Encabezado ---------- */
+
+.cuerpo-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-10);
+  padding-top: var(--espacio-10);
 }
 
 .encabezado-detalle {
   display: flex;
   flex-direction: column;
   gap: var(--espacio-4);
-  margin-top: var(--espacio-10);
 }
 
 .etiquetas-detalle {
@@ -60,7 +94,13 @@
   gap: var(--espacio-2);
 }
 
-.encabezado-detalle h1 {
+.titulo-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-4);
+}
+
+.titulo-detalle h1 {
   margin: 0;
   font-size: var(--tamano-display);
   line-height: var(--interlineado-display);
@@ -75,81 +115,98 @@
   color: var(--texto-secundario);
 }
 
+/* Fecha · Hora · Lugar */
 .datos-detalle {
   display: flex;
   flex-wrap: wrap;
   gap: var(--espacio-4) var(--espacio-8);
-  margin: var(--espacio-2) 0 0;
+  margin: 0;
+  padding-top: var(--espacio-2);
 }
 
-.datos-detalle > div {
+.datos-detalle>div {
   display: grid;
   grid-template-columns: 44px auto;
   grid-template-rows: auto auto;
-  column-gap: var(--espacio-3);
   align-items: center;
+  column-gap: var(--espacio-3);
 }
 
 .icono-dato {
-  grid-row: span 2;
   display: grid;
+  grid-row: span 2;
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--borde-sutil);
   border-radius: var(--radio-m);
-  background: var(--fondo-superficie);
+  background: var(--fondo-sutil);
 }
 
 .datos-detalle dt {
+  align-self: end;
   font-size: var(--tamano-detalle);
   line-height: var(--interlineado-detalle);
   color: var(--texto-terciario);
 }
 
 .datos-detalle dd {
+  align-self: start;
   margin: 0;
   font-size: var(--tamano-cuerpo-p);
   line-height: var(--interlineado-cuerpo-p);
   font-weight: var(--peso-medio);
 }
 
+/* Segunda línea (hora y dirección): solo en celular */
+.dato-secundario {
+  display: none;
+}
+
+/* ---------- Pestañas ---------- */
+
 .pestanas-detalle {
   display: flex;
   gap: var(--espacio-8);
-  margin-top: var(--espacio-10);
   border-bottom: 1px solid var(--borde-sutil);
   overflow-x: auto;
 }
 
 .pestanas-detalle a {
   padding-bottom: var(--espacio-3);
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
   font-size: var(--tamano-cuerpo-m);
   line-height: var(--interlineado-cuerpo-m);
+  font-weight: var(--peso-medio);
   color: var(--texto-secundario);
   text-decoration: none;
   white-space: nowrap;
 }
 
-.pestanas-detalle a:first-child,
 .pestanas-detalle a:hover {
-  border-bottom-color: var(--fondo-inverso);
   color: var(--texto-principal);
-  font-weight: var(--peso-medio);
 }
+
+.pestanas-detalle a.pestana-activa {
+  border-bottom-color: var(--marca-primario);
+  color: var(--texto-principal);
+}
+
+/* ---------- Secciones ---------- */
 
 .seccion-detalle {
   display: flex;
   flex-direction: column;
   gap: var(--espacio-3);
-  margin-top: var(--espacio-10);
   scroll-margin-top: var(--espacio-6);
+}
+
+#como-llegar {
+  gap: var(--espacio-4);
 }
 
 .seccion-detalle h2,
 .relacionados h2 {
-  margin: 0 0 var(--espacio-1);
+  margin: 0;
   font-size: var(--tamano-h2);
   line-height: var(--interlineado-h2);
   letter-spacing: var(--espaciado-h2);
@@ -158,11 +215,17 @@
 
 .seccion-detalle p {
   margin: 0;
-  font-size: var(--tamano-cuerpo-p);
-  line-height: var(--interlineado-cuerpo-p);
+  font-size: var(--tamano-cuerpo-m);
+  line-height: var(--interlineado-cuerpo-m);
   color: var(--texto-secundario);
 }
 
+/* «Leer más» solo se usa en celular */
+.leer-mas {
+  display: none;
+}
+
+/* Funciones y localidades (US-TAQ-S2-01) */
 .lista-detalle {
   display: flex;
   flex-direction: column;
@@ -176,18 +239,22 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--espacio-3);
-  justify-content: space-between;
+  gap: var(--espacio-2) var(--espacio-4);
   padding: var(--espacio-3) var(--espacio-4);
-  background: var(--fondo-superficie);
   border: 1px solid var(--borde-sutil);
   border-radius: var(--radio-m);
+  background: var(--fondo-superficie);
   font-size: var(--tamano-cuerpo-p);
   line-height: var(--interlineado-cuerpo-p);
 }
 
-.nombre-localidad {
+.nombre-item {
   flex: 1;
+  min-width: 0;
+  font-weight: var(--peso-medio);
+}
+
+.lista-detalle strong {
   font-weight: var(--peso-medio);
 }
 
@@ -209,43 +276,216 @@
   color: var(--texto-principal);
 }
 
-.relacionados .eventos-grid {
+/* ---------- Relacionados ---------- */
+
+.relacionados {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-6);
+  margin-top: var(--espacio-16);
+}
+
+.relacionados-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--espacio-6);
-  margin-top: var(--espacio-6);
 }
 
 @media (max-width: 1024px) {
-  .relacionados .eventos-grid {
+  .relacionados-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+/* =========================================================
+   CELULAR (Figma 10:227)
+   ========================================================= */
+
 @media (max-width: 640px) {
   .detalle-evento {
-    padding-block: var(--espacio-4) var(--espacio-12);
+    padding-bottom: var(--espacio-10);
   }
 
-  .portada-detalle.afiche-evento {
-    height: 200px;
+  .detalle-evento .solo-web {
+    display: none;
+  }
+
+  .detalle-evento .solo-movil {
+    display: inline;
+  }
+
+  /* Imagen de borde a borde, sin migas */
+  .ancho-home.portada-contenedor {
+    width: 100%;
+    padding-top: 0;
+  }
+
+  .migas-detalle {
+    display: none;
+  }
+
+  .afiche-evento.afiche-detalle {
+    height: 280px;
+    border-radius: 0;
+  }
+
+  .afiche-evento.afiche-detalle::before {
+    top: -35%;
+  }
+
+  .afiche-evento.afiche-detalle::after {
+    top: 65%;
+  }
+
+  .boton-portada {
+    position: absolute;
+    top: 52px;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radio-pildora);
+    background: var(--fondo-superficie);
+    color: var(--texto-principal);
+    cursor: pointer;
+  }
+
+  .boton-volver {
+    left: var(--espacio-5);
+  }
+
+  .boton-compartir {
+    right: var(--espacio-5);
+  }
+
+  /* Contenido sobre fondo blanco */
+  .ancho-home.cuerpo-detalle {
+    gap: var(--espacio-5);
+    width: 100%;
+    padding: var(--espacio-5) var(--espacio-5) var(--espacio-6);
+    background: var(--fondo-superficie);
   }
 
   .encabezado-detalle {
-    margin-top: var(--espacio-6);
+    gap: var(--espacio-5);
   }
 
-  .encabezado-detalle h1 {
+  .titulo-detalle {
+    gap: 6px;
+  }
+
+  .titulo-detalle h1 {
     font-size: var(--tamano-h1);
     line-height: var(--interlineado-h1);
     letter-spacing: var(--espaciado-h1);
   }
 
-  .datos-detalle {
-    flex-direction: column;
+  .artistas-detalle {
+    font-size: var(--tamano-cuerpo-m);
+    line-height: var(--interlineado-cuerpo-m);
   }
 
-  .relacionados .eventos-grid {
-    grid-template-columns: minmax(0, 1fr);
+  /* Dos filas: fecha con hora, y lugar con dirección */
+  .datos-detalle {
+    flex-direction: column;
+    gap: var(--espacio-3);
+    padding: 0 0 var(--espacio-5);
+    border-bottom: 1px solid var(--borde-sutil);
+  }
+
+  .datos-detalle>div {
+    grid-template-rows: auto;
+  }
+
+  .datos-detalle dt {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .icono-dato {
+    grid-row: auto;
+  }
+
+  .datos-detalle dd {
+    align-self: center;
+  }
+
+  .dato-secundario {
+    display: block;
+    font-size: var(--tamano-detalle);
+    line-height: var(--interlineado-detalle);
+    font-weight: var(--peso-regular);
+    color: var(--texto-secundario);
+  }
+
+  .pestanas-detalle {
+    display: none;
+  }
+
+  .seccion-detalle {
+    gap: var(--espacio-2);
+  }
+
+  .seccion-detalle h2 {
+    font-size: var(--tamano-h3);
+    line-height: var(--interlineado-h3);
+    letter-spacing: var(--espaciado-h3);
+  }
+
+  .descripcion-recortada {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .leer-mas {
+    display: block;
+    align-self: flex-start;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: var(--tamano-cuerpo-p);
+    line-height: var(--interlineado-cuerpo-p);
+    font-weight: var(--peso-medio);
+    color: var(--texto-marca);
+    cursor: pointer;
+  }
+
+  /* Relacionados en carrusel horizontal */
+  .relacionados {
+    gap: var(--espacio-4);
+    margin-top: var(--espacio-8);
+  }
+
+  .relacionados h2 {
+    font-size: var(--tamano-h3);
+    line-height: var(--interlineado-h3);
+    letter-spacing: var(--espaciado-h3);
+  }
+
+  .relacionados-grid {
+    display: flex;
+    gap: var(--espacio-3);
+    margin-inline: calc(-1 * var(--espacio-5));
+    padding: 0 var(--espacio-5) var(--espacio-1);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .relacionados-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .relacionados-grid>* {
+    flex: 0 0 280px;
+    scroll-snap-align: start;
   }
 }
