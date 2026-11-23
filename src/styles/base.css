@@ -59,9 +59,9 @@ select {
   text-wrap: pretty;
 }
 
-.landing button,
-.landing input,
-.landing select {
+/* Reinicio sin especificidad (:where) para que los estilos de cada
+   componente siempre puedan cambiar la fuente. */
+:where(.landing) :is(button, input, select) {
   font: inherit;
 }
 
