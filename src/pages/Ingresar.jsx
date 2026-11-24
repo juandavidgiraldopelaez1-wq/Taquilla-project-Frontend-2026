@@ -166,13 +166,7 @@ export default function Ingresar() {
               tipo={mensaje.tipo ?? "error"}
               titulo={mensaje.titulo}
               texto={mensaje.texto}
-            >
-              {aviso === "conexion" && (
-                <Boton variante="secundario" onClick={() => enviar()}>
-                  {errores?.conexion?.botones?.reintentar}
-                </Boton>
-              )}
-            </Aviso>
+            />
           )}
 
           <Campo
@@ -214,7 +208,11 @@ export default function Ingresar() {
               </span>
               {formulario?.etiquetas?.mantenerSesion}
             </label>
-            <Link className="enlace-subrayado" to="/recuperar-clave">
+            {/* En el Figma móvil este enlace no aparece */}
+            <Link
+              className="enlace-subrayado enlace-olvidaste"
+              to="/recuperar-clave"
+            >
               {formulario?.enlaces?.olvidasteClave}
             </Link>
           </div>
@@ -227,9 +225,12 @@ export default function Ingresar() {
             aria-busy={enviando || undefined}
           >
             {enviando && <span className="giro" aria-hidden="true" />}
+            {/* Figma «error de conexión»: el botón principal pasa a «Reintentar» */}
             {enviando
               ? formulario?.mensajes?.ingresando
-              : formulario?.botones?.ingresar}
+              : aviso === "conexion"
+                ? errores?.conexion?.botones?.reintentar
+                : formulario?.botones?.ingresar}
           </Boton>
 
           <p className="registro-ingresar">
