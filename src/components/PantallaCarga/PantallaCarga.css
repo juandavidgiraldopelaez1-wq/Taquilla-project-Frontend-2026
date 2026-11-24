@@ -1,77 +1,77 @@
 /* Pantalla de carga inicial: centrada, con los tokens del sistema de diseño */
 .pantalla-carga {
-    display: grid;
-    min-height: 100vh;
-    min-height: 100dvh;
-    place-items: center;
-    padding: var(--espacio-6);
-    background: var(--fondo-pagina);
-    color: var(--texto-principal);
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  place-items: center;
+  padding: var(--espacio-6);
+  background: var(--fondo-pagina);
+  color: var(--texto-principal);
 }
 
 .pantalla-carga-contenido {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--espacio-8);
-    width: min(480px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-8);
+  width: min(480px, 100%);
 }
 
 /* Emblema de la marca (mismas medidas que «Marca» de Figma) */
 .pantalla-carga-emblema {
-    display: grid;
-    place-items: center;
-    width: 32px;
-    height: 32px;
-    border-radius: var(--radio-m);
-    background: var(--marca-primario);
-    color: var(--texto-inverso);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radio-m);
+  background: var(--marca-primario);
+  color: var(--texto-inverso);
 }
 
 .pantalla-carga-estado {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--espacio-2);
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--espacio-2);
+  text-align: center;
 }
 
 .pantalla-carga-estado h1 {
-    margin: var(--espacio-2) 0 0;
-    font-size: var(--tamano-h3);
-    line-height: var(--interlineado-h3);
-    letter-spacing: var(--espaciado-h3);
-    font-weight: var(--peso-seminegrita);
+  margin: var(--espacio-2) 0 0;
+  font-size: var(--tamano-h3);
+  line-height: var(--interlineado-h3);
+  letter-spacing: var(--espaciado-h3);
+  font-weight: var(--peso-seminegrita);
 }
 
 .pantalla-carga-estado p {
-    margin: 0;
-    font-size: var(--tamano-cuerpo-p);
-    line-height: var(--interlineado-cuerpo-p);
-    color: var(--texto-secundario);
+  margin: 0;
+  font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
+  color: var(--texto-secundario);
 }
 
 .pantalla-carga-giro {
-    width: 28px;
-    height: 28px;
-    border: 3px solid var(--borde-sutil);
-    border-top-color: var(--marca-primario);
-    border-radius: 50%;
-    animation: pantalla-carga-giro 0.8s linear infinite;
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--borde-sutil);
+  border-top-color: var(--marca-primario);
+  border-radius: 50%;
+  animation: pantalla-carga-giro 0.8s linear infinite;
 }
 
 @keyframes pantalla-carga-giro {
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .pantalla-carga-giro {
-        animation: none;
-    }
+  .pantalla-carga-giro {
+    animation: none;
+  }
 }
 
 html[data-reducir-movimiento="true"] .pantalla-carga-giro {
-    animation: none;
+  animation: none;
 }

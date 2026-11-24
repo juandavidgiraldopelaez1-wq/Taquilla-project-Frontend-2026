@@ -671,7 +671,7 @@ export default function Explorar() {
                       type="button"
                       className={
                         fechasPersonalizadasAbiertas ||
-                          estadoFecha === "personalizada"
+                        estadoFecha === "personalizada"
                           ? "seleccionado"
                           : ""
                       }
