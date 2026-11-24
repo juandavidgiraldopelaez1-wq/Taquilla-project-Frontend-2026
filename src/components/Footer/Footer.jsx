@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import Marca from "../Marca/Marca.jsx";
 import { usePreferencias } from "../../hooks/usePreferencias.js";
 import { interpolar } from "../../utils/formato.js";
+import { textosFaltantes } from "../../config/textosFaltantes.js";
 import "./Footer.css";
 
 /**
@@ -9,7 +10,7 @@ import "./Footer.css";
  * Explora, Tu cuenta y Legal. Todos los textos salen de textos.footer.
  */
 export default function Footer() {
-  const { textos } = usePreferencias();
+  const { idioma, textos, abrirAvisoCookies } = usePreferencias();
   const t = textos?.footer;
   const columnas = t?.columnas;
 
@@ -53,6 +54,14 @@ export default function Footer() {
             <Link to="/accesibilidad">
               {columnas?.legal?.enlaces?.accesibilidad}
             </Link>
+            {/* US-TAQ-S1-10: reabre el aviso de cookies sin recargar */}
+            <button
+              type="button"
+              className="enlace-pie"
+              onClick={abrirAvisoCookies}
+            >
+              {textosFaltantes[idioma]?.configurarCookies}
+            </button>
           </nav>
         </div>
 

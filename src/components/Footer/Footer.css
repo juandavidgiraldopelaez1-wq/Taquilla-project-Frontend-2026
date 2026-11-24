@@ -48,7 +48,8 @@
   color: var(--texto-inverso-suave);
 }
 
-.grupo-enlaces-pie a {
+.grupo-enlaces-pie a,
+.grupo-enlaces-pie .enlace-pie {
   width: fit-content;
   font-size: var(--tamano-cuerpo-p);
   line-height: var(--interlineado-cuerpo-p);
@@ -56,11 +57,23 @@
   text-decoration: none;
 }
 
-.grupo-enlaces-pie a:hover {
+/* «Configurar cookies» es un botón con el aspecto de los demás enlaces */
+.grupo-enlaces-pie .enlace-pie {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.grupo-enlaces-pie a:hover,
+.grupo-enlaces-pie .enlace-pie:hover {
   text-decoration: underline;
 }
 
 .grupo-enlaces-pie a:focus-visible,
+.grupo-enlaces-pie .enlace-pie:focus-visible,
 .pie-home .marca:focus-visible {
   outline: 2px solid var(--foco-inverso);
   outline-offset: 2px;

@@ -5,17 +5,24 @@ import "./GestorCookies.css";
 /**
  * Aviso de cookies de la primera visita (US-TAQ-S1-06): solo Aceptar y
  * Rechazar, sin panel de preferencias. La decisión se guarda en la cookie
- * «consentimiento» y el aviso no vuelve a salir.
+ * «consentimiento». El enlace «Configurar cookies» del pie lo vuelve a
+ * mostrar para cambiar la decisión (US-TAQ-S1-10).
  */
 export default function GestorCookies() {
-  const { consentimiento, guardarConsentimiento, error, textos } =
-    usePreferencias();
+  const {
+    consentimiento,
+    guardarConsentimiento,
+    avisoCookiesAbierto,
+    error,
+    textos,
+  } = usePreferencias();
 
   return (
     <>
-      {!consentimiento && (
+      {(!consentimiento || avisoCookiesAbierto) && (
         <BannerCookies
           textos={textos?.cookies?.banner}
+          enfocar={avisoCookiesAbierto}
           onAceptar={() => guardarConsentimiento(true)}
           onRechazar={() => guardarConsentimiento(false)}
         />

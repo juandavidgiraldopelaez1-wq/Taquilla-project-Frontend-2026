@@ -82,6 +82,16 @@
   color: var(--texto-inverso);
 }
 
+/* Al reabrirlo desde el pie recibe el foco; el contorno se ve solo con teclado */
+.banner-cookies:focus {
+  outline: none;
+}
+
+.banner-cookies:focus-visible {
+  outline: 2px solid var(--fondo-inverso);
+  outline-offset: 3px;
+}
+
 .banner-cookies .boton:focus-visible {
   outline: 2px solid var(--fondo-inverso);
   outline-offset: 3px;

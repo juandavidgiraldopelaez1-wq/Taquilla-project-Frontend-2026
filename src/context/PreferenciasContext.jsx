@@ -74,6 +74,9 @@ export function PreferenciasProvider({ children }) {
 
   const [error, setError] = useState(false);
 
+  // «Configurar cookies» del pie vuelve a mostrar el aviso (US-TAQ-S1-10).
+  const [avisoCookiesAbierto, setAvisoCookiesAbierto] = useState(false);
+
   const [accesibilidad, setAccesibilidad] = useState(
     leerPreferenciasAccesibilidad,
   );
@@ -150,6 +153,7 @@ export function PreferenciasProvider({ children }) {
       }
 
       setConsentimiento(valor);
+      setAvisoCookiesAbierto(false);
       setError(false);
 
       return true;
@@ -157,6 +161,12 @@ export function PreferenciasProvider({ children }) {
       setError(true);
       return false;
     }
+  }
+
+  // Reabre el aviso sin recargar la página; al elegir se guarda la nueva
+  // decisión y el aviso se cierra (guardarConsentimiento).
+  function abrirAvisoCookies() {
+    setAvisoCookiesAbierto(true);
   }
 
   // Actualiza las preferencias y las guarda en este dispositivo.
@@ -203,6 +213,8 @@ export function PreferenciasProvider({ children }) {
         cambiarIdioma,
         consentimiento,
         guardarConsentimiento,
+        avisoCookiesAbierto,
+        abrirAvisoCookies,
         error,
         textos,
         textosListos,

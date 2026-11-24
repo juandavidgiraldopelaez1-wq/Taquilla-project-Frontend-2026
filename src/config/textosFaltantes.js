@@ -1,5 +1,6 @@
 /*
- * Textos de accesibilidad que GET /textos todavía no entrega.
+ * Textos que GET /textos todavía no entrega (accesibilidad y el enlace
+ * «Configurar cookies» del pie, US-TAQ-S1-10).
  * Se centralizan aquí (y no dentro de los componentes) para que sea fácil
  * reemplazarlos el día que la API los incluya. Todo el resto de la interfaz
  * sale de la API.
@@ -17,6 +18,7 @@ export const textosFaltantes = {
     quitarFiltro: "Quitar filtro",
     funciones: "Funciones",
     localidades: "Localidades",
+    configurarCookies: "Configurar cookies",
   },
   en: {
     navegacionPrincipal: "Main navigation",
@@ -30,5 +32,6 @@ export const textosFaltantes = {
     quitarFiltro: "Remove filter",
     funciones: "Showtimes",
     localidades: "Seating areas",
+    configurarCookies: "Cookie settings",
   },
 };
