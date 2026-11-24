@@ -11,6 +11,11 @@
   display: none;
 }
 
+/* Carga y error del evento: mismo espacio superior que la portada */
+.estado-detalle {
+  padding-top: var(--espacio-8);
+}
+
 /* ---------- Migas y portada ---------- */
 
 .portada-contenedor {
