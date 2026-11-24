@@ -6,14 +6,48 @@ import { proyecto } from "../config/proyecto.js";
  * convierte las respuestas de error en un Error con el `codigo` de la API.
  */
 
-// Cabeceras para probar estados de carga y error (US-TAQ-S2-02) sin tocar
-// el código: se activan desde el .env y por defecto están vacías.
-const cabecerasSimulacion = {
-  ...(proyecto.simularLatencia && {
-    "X-Simular-Latencia": proyecto.simularLatencia,
-  }),
-  ...(proyecto.simularError && { "X-Simular-Error": proyecto.simularError }),
-};
+/*
+ * Cabeceras para probar estados de carga y error (US-TAQ-S2-02) sin tocar
+ * el código. Se activan desde el .env (VITE_SIMULAR_LATENCIA y
+ * VITE_SIMULAR_ERROR) o, para probar en el despliegue, desde la dirección:
+ * ?simularLatencia=2000 o ?simularError=503. Lo de la dirección se recuerda
+ * en esta pestaña; ?simularError= (vacío) lo quita.
+ *
+ * No se aplican a /textos ni a /idiomas: si fallaran, el estado de error
+ * no tendría sus mensajes, que salen de textos.estados y textos.errores.
+ */
+const RUTAS_SIN_SIMULACION = ["/textos", "/idiomas"];
+
+function valorSimulacion(nombre, valorEnv) {
+  try {
+    const parametros = new URLSearchParams(window.location.search);
+    const clave = `taquilla:${nombre}`;
+
+    if (parametros.has(nombre)) {
+      const valor = parametros.get(nombre);
+      if (valor) sessionStorage.setItem(clave, valor);
+      else sessionStorage.removeItem(clave);
+    }
+
+    return sessionStorage.getItem(clave) || valorEnv;
+  } catch {
+    return valorEnv;
+  }
+}
+
+function cabecerasSimulacion(ruta) {
+  if (RUTAS_SIN_SIMULACION.some((inicio) => ruta.startsWith(inicio))) {
+    return {};
+  }
+
+  const latencia = valorSimulacion("simularLatencia", proyecto.simularLatencia);
+  const error = valorSimulacion("simularError", proyecto.simularError);
+
+  return {
+    ...(latencia && { "X-Simular-Latencia": latencia }),
+    ...(error && { "X-Simular-Error": error }),
+  };
+}
 
 // Respuestas GET guardadas en memoria para datos que casi no cambian
 // (idiomas, textos, categorías, ciudades) y así no repetir peticiones.
@@ -65,7 +99,7 @@ export async function consultar(
     headers: {
       Accept: "application/json",
       ...(cuerpo !== undefined && { "Content-Type": "application/json" }),
-      ...cabecerasSimulacion,
+      ...cabecerasSimulacion(ruta),
     },
     body: cuerpo !== undefined ? JSON.stringify(cuerpo) : undefined,
   });

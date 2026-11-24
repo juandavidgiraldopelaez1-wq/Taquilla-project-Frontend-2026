@@ -64,40 +64,44 @@ export default function DetalleEvento() {
     >
       <div className="detalle-evento">
         {detalle.error ? (
-          <div className="ancho-home">
+          <div className="ancho-home estado-detalle">
             <EstadoError
               error={detalle.error}
               onReintentar={detalle.recargar}
             />
           </div>
         ) : !evento ? (
-          <div className="ancho-home">
+          <div className="ancho-home estado-detalle">
             <EstadoCarga textos={textos} variante="bloque" />
           </div>
         ) : (
           <FichaEvento evento={evento} idioma={idioma} textos={textos} />
         )}
 
-        <section
-          className="relacionados ancho-home"
-          aria-labelledby="relacionados-titulo"
-        >
-          <h2 id="relacionados-titulo">{t?.relacionados?.titulo}</h2>
-          {relacionados.cargando ? (
-            <EstadoCarga textos={textos} />
-          ) : relacionados.error ? (
-            <EstadoError
-              error={relacionados.error}
-              onReintentar={relacionados.recargar}
-            />
-          ) : (
-            <div className="relacionados-grid">
-              {(relacionados.datos?.datos ?? []).slice(0, 4).map((item) => (
-                <TarjetaEvento key={item.id} evento={item} />
-              ))}
-            </div>
-          )}
-        </section>
+        {/* Si el evento no cargó, no se muestran relacionados (habría dos
+            errores iguales en la misma página) */}
+        {!detalle.error && (
+          <section
+            className="relacionados ancho-home"
+            aria-labelledby="relacionados-titulo"
+          >
+            <h2 id="relacionados-titulo">{t?.relacionados?.titulo}</h2>
+            {relacionados.cargando ? (
+              <EstadoCarga textos={textos} />
+            ) : relacionados.error ? (
+              <EstadoError
+                error={relacionados.error}
+                onReintentar={relacionados.recargar}
+              />
+            ) : (
+              <div className="relacionados-grid">
+                {(relacionados.datos?.datos ?? []).slice(0, 4).map((item) => (
+                  <TarjetaEvento key={item.id} evento={item} />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
       </div>
     </LayoutPublico>
   );

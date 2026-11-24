@@ -546,8 +546,11 @@ export default function Explorar() {
               </button>
             </div>
 
+            {/* Con error no se muestra un conteo (sería «0 eventos») */}
             <p role="status">
-              {respuestaEventos.cargando ? textoCargando : resultadosTexto}
+              {respuestaEventos.cargando
+                ? textoCargando
+                : !respuestaEventos.error && resultadosTexto}
             </p>
           </header>
 
@@ -799,10 +802,13 @@ export default function Explorar() {
                     />
                   </div>
 
-                  <div className="etiquetas-precio">
-                    <span>{formatoPrecio(precioMinimo)}</span>
-                    <span>{formatoPrecio(precioMaximo)}</span>
-                  </div>
+                  {/* Los valores se muestran cuando llega el precio más alto */}
+                  {precioTope && (
+                    <div className="etiquetas-precio">
+                      <span>{formatoPrecio(precioMinimo)}</span>
+                      <span>{formatoPrecio(precioMaximo)}</span>
+                    </div>
+                  )}
                 </section>
               </div>
 
@@ -888,7 +894,9 @@ export default function Explorar() {
                   )}
 
                 <span className="conteo-resultados-movil">
-                  {respuestaEventos.cargando ? textoCargando : resultadosCorto}
+                  {respuestaEventos.cargando
+                    ? textoCargando
+                    : !respuestaEventos.error && resultadosCorto}
                 </span>
 
                 <label className="orden-resultados">
