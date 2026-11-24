@@ -159,6 +159,18 @@ function FichaEvento({ evento, idioma, textos }) {
       ? `https://www.openstreetmap.org/?mlat=${ubicacion.lat}&mlon=${ubicacion.lng}#map=17/${ubicacion.lat}/${ubicacion.lng}`
       : null;
 
+  // Políticas del evento: textos de la API (paginas.detalleEvento.politicas).
+  const textosPoliticas = t?.politicas;
+  const politicas = [
+    textosPoliticas?.documento,
+    evento.edadMinima > 0
+      ? interpolar(textosPoliticas?.edad, { edad: evento.edadMinima })
+      : textosPoliticas?.todoPublico,
+    textosPoliticas?.reembolso,
+    textosPoliticas?.ingreso,
+    textosPoliticas?.objetos,
+  ];
+
   const descripcionLarga =
     (evento.descripcion?.length ?? 0) > LARGO_DESCRIPCION_CORTA;
 
@@ -386,17 +398,12 @@ function FichaEvento({ evento, idioma, textos }) {
         </section>
 
         <section id="politicas" className="seccion-detalle solo-web">
-          <h2>{t?.pestanas?.politicas}</h2>
-          <p>{edad}</p>
-          {evento.duracionMin > 0 && (
-            <p>
-              {interpolar(general?.formatos?.duracion, {
-                horas: Math.floor(evento.duracionMin / 60),
-                minutos: evento.duracionMin % 60,
-              })}
-            </p>
-          )}
-          {evento.organizador?.nombre && <p>{evento.organizador.nombre}</p>}
+          <h2>{t?.politicas?.titulo}</h2>
+          <ul className="lista-politicas">
+            {politicas.filter(Boolean).map((texto) => (
+              <li key={texto}>{texto}</li>
+            ))}
+          </ul>
         </section>
       </div>
     </article>
