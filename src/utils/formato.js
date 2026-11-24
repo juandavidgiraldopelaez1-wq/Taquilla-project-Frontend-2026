@@ -63,13 +63,38 @@ export function formatoFecha(fecha, idioma, { anio = false } = {}) {
 
 /** «8:00 p. m.» / «8:00 PM» */
 export function formatoHora(fecha, idioma) {
+  return partesHora(fecha, idioma)
+    .map((parte) => parte.value)
+    .join("");
+}
+
+/**
+ * Hora de apertura de puertas junto a la hora del evento. Si las dos son del
+ * mismo periodo (a. m. / p. m.), se omite en la de puertas, como en el Figma:
+ * «8:00 p. m. · Puertas 7:00».
+ */
+export function formatoHoraPuertas(puertas, fecha, idioma) {
+  const partes = partesHora(puertas, idioma);
+  const periodo = (lista) =>
+    lista.find((parte) => parte.type === "dayPeriod")?.value;
+  const mismoPeriodo =
+    periodo(partes) && periodo(partes) === periodo(partesHora(fecha, idioma));
+
+  return partes
+    .filter((parte) => !(mismoPeriodo && parte.type === "dayPeriod"))
+    .map((parte) => parte.value)
+    .join("")
+    .trim();
+}
+
+function partesHora(fecha, idioma) {
   const valor = new Date(fecha);
-  if (Number.isNaN(valor.getTime())) return "";
+  if (Number.isNaN(valor.getTime())) return [];
   return new Intl.DateTimeFormat(locale(idioma), {
     timeZone: ZONA_HORARIA,
     hour: "numeric",
     minute: "2-digit",
-  }).format(valor);
+  }).formatToParts(valor);
 }
 
 /** Une fecha y hora con la plantilla general.formatos.fechaYHora. */
