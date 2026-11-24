@@ -89,6 +89,12 @@ Al probar cada vista con la API real aparecieron fallos que no se veían a simpl
 - «Alto contraste» no hacía nada: cambiaba variables con nombres antiguos que ya no usaba ningún componente. Se reescribió con los tokens actuales y se ajustó «Espaciado de lectura» a los valores de WCAG 1.4.12 (PR #25).
 - Con `X-Simular-Error: 503` también fallaba `GET /textos`, así que el estado de error salía sin mensajes. Se excluyeron `/textos` e `/idiomas` de la simulación y se agregó la opción `?simularError=503` en la dirección para probarlo en el despliegue (PR #29).
 
+### Error de la IA y corrección realizada (colores de las tarjetas)
+
+Cuando el estudiante notó que los colores de las tarjetas no coincidían con Figma, Claude recomendó exportar las imágenes de Figma y asignarlas por `slug` a cada evento. Antes de implementarlo, Claude leyó `docs/contrato.md` de la API, que dice que el afiche no es una foto y que se pinta con el degradado de `color1` a `color2`; la historia US-TAQ-S2-01 dice lo mismo. Además, asignar imágenes por slug habría dejado datos escritos en el código.
+
+Se descartó la recomendación y se mantuvieron los colores de la API. Este caso muestra la importancia de revisar el contrato y las historias antes de seguir una recomendación de la IA, aunque parezca acercar el resultado al diseño.
+
 ## Validación y responsabilidad
 
 El estudiante revisó las propuestas, incorporó los cambios al código y ejecutó pruebas de compilación y funcionamiento.
