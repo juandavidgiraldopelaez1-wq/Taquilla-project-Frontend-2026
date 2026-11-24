@@ -58,12 +58,13 @@
   padding: 9px 16px;
 }
 
-/* PRÓXIMAMENTE EN MANIZALES - MÓVIL */
+/* «Este fin de semana» en celular (Figma «Inicio — Móvil», Lista):
+   fila de 98 px con miniatura de 72 px, título, fecha y precio. */
 @media (max-width: 640px) {
   #proximos .eventos-grid {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--espacio-3);
     width: 100%;
     padding: 0;
     overflow: visible;
@@ -74,22 +75,20 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    flex: 0 0 98px;
+    gap: var(--espacio-3);
     width: 100%;
-    height: 98px;
     min-height: 98px;
     box-sizing: border-box;
-    gap: 12px;
-    padding: 12px;
+    padding: var(--espacio-3);
     border: 1px solid var(--borde-sutil);
     border-radius: var(--radio-l);
     background: var(--fondo-superficie);
   }
 
   #proximos .tarjeta-evento>.afiche-evento {
-    flex: 0 0 58px;
-    width: 58px;
-    height: 58px;
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
     border-radius: var(--radio-m);
   }
 
@@ -98,41 +97,40 @@
     flex: 1;
     flex-direction: column;
     justify-content: center;
+    gap: 2px;
     min-width: 0;
     padding: 0;
   }
 
-  #proximos .tarjeta-evento .etiqueta-evento,
+  /* En la lista no van la etiqueta, el lugar, los íconos ni el botón */
+  #proximos .tarjeta-evento .etiqueta,
   #proximos .tarjeta-evento .contenido-evento>p:nth-of-type(2),
+  #proximos .tarjeta-evento .contenido-evento>p .icono,
   #proximos .tarjeta-evento .precio-evento .boton {
     display: none;
   }
 
   #proximos .tarjeta-evento .contenido-evento h3 {
     overflow: hidden;
-    margin: 0 0 2px;
-    font-size: var(--tamano-cuerpo-p);
-    line-height: 18px;
+    margin: 0;
+    font-size: var(--tamano-cuerpo-m);
+    line-height: var(--interlineado-cuerpo-m);
+    letter-spacing: 0;
+    font-weight: var(--peso-medio);
     white-space: nowrap;
     text-overflow: ellipsis;
   }
 
   #proximos .tarjeta-evento .contenido-evento>p {
     margin: 0;
-    gap: 5px;
     font-size: var(--tamano-detalle);
-    line-height: 16px;
-  }
-
-  #proximos .tarjeta-evento .contenido-evento>p .icono {
-    width: 13px;
-    height: 13px;
+    line-height: var(--interlineado-detalle);
+    color: var(--texto-secundario);
   }
 
   #proximos .tarjeta-evento .precio-evento {
-    justify-content: flex-start;
-    align-items: baseline;
-    margin-top: 2px;
+    margin: 0;
+    padding: 0;
   }
 
   #proximos .tarjeta-evento .precio-evento>div {
@@ -143,7 +141,10 @@
 
   #proximos .tarjeta-evento .precio-evento small,
   #proximos .tarjeta-evento .precio-evento strong {
-    font-size: var(--tamano-detalle);
+    font-size: var(--tamano-cuerpo-p);
+    line-height: var(--interlineado-cuerpo-p);
+    font-weight: var(--peso-medio);
+    color: var(--texto-principal);
   }
 }
 

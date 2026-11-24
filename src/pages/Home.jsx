@@ -8,9 +8,10 @@ import CategoriasEventos from "../components/CategoriasEventos/CategoriasEventos
 import SeccionEventos from "../components/SeccionEventos/SeccionEventos.jsx";
 import EstadoError from "../components/EstadoError/EstadoError.jsx";
 import { usePreferencias } from "../hooks/usePreferencias.js";
+import { useEsMovil } from "../hooks/useEsMovil.js";
 import { useRecurso } from "../hooks/useRecurso.js";
 import { interpolar } from "../utils/formato.js";
-import { rutaExplorar } from "../utils/filtros.js";
+import { rangoFecha, rutaExplorar } from "../utils/filtros.js";
 
 // Cantidad de tarjetas por sección en el Inicio (diseño de Figma: 4 columnas).
 const EVENTOS_POR_SECCION = 4;
@@ -34,13 +35,19 @@ export default function Home() {
   // Por defecto, la ciudad con más eventos (la API las entrega ordenadas).
   const ciudad = ciudadElegida ?? listaCiudades[0]?.nombre ?? "";
 
+  // En celular la segunda sección es «Este fin de semana» (Figma móvil):
+  // los eventos de la ciudad entre el sábado y el domingo.
+  const esMovil = useEsMovil();
+  const finDeSemana = esMovil ? rangoFecha("finDeSemana") : {};
+  const filtrosProximos = { ciudad, ...finDeSemana };
+
   const proximos = useRecurso(
     ciudad
       ? `/eventos?${new URLSearchParams({
-          ciudad,
-          orden: "fecha",
-          porPagina: String(EVENTOS_POR_SECCION),
-        })}`
+        ...filtrosProximos,
+        orden: "fecha",
+        porPagina: String(EVENTOS_POR_SECCION),
+      })}`
       : null,
   );
 
@@ -103,7 +110,7 @@ export default function Home() {
           tituloMovil={inicio?.filtrosMovil?.finDeSemana}
           descripcion={inicio?.proximos?.subtitulo}
           verTodos={{
-            to: rutaExplorar({ ciudad }),
+            to: rutaExplorar(filtrosProximos),
             texto: inicio?.destacados?.enlaces?.verTodos,
           }}
           eventos={proximos.datos?.datos ?? []}
