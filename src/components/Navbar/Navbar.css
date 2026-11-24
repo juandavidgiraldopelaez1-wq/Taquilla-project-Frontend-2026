@@ -261,8 +261,24 @@
     text-decoration: none;
   }
 
+  /* Figma «Enlace del menú móvil · Activo»: fondo sutil, indicador de
+     3 × 20 px y texto H4 */
   .menu-home .enlaces-menu-movil>a.active {
+    gap: var(--espacio-3);
     background: var(--fondo-sutil);
+    font-size: var(--tamano-h4);
+    line-height: var(--interlineado-h4);
+    letter-spacing: var(--espaciado-h4);
+    font-weight: var(--peso-seminegrita);
+  }
+
+  .menu-home .enlaces-menu-movil>a.active::before {
+    flex-shrink: 0;
+    width: 3px;
+    height: 20px;
+    border-radius: 2px;
+    background: var(--marca-primario);
+    content: "";
   }
 
   /* Espacio flexible: 319 px en el frame de Figma */
@@ -357,16 +373,18 @@
     line-height: 20px;
   }
 
-  .menu-home .grupo-sesion-menu .ingresar-home {
-    border: 1px solid var(--borde-fuerte);
-    background: var(--fondo-superficie);
-    color: var(--texto-principal);
-  }
-
-  .menu-home .grupo-sesion-menu>.boton--primario {
+  /* Figma «Menú móvil»: Ingresar es el botón principal y Crear cuenta
+     el secundario (en la barra de escritorio es al revés). */
+  .taquilla .menu-home .grupo-sesion-menu .ingresar-home {
     border: 1px solid var(--fondo-inverso);
     background: var(--marca-primario);
     color: var(--texto-inverso);
+  }
+
+  .taquilla .menu-home .grupo-sesion-menu>.boton--primario {
+    border: 1px solid var(--borde-fuerte);
+    background: var(--fondo-superficie);
+    color: var(--texto-principal);
   }
 
   /* El buscador de escritorio no se muestra dentro del panel */
