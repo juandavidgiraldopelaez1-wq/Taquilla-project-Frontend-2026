@@ -201,16 +201,17 @@ select {
 
 /* Preferencias globales de accesibilidad */
 
-/* Alto contraste */
+/* Alto contraste: «Más diferencia entre el texto y el fondo».
+   Cambia los tokens del sistema de diseño: los textos grises pasan a
+   negro (o a blanco sobre fondo oscuro), el fondo de página a blanco
+   y los bordes claros al gris fuerte (contraste ≥ 3:1). */
 html[data-alto-contraste="true"] {
-  --fondo: var(--texto-inverso);
-  --superficie: var(--texto-inverso);
-  --tinta: var(--texto-principal);
-  --suave: var(--texto-principal);
-  --acento: var(--texto-principal);
-  --sobre-acento: var(--texto-inverso);
-  --borde: var(--texto-principal);
-  --color-foco: var(--texto-principal);
+  --fondo-pagina: var(--fondo-superficie);
+  --texto-secundario: var(--texto-principal);
+  --texto-terciario: var(--texto-principal);
+  --texto-inverso-suave: var(--texto-inverso);
+  --borde-sutil: var(--borde-fuerte);
+  --borde-inverso: var(--texto-inverso-suave);
 }
 
 /* Reducir movimiento */
@@ -222,15 +223,21 @@ html[data-reducir-movimiento="true"] *::after {
   scroll-behavior: auto !important;
 }
 
-/* Subrayar enlaces */
-html[data-subrayar-enlaces="true"] a {
+/* Subrayar enlaces: los enlaces de texto, no los que se ven como botón */
+html[data-subrayar-enlaces="true"] a:not(.boton) {
   text-decoration: underline !important;
   text-underline-offset: 3px;
 }
 
-/* Espaciado de lectura */
-html[data-espaciado-lectura="true"] .taquilla :is(p, li, a, label, button, input, select, h1, h2, h3, small) {
+/* Espaciado de lectura: valores de WCAG 1.4.12 (interlineado ≥ 1,5,
+   0,12 em entre letras, 0,16 em entre palabras y 2 em entre párrafos).
+   Solo en textos, para no cortar botones ni campos de alto fijo. */
+html[data-espaciado-lectura="true"] .taquilla :is(p, li, dd, dt, label, small, h1, h2, h3, h4, a:not(.boton)) {
   line-height: 1.8 !important;
-  letter-spacing: 0.04em !important;
-  word-spacing: 0.12em !important;
+  letter-spacing: 0.12em !important;
+  word-spacing: 0.16em !important;
+}
+
+html[data-espaciado-lectura="true"] .taquilla p+p {
+  margin-top: 2em;
 }

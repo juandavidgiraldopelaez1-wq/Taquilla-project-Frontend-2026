@@ -143,16 +143,16 @@ export default function PanelAccesibilidad({ abierto, onCerrar }) {
                   aria-hidden="true"
                 >
                   <rect
+                    className="interruptor-fondo"
                     width="44"
                     height="24"
                     rx="12"
-                    fill={activa ? "#141414" : "#8C8C8C"}
                   />
                   <circle
+                    className="interruptor-perilla"
                     cx={activa ? "32" : "12"}
                     cy="12"
                     r="9"
-                    fill="#FFFFFF"
                   />
                 </svg>
               </button>

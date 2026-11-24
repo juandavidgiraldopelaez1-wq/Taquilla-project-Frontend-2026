@@ -9,13 +9,23 @@ import { PreferenciasContext } from "./preferenciasContexto.js";
 
 const CLAVE_ACCESIBILIDAD = "preferenciasAccesibilidad";
 
-const ACCESIBILIDAD_INICIAL = {
-  tamanoTexto: 100,
-  altoContraste: false,
-  reducirMovimiento: false,
-  subrayarEnlaces: false,
-  espaciadoLectura: false,
-};
+// «Los valores iniciales salen de lo que ya definiste en tu sistema»:
+// alto contraste y reducir movimiento parten de la configuración del equipo.
+function prefiereSistema(consulta) {
+  return typeof window !== "undefined" && window.matchMedia
+    ? window.matchMedia(consulta).matches
+    : false;
+}
+
+function accesibilidadInicial() {
+  return {
+    tamanoTexto: 100,
+    altoContraste: prefiereSistema("(prefers-contrast: more)"),
+    reducirMovimiento: prefiereSistema("(prefers-reduced-motion: reduce)"),
+    subrayarEnlaces: false,
+    espaciadoLectura: false,
+  };
+}
 
 const OPCIONES_ACCESIBILIDAD = [
   "altoContraste",
@@ -33,7 +43,7 @@ function leerPreferenciasAccesibilidad() {
       typeof guardadas !== "object" ||
       Array.isArray(guardadas)
     ) {
-      return { ...ACCESIBILIDAD_INICIAL };
+      return accesibilidadInicial();
     }
 
     return {
@@ -46,7 +56,7 @@ function leerPreferenciasAccesibilidad() {
       espaciadoLectura: guardadas.espaciadoLectura === true,
     };
   } catch {
-    return { ...ACCESIBILIDAD_INICIAL };
+    return accesibilidadInicial();
   }
 }
 
@@ -167,7 +177,7 @@ export function PreferenciasProvider({ children }) {
   }
 
   function restablecerAccesibilidad() {
-    actualizarAccesibilidad({ ...ACCESIBILIDAD_INICIAL });
+    actualizarAccesibilidad(accesibilidadInicial());
   }
 
   return (
