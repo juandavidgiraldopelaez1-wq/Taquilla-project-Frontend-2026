@@ -22,9 +22,9 @@ import { atajoDeRango, rangoFecha } from "../utils/filtros.js";
 import "./Explorar.css";
 
 const POR_PAGINA = 12;
-const PRECIO_MINIMO = 30000;
-const PRECIO_MAXIMO = 150000;
-const PRECIO_ESCALA_MAXIMO = 200000;
+// El rango de precio va de $0 al evento más caro del catálogo (dato de la API),
+// en pasos de $5.000.
+const PRECIO_PASO = 5000;
 
 // Hasta este ancho los filtros se abren como panel (Figma «filtros abiertos — Móvil»).
 // Debe coincidir con el @media de Explorar.css.
@@ -115,6 +115,25 @@ export default function Explorar() {
     recargar: recargarCiudades,
   } = useRecurso("/ciudades");
 
+  // Precio más alto del catálogo. La API no lo entrega directo: se pide el
+  // total de eventos y luego el último ordenado por precio (de menor a mayor).
+  const { datos: respuestaConteo } = useRecurso("/eventos?porPagina=1", {
+    cache: true,
+  });
+  const totalCatalogo = respuestaConteo?.paginacion?.total;
+
+  const { datos: respuestaMasCaro } = useRecurso(
+    totalCatalogo
+      ? `/eventos?orden=precio&porPagina=1&pagina=${totalCatalogo}`
+      : null,
+    { cache: true },
+  );
+
+  const precioMasAlto = respuestaMasCaro?.datos?.[0]?.precioDesde;
+  const precioTope = precioMasAlto
+    ? Math.ceil(precioMasAlto / PRECIO_PASO) * PRECIO_PASO
+    : null;
+
   const ciudadesApi = Array.isArray(respuestaCiudades?.datos)
     ? respuestaCiudades.datos
     : [];
@@ -130,25 +149,26 @@ export default function Explorar() {
 
   const pagina = Math.max(1, Number(searchParams.get("pagina")) || 1);
 
+  // Mientras llega el precio más alto, el rango usa lo que haya en la URL.
+  const escalaPrecio =
+    precioTope ?? (Number(searchParams.get("precioMax")) || PRECIO_PASO);
+
   const precioMinimo = Math.min(
-    PRECIO_MAXIMO - 5000,
-    Math.max(
-      PRECIO_MINIMO,
-      Number(searchParams.get("precioMin")) || PRECIO_MINIMO,
-    ),
+    Math.max(0, escalaPrecio - PRECIO_PASO),
+    Math.max(0, Number(searchParams.get("precioMin")) || 0),
   );
 
   const precioMaximo = Math.max(
-    precioMinimo + 5000,
+    precioMinimo + PRECIO_PASO,
     Math.min(
-      PRECIO_MAXIMO,
-      Number(searchParams.get("precioMax")) || PRECIO_MAXIMO,
+      escalaPrecio,
+      Number(searchParams.get("precioMax")) || escalaPrecio,
     ),
   );
 
-  const posicionPrecioMinimo = `${(precioMinimo / PRECIO_ESCALA_MAXIMO) * 100}%`;
+  const posicionPrecioMinimo = `${(precioMinimo / escalaPrecio) * 100}%`;
 
-  const posicionPrecioMaximo = `${(precioMaximo / PRECIO_ESCALA_MAXIMO) * 100}%`;
+  const posicionPrecioMaximo = `${(precioMaximo / escalaPrecio) * 100}%`;
 
   // Actualizar los parámetros de búsqueda sin perder filtros.
   function actualizarParametros(actualizaciones = {}, opciones = {}) {
@@ -223,25 +243,26 @@ export default function Explorar() {
     });
   }
 
+  // En los extremos ($0 y el tope) el filtro se quita de la URL.
   function cambiarPrecioMinimo(valor) {
     const nuevoMinimo = Math.min(
-      Math.max(Number(valor), PRECIO_MINIMO),
-      precioMaximo - 5000,
+      Math.max(Number(valor), 0),
+      precioMaximo - PRECIO_PASO,
     );
 
     actualizarParametros({
-      precioMin: nuevoMinimo === PRECIO_MINIMO ? "" : nuevoMinimo,
+      precioMin: nuevoMinimo <= 0 ? "" : nuevoMinimo,
     });
   }
 
   function cambiarPrecioMaximo(valor) {
     const nuevoMaximo = Math.min(
-      PRECIO_MAXIMO,
-      Math.max(Number(valor), precioMinimo + 5000),
+      escalaPrecio,
+      Math.max(Number(valor), precioMinimo + PRECIO_PASO),
     );
 
     actualizarParametros({
-      precioMax: nuevoMaximo === PRECIO_MAXIMO ? "" : nuevoMaximo,
+      precioMax: nuevoMaximo >= escalaPrecio ? "" : nuevoMaximo,
     });
   }
 
@@ -273,14 +294,18 @@ export default function Explorar() {
         parametros.delete("pagina");
         parametros.delete("porPagina");
 
-        if (categoriasSeleccionadas.length > 1) {
-          // La API recibe una categoría por petición.
-          // Se consultan por separado y se unen los resultados.
+        // Se filtra y pagina aquí cuando la API no puede hacerlo sola:
+        // varias categorías (recibe una por petición) o precio mínimo
+        // (no existe «precioMin»). Así el conteo y las páginas son correctos.
+        if (categoriasSeleccionadas.length > 1 || precioMinimo > 0) {
+          const categoriasConsulta =
+            categoriasSeleccionadas.length > 0 ? categoriasSeleccionadas : [""];
+
           const respuestas = await Promise.all(
-            categoriasSeleccionadas.map(async (categoria) => {
+            categoriasConsulta.map(async (categoria) => {
               const consulta = new URLSearchParams(parametros);
 
-              consulta.set("categoria", categoria);
+              if (categoria) consulta.set("categoria", categoria);
               consulta.set("pagina", "1");
               consulta.set("porPagina", "100");
 
@@ -339,9 +364,7 @@ export default function Explorar() {
             { signal: controlador.signal },
           );
 
-          const eventos = (respuesta.datos || []).filter(
-            (evento) => (evento.precioDesde || 0) >= precioMinimo,
-          );
+          const eventos = respuesta.datos || [];
 
           if (vigente) {
             setRespuestaEventos({
@@ -749,8 +772,9 @@ export default function Explorar() {
                       className="rango-precio rango-precio-minimo"
                       type="range"
                       min="0"
-                      max={PRECIO_ESCALA_MAXIMO}
-                      step="5000"
+                      max={escalaPrecio}
+                      step={PRECIO_PASO}
+                      disabled={!precioTope}
                       value={precioMinimo}
                       aria-label={faltantes.precioMinimo}
                       aria-valuetext={formatoPrecio(precioMinimo)}
@@ -763,8 +787,9 @@ export default function Explorar() {
                       className="rango-precio rango-precio-maximo"
                       type="range"
                       min="0"
-                      max={PRECIO_ESCALA_MAXIMO}
-                      step="5000"
+                      max={escalaPrecio}
+                      step={PRECIO_PASO}
+                      disabled={!precioTope}
                       value={precioMaximo}
                       aria-label={faltantes.precioMaximo}
                       aria-valuetext={formatoPrecio(precioMaximo)}
