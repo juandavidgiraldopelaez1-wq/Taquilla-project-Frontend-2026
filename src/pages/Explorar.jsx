@@ -490,6 +490,17 @@ export default function Explorar() {
 
   const opcionesOrden = explorar?.orden?.opciones;
 
+  // US-TAQ-S1-08: hay chips cuando la URL tiene algún filtro. «fecha» es el
+  // orden predeterminado, así que no cuenta como filtro.
+  const ordenActivo = orden !== "fecha";
+  const hayFiltrosActivos = Boolean(
+    categoriasSeleccionadas.length > 0 ||
+    etiquetaFecha ||
+    ciudad ||
+    consulta ||
+    ordenActivo,
+  );
+
   const textoBreadcrumb = faltantes.migas;
 
   const textoVerResultados = interpolar(filtrosTexto?.botones?.verResultados, {
@@ -660,7 +671,7 @@ export default function Explorar() {
                       type="button"
                       className={
                         fechasPersonalizadasAbiertas ||
-                        estadoFecha === "personalizada"
+                          estadoFecha === "personalizada"
                           ? "seleccionado"
                           : ""
                       }
@@ -825,18 +836,22 @@ export default function Explorar() {
 
             <section className="resultados-explorar">
               <div className="barra-resultados">
-                {(categoriasSeleccionadas.length > 0 ||
-                  etiquetaFecha ||
-                  ciudad ||
-                  consulta) && (
+                {/* US-TAQ-S1-08: chips leídos de la URL. Quitar uno cambia
+                    la URL y eso vuelve a pedir GET /eventos. */}
+                {hayFiltrosActivos && (
                   <div className="filtros-activos">
                     {categoriasSeleccionadas.map((id) => {
                       const categoria = categorias.find(
                         (item) => String(item.id) === String(id),
                       );
 
+                      // Nombre de GET /categorias. Esa ruta solo lo entrega
+                      // en español; en inglés se usa la traducción de /textos.
                       const nombre =
-                        categoriasTexto?.[id] ?? categoria?.nombre ?? id;
+                        (idioma === "es" ? categoria?.nombre : null) ??
+                        categoriasTexto?.[id] ??
+                        categoria?.nombre ??
+                        id;
 
                       return (
                         <button
@@ -854,6 +869,7 @@ export default function Explorar() {
                     {etiquetaFecha && (
                       <button
                         type="button"
+                        aria-label={`${faltantes.quitarFiltro}: ${etiquetaFecha}`}
                         onClick={() => {
                           setFechasPersonalizadasAbiertas(false);
 
@@ -871,6 +887,7 @@ export default function Explorar() {
                     {ciudad && (
                       <button
                         type="button"
+                        aria-label={`${faltantes.quitarFiltro}: ${ciudad}`}
                         onClick={() => actualizarParametros({ ciudad: "" })}
                       >
                         {ciudad}
@@ -881,6 +898,7 @@ export default function Explorar() {
                     {consulta && (
                       <button
                         type="button"
+                        aria-label={`${faltantes.quitarFiltro}: ${consulta}`}
                         onClick={() => {
                           setBusqueda("");
                           actualizarParametros({ q: "" });
@@ -890,6 +908,26 @@ export default function Explorar() {
                         <span aria-hidden="true">×</span>
                       </button>
                     )}
+
+                    {ordenActivo && (
+                      <button
+                        type="button"
+                        aria-label={`${faltantes.quitarFiltro}: ${opcionesOrden?.[orden]}`}
+                        onClick={() => actualizarParametros({ orden: "" })}
+                      >
+                        {opcionesOrden?.[orden]}
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    )}
+
+                    {/* Deja /explorar sin parámetros (página 1) */}
+                    <button
+                      type="button"
+                      className="limpiar-chips"
+                      onClick={limpiarFiltros}
+                    >
+                      {explorar?.vacio?.botones?.limpiar}
+                    </button>
                   </div>
                 )}
 
