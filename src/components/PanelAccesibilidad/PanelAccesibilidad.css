@@ -165,6 +165,25 @@
   height: 24px;
 }
 
+/* Colores del interruptor con los tokens de Figma (apagado / encendido) */
+.interruptor-fondo {
+  fill: var(--borde-fuerte);
+}
+
+.interruptor-accesibilidad[aria-checked="true"] .interruptor-fondo {
+  fill: var(--texto-principal);
+}
+
+.interruptor-perilla {
+  fill: var(--fondo-superficie);
+}
+
+.interruptor-accesibilidad:focus-visible {
+  border-radius: var(--radio-pildora);
+  outline: 2px solid var(--foco);
+  outline-offset: 2px;
+}
+
 .panel-accesibilidad-pie {
   display: flex;
   flex-direction: column;
