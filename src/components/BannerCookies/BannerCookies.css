@@ -12,9 +12,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 32px;
+  gap: var(--espacio-8);
 
-  padding: 24px 32px;
+  padding: var(--espacio-6) var(--espacio-8);
 
   border: 1px solid var(--borde-fuerte);
   border-radius: var(--radio-xl);
@@ -34,10 +34,10 @@
 }
 
 .banner-cookies h2 {
-  margin: 0 0 4px;
+  margin: 0 0 var(--espacio-1);
   font-size: var(--tamano-cuerpo-p);
   font-weight: var(--peso-seminegrita);
-  line-height: 20px;
+  line-height: var(--interlineado-cuerpo-p);
   color: var(--texto-principal);
 }
 
@@ -45,7 +45,7 @@
   margin: 0;
   font-size: var(--tamano-detalle);
   font-weight: var(--peso-regular);
-  line-height: 16px;
+  line-height: var(--interlineado-detalle);
   color: var(--texto-secundario);
 }
 
@@ -53,14 +53,14 @@
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  gap: 12px;
+  gap: var(--espacio-3);
 }
 
 .banner-cookies .boton {
   box-sizing: border-box;
   height: 41px;
   min-height: 41px;
-  padding: 0 12px;
+  padding: 0 var(--espacio-3);
   border-radius: var(--radio-m);
   font-size: var(--tamano-detalle);
   font-weight: var(--peso-medio);
@@ -104,12 +104,12 @@
     width: min(560px, calc(100% - 40px));
     min-height: auto;
 
-    padding: 20px;
+    padding: var(--espacio-5);
 
     flex-direction: column;
     align-items: stretch;
     justify-content: space-between;
-    gap: 16px;
+    gap: var(--espacio-4);
   }
 
   .banner-cookies-contenido {
@@ -120,7 +120,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: var(--espacio-3);
   }
 
   .banner-cookies .boton--secundario,
@@ -137,12 +137,12 @@
     width: calc(100% - 32px);
     min-height: 188px;
 
-    padding: 20px;
+    padding: var(--espacio-5);
 
     flex-direction: column;
     align-items: stretch;
     justify-content: space-between;
-    gap: 16px;
+    gap: var(--espacio-4);
 
     border-radius: var(--radio-xl);
   }
@@ -155,13 +155,13 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: var(--espacio-3);
   }
 
   .banner-cookies .boton--secundario,
   .banner-cookies .boton--primario {
     width: 100%;
     min-width: 0;
-    padding-inline: 8px;
+    padding-inline: var(--espacio-2);
   }
 }

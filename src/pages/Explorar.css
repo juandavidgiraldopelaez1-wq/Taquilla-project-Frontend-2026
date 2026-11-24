@@ -222,7 +222,7 @@
 
 .opciones-fecha button,
 .panel-filtros.filtros-abiertos .opcion-categoria {
-  padding: 8px 16px;
+  padding: var(--espacio-2) var(--espacio-4);
   border: 1px solid var(--borde-sutil);
   border-radius: var(--radio-pildora);
   background: var(--fondo-superficie);
@@ -261,7 +261,7 @@
   width: 100%;
   min-width: 0;
   height: 40px;
-  padding: 0 8px;
+  padding: 0 var(--espacio-2);
   border: 1px solid var(--borde-fuerte);
   border-radius: var(--radio-m);
   background: var(--fondo-superficie);
@@ -279,7 +279,7 @@
 .selector-filtro select {
   width: 100%;
   height: 44px;
-  padding: 0 40px 0 14px;
+  padding: 0 var(--espacio-10) 0 14px;
   border: 1px solid var(--borde-fuerte);
   border-radius: var(--radio-m);
   background: var(--fondo-superficie);
@@ -461,7 +461,7 @@
 
 /* «Limpiar filtros» junto a los chips: enlace de texto, no chip */
 .filtros-activos button.limpiar-chips {
-  padding: 6px 4px;
+  padding: 6px var(--espacio-1);
   background: none;
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -497,7 +497,7 @@
 }
 
 .orden-resultados select {
-  padding: 0 24px 0 0;
+  padding: 0 var(--espacio-6) 0 0;
   border: 0;
   background: transparent;
   appearance: none;
@@ -731,7 +731,7 @@
   }
 
   .orden-resultados select {
-    padding-right: 20px;
+    padding-right: var(--espacio-5);
     font-weight: var(--peso-regular);
     color: var(--texto-secundario);
   }

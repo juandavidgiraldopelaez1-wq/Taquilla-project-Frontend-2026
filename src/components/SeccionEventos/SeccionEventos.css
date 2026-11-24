@@ -1,5 +1,5 @@
 .seccion-eventos {
-  margin-bottom: 48px;
+  margin-bottom: var(--espacio-12);
 }
 
 .seccion-eventos .titulo-seccion {
@@ -21,11 +21,11 @@
 .eventos-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 24px;
+  gap: var(--espacio-6);
 }
 
 .sin-resultados {
-  padding: 48px;
+  padding: var(--espacio-12);
   border: 1px solid var(--borde-sutil);
   border-radius: var(--radio-l);
   background: var(--fondo-superficie);
@@ -33,7 +33,7 @@
 }
 
 .sin-resultados p {
-  margin: 12px 0 24px;
+  margin: var(--espacio-3) 0 var(--espacio-6);
   font-size: var(--tamano-cuerpo-m);
 }
 
@@ -49,11 +49,11 @@
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: stretch;
-    gap: 12px;
+    gap: var(--espacio-3);
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    padding-bottom: 8px;
+    padding-bottom: var(--espacio-2);
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
@@ -97,7 +97,7 @@
 
 @media (max-width: 640px) {
   .sin-resultados {
-    padding: 24px;
+    padding: var(--espacio-6);
   }
 }
 
@@ -149,7 +149,7 @@
   .seccion-eventos-completa .eventos-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
+    gap: var(--espacio-4);
     overflow: visible;
     padding-bottom: 0;
     scroll-snap-type: none;

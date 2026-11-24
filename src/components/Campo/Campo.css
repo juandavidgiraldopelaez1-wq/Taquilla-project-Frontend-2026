@@ -26,12 +26,12 @@
 /* Foco: borde de 2 px en fondo inverso. Se compensa el padding para no saltar. */
 .campo-caja:focus-within {
   border: 2px solid var(--fondo-inverso);
-  padding-inline: 12px;
+  padding-inline: var(--espacio-3);
 }
 
 .campo--error .campo-caja {
   border: 2px solid var(--estado-error);
-  padding-inline: 12px;
+  padding-inline: var(--espacio-3);
 }
 
 .campo-control {

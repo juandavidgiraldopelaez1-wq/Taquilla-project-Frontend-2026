@@ -31,7 +31,7 @@ export default function Footer() {
             className="grupo-enlaces-pie"
             aria-label={columnas?.explora?.titulo}
           >
-            <h3>{columnas?.explora?.titulo}</h3>
+            <h2>{columnas?.explora?.titulo}</h2>
             <Link to="/">{columnas?.explora?.enlaces?.inicio}</Link>
             <Link to="/explorar">{columnas?.explora?.enlaces?.explorar}</Link>
           </nav>
@@ -40,7 +40,7 @@ export default function Footer() {
             className="grupo-enlaces-pie"
             aria-label={columnas?.cuenta?.titulo}
           >
-            <h3>{columnas?.cuenta?.titulo}</h3>
+            <h2>{columnas?.cuenta?.titulo}</h2>
             <Link to="/ingresar">{columnas?.cuenta?.enlaces?.ingresar}</Link>
             <Link to="/registro">{columnas?.cuenta?.enlaces?.crearCuenta}</Link>
           </nav>
@@ -49,7 +49,7 @@ export default function Footer() {
             className="grupo-enlaces-pie"
             aria-label={columnas?.legal?.titulo}
           >
-            <h3>{columnas?.legal?.titulo}</h3>
+            <h2>{columnas?.legal?.titulo}</h2>
             <Link to="/terminos">{columnas?.legal?.enlaces?.terminos}</Link>
             <Link to="/accesibilidad">
               {columnas?.legal?.enlaces?.accesibilidad}

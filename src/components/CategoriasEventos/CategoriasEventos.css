@@ -1,17 +1,17 @@
 .categorias-eventos {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 16px;
-  padding: 48px 0 56px;
+  gap: var(--espacio-4);
+  padding: var(--espacio-12) 0 56px;
 }
 
 .categorias-eventos a {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--espacio-3);
   border: 1px solid var(--borde-sutil);
   border-radius: var(--radio-l);
-  padding: 16px;
+  padding: var(--espacio-4);
   background: var(--fondo-superficie);
   color: var(--texto-principal);
   text-align: left;
@@ -66,7 +66,7 @@
 @media (max-width: 640px) {
   .categorias-eventos a {
     padding: 10px;
-    gap: 8px;
+    gap: var(--espacio-2);
     font-size: var(--tamano-cuerpo-p);
   }
 }
@@ -84,7 +84,7 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    gap: 8px;
+    gap: var(--espacio-2);
     overflow-x: auto;
     overflow-y: hidden;
     padding: 28px 0;
@@ -101,7 +101,7 @@
     flex: 0 0 auto;
     width: max-content;
     min-height: 40px;
-    padding: 10px 16px;
+    padding: 10px var(--espacio-4);
     border-radius: var(--radio-pildora);
     gap: 0;
     white-space: nowrap;
@@ -135,7 +135,7 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    gap: 8px;
+    gap: var(--espacio-2);
     overflow-x: auto;
     overflow-y: hidden;
     padding: 28px 0;
@@ -154,7 +154,7 @@
     align-items: center;
     width: max-content;
     min-height: 40px;
-    padding: 10px 16px;
+    padding: 10px var(--espacio-4);
     border-radius: var(--radio-pildora);
     white-space: nowrap;
     font-size: var(--tamano-cuerpo-p);

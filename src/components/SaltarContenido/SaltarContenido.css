@@ -3,7 +3,7 @@
   top: 8px;
   left: 8px;
   transform: translateY(-180%);
-  padding: 12px 20px;
+  padding: var(--espacio-3) var(--espacio-5);
   background: var(--marca-primario);
   color: var(--texto-inverso) !important;
   z-index: 30;

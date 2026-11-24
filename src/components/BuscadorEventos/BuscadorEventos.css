@@ -115,8 +115,8 @@
 
 @media (max-width: 640px) {
   .buscador-eventos {
-    padding: 12px;
-    gap: 12px;
+    padding: var(--espacio-3);
+    gap: var(--espacio-3);
   }
 }
 
@@ -125,7 +125,7 @@
     flex-basis: 100%;
     border: 0 !important;
     border-bottom: 1px solid var(--borde-sutil) !important;
-    padding: 8px 0;
+    padding: var(--espacio-2) 0;
   }
 }
 
@@ -166,7 +166,7 @@
     gap: 0;
     box-sizing: border-box;
     width: 100%;
-    padding: 6px 8px;
+    padding: 6px var(--espacio-2);
     border-radius: var(--radio-l);
     background: var(--fondo-superficie);
   }
@@ -181,8 +181,8 @@
     min-width: 0;
     min-height: 58px;
     box-sizing: border-box;
-    gap: 12px;
-    padding: 8px 8px;
+    gap: var(--espacio-3);
+    padding: var(--espacio-2) var(--espacio-2);
     border: 0 !important;
   }
 
@@ -227,7 +227,7 @@
     display: block;
     color: var(--texto-terciario);
     font-size: var(--tamano-detalle);
-    line-height: 16px;
+    line-height: var(--interlineado-detalle);
   }
 
   /* Botón redondo de filtros */
@@ -264,7 +264,7 @@
     width: auto;
     min-width: 0;
     box-sizing: border-box;
-    padding: 12px 8px;
+    padding: var(--espacio-3) var(--espacio-2);
     border: 0;
     border-top: 1px solid var(--borde-sutil) !important;
   }
@@ -319,8 +319,8 @@
     justify-content: center;
     width: 100%;
     min-height: 44px;
-    margin-top: 8px;
-    padding: 10px 16px;
+    margin-top: var(--espacio-2);
+    padding: 10px var(--espacio-4);
   }
 }
 

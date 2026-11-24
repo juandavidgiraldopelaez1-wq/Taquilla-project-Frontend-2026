@@ -40,7 +40,7 @@
   gap: var(--espacio-3);
 }
 
-.grupo-enlaces-pie h3 {
+.grupo-enlaces-pie h2 {
   margin: 0;
   font-size: var(--tamano-detalle);
   line-height: var(--interlineado-detalle);

@@ -105,7 +105,7 @@ export default function Explorar() {
     cargando: cargandoCategorias,
     error: errorCategorias,
     recargar: recargarCategorias,
-  } = useRecurso("/categorias");
+  } = useRecurso("/categorias", { cache: true });
 
   // Obtener ciudades desde la API.
   const {
@@ -113,7 +113,7 @@ export default function Explorar() {
     cargando: cargandoCiudades,
     error: errorCiudades,
     recargar: recargarCiudades,
-  } = useRecurso("/ciudades");
+  } = useRecurso("/ciudades", { cache: true });
 
   // Precio más alto del catálogo. La API no lo entrega directo: se pide el
   // total de eventos y luego el último ordenado por precio (de menor a mayor).

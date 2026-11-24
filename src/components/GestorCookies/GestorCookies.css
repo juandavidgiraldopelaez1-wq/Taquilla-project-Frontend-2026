@@ -4,5 +4,5 @@
   bottom: 0;
   background: var(--fondo-superficie);
   color: var(--texto-principal);
-  padding: 12px;
+  padding: var(--espacio-3);
 }

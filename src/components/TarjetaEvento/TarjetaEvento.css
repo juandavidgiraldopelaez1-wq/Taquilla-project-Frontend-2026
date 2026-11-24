@@ -1,28 +1,46 @@
+/* Columna: el precio y el botón quedan al fondo de la tarjeta, así en una
+   fila quedan alineados aunque un título ocupe dos líneas. */
 .tarjeta-evento {
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   border: 1px solid var(--borde-sutil);
   border-radius: var(--radio-l);
   background: var(--fondo-superficie);
 }
 
+/* Contenido (Figma «Tarjeta de evento», 686:659): columna con 10 px entre
+   etiqueta, título, fecha, lugar y pie. El pie queda al fondo para que en una
+   fila los precios se alineen aunque un título ocupe dos líneas. */
 .contenido-evento {
-  padding: 16px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: var(--espacio-4);
+}
+
+.contenido-evento > :not(.etiqueta) {
+  align-self: stretch;
 }
 
 .contenido-evento h3 {
+  margin: 0;
   font-size: var(--tamano-h3);
+  line-height: var(--interlineado-h3);
+  letter-spacing: var(--espaciado-h3);
   font-weight: var(--peso-seminegrita);
-  letter-spacing: -0.025em;
-  margin: 12px 0;
 }
 
 .contenido-evento > p {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--espacio-2);
+  margin: 0;
   font-size: var(--tamano-cuerpo-p);
+  line-height: var(--interlineado-cuerpo-p);
   color: var(--texto-secundario);
-  margin-top: 10px;
 }
 
 .contenido-evento > p .icono {
@@ -36,7 +54,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--espacio-2);
-  margin-top: 10px;
+  margin-top: auto;
   padding-top: var(--espacio-3);
 }
 
@@ -48,6 +66,7 @@
 }
 
 .precio-evento strong {
+  display: block;
   font-size: var(--tamano-cuerpo-m);
   line-height: var(--interlineado-cuerpo-m);
   font-weight: var(--peso-medio);
@@ -55,7 +74,7 @@
 
 .precio-evento .boton {
   border-color: var(--borde-fuerte);
-  padding: 9px 16px;
+  padding: 9px var(--espacio-4);
 }
 
 /* «Este fin de semana» en celular (Figma «Inicio — Móvil», Lista):
@@ -136,7 +155,7 @@
   #proximos .tarjeta-evento .precio-evento > div {
     display: flex;
     align-items: baseline;
-    gap: 4px;
+    gap: var(--espacio-1);
   }
 
   #proximos .tarjeta-evento .precio-evento small,
