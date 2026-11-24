@@ -12,35 +12,35 @@ import "./PantallaCarga.css";
  * «Reintentar», también con los textos de esa sección.
  */
 export default function PantallaCarga() {
-    const { textos, errorTextos, recargarTextos } = usePreferencias();
-    const cargando = textos?.estados?.cargando;
+  const { textos, errorTextos, recargarTextos } = usePreferencias();
+  const cargando = textos?.estados?.cargando;
 
-    return (
-        <div className="landing taquilla pantalla-carga">
-            <main className="pantalla-carga-contenido">
-                {/* Emblema de la marca (el nombre «taquilla» llega con los demás textos) */}
-                <span className="pantalla-carga-emblema" aria-hidden="true">
-                    <Icono nombre="ticket" tamano={18} />
-                </span>
+  return (
+    <div className="landing taquilla pantalla-carga">
+      <main className="pantalla-carga-contenido">
+        {/* Emblema de la marca (el nombre «taquilla» llega con los demás textos) */}
+        <span className="pantalla-carga-emblema" aria-hidden="true">
+          <Icono nombre="ticket" tamano={18} />
+        </span>
 
-                {errorTextos ? (
-                    <EstadoError error={errorTextos} onReintentar={recargarTextos} />
-                ) : (
-                    <div
-                        className="pantalla-carga-estado"
-                        role="status"
-                        aria-live="polite"
-                    >
-                        <span className="pantalla-carga-giro" aria-hidden="true" />
-                        {cargando && (
-                            <>
-                                <h1>{cargando.titulo}</h1>
-                                <p>{cargando.texto}</p>
-                            </>
-                        )}
-                    </div>
-                )}
-            </main>
-        </div>
-    );
+        {errorTextos ? (
+          <EstadoError error={errorTextos} onReintentar={recargarTextos} />
+        ) : (
+          <div
+            className="pantalla-carga-estado"
+            role="status"
+            aria-live="polite"
+          >
+            <span className="pantalla-carga-giro" aria-hidden="true" />
+            {cargando && (
+              <>
+                <h1>{cargando.titulo}</h1>
+                <p>{cargando.texto}</p>
+              </>
+            )}
+          </div>
+        )}
+      </main>
+    </div>
+  );
 }
