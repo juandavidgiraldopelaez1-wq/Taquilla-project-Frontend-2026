@@ -80,13 +80,29 @@ export function PreferenciasProvider({ children }) {
 
   const [errorAccesibilidad, setErrorAccesibilidad] = useState(false);
 
-  // Consulta los textos correspondientes al idioma actual.
-  const { datos: respuestaTextos } = useRecurso(`/textos?idioma=${idioma}`, {
-    cache: true,
-  });
+  // Textos de los estados (cargando, error…). Se piden aparte con
+  // ?seccion=estados porque es una respuesta pequeña que llega primero:
+  // así la pantalla de carga ya tiene sus mensajes de la API mientras
+  // llegan los demás textos (indicación de la profesora: nada escrito
+  // a mano, ni siquiera el «Cargando…»).
+  const { datos: respuestaEstados } = useRecurso(
+    `/textos?idioma=${idioma}&seccion=estados`,
+    { cache: true },
+  );
 
-  // Si la API todavía está cargando o falla, los textos quedan en null.
-  const textos = respuestaTextos?.textos ?? null;
+  // Todos los textos de la interfaz en el idioma actual.
+  const {
+    datos: respuestaTextos,
+    error: errorTextos,
+    recargar: recargarTextos,
+  } = useRecurso(`/textos?idioma=${idioma}`, { cache: true });
+
+  // Mientras llegan todos los textos se usan los de los estados.
+  const textosEstados = respuestaEstados?.textos?.estados;
+  const textos =
+    respuestaTextos?.textos ??
+    (textosEstados ? { estados: textosEstados } : null);
+  const textosListos = Boolean(respuestaTextos?.textos);
 
   useEffect(() => {
     document.documentElement.lang = idioma;
@@ -189,6 +205,9 @@ export function PreferenciasProvider({ children }) {
         guardarConsentimiento,
         error,
         textos,
+        textosListos,
+        errorTextos,
+        recargarTextos,
         accesibilidad,
         ajustarTamanoTexto,
         cambiarOpcionAccesibilidad,
