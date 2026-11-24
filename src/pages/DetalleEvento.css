@@ -281,6 +281,22 @@
   color: var(--texto-principal);
 }
 
+/* La caja del mapa es un enlace a las coordenadas del lugar */
+.ficha-evento a.mapa-detalle {
+  color: var(--texto-terciario);
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.ficha-evento a.mapa-detalle:hover {
+  background: var(--borde-sutil);
+}
+
+.ficha-evento a.mapa-detalle:focus-visible {
+  outline: 2px solid var(--texto-principal);
+  outline-offset: 2px;
+}
+
 /* ---------- Relacionados ---------- */
 
 .relacionados {

@@ -17,6 +17,7 @@ import {
   formatoFecha,
   formatoFechaHora,
   formatoHora,
+  formatoHoraPuertas,
   formatoPrecio,
   interpolar,
 } from "../utils/formato.js";
@@ -127,6 +128,14 @@ function FichaEvento({ evento, idioma, textos }) {
   const fecha = formatoFecha(evento.fecha, idioma, { anio: true });
   const hora = formatoHora(evento.fecha, idioma);
 
+  // «8:00 p. m. · Puertas 7:00» (Figma 5:657 y 10:258), con info.horaValor.
+  const puertas = evento.puertas
+    ? formatoHoraPuertas(evento.puertas, evento.fecha, idioma)
+    : "";
+  const horaConPuertas = puertas
+    ? interpolar(t?.info?.horaValor, { hora, puertas })
+    : hora;
+
   const lugar = interpolar(general?.formatos?.lugarYCiudad, {
     lugar: evento.recinto?.nombre,
     ciudad: evento.recinto?.ciudad,
@@ -135,6 +144,20 @@ function FichaEvento({ evento, idioma, textos }) {
   const direccion = [evento.recinto?.direccion, evento.recinto?.ciudad]
     .filter(Boolean)
     .join(", ");
+
+  // Texto bajo el mapa (Figma 5:713): «Lugar · Dirección, Ciudad. Parqueadero».
+  const lugarYDireccion = [evento.recinto?.nombre, direccion]
+    .filter(Boolean)
+    .join(" · ");
+  const parqueadero =
+    evento.recinto?.parqueadero ?? t?.comoLlegar?.sinParqueadero;
+
+  // Enlace al mapa con las coordenadas que trae la API.
+  const ubicacion = evento.recinto?.ubicacion;
+  const enlaceMapa =
+    ubicacion?.lat != null && ubicacion?.lng != null
+      ? `https://www.openstreetmap.org/?mlat=${ubicacion.lat}&mlon=${ubicacion.lng}#map=17/${ubicacion.lat}/${ubicacion.lng}`
+      : null;
 
   const descripcionLarga =
     (evento.descripcion?.length ?? 0) > LARGO_DESCRIPCION_CORTA;
@@ -233,7 +256,7 @@ function FichaEvento({ evento, idioma, textos }) {
               <dt>{t?.info?.fecha}</dt>
               <dd>
                 {fecha}
-                <span className="dato-secundario">{hora}</span>
+                <span className="dato-secundario">{horaConPuertas}</span>
               </dd>
             </div>
 
@@ -242,7 +265,7 @@ function FichaEvento({ evento, idioma, textos }) {
                 <Icono nombre="clock" />
               </span>
               <dt>{t?.info?.hora}</dt>
-              <dd>{hora}</dd>
+              <dd>{horaConPuertas}</dd>
             </div>
 
             <div>
@@ -339,18 +362,26 @@ function FichaEvento({ evento, idioma, textos }) {
 
         <section id="como-llegar" className="seccion-detalle solo-web">
           <h2>{t?.pestanas?.comoLlegar}</h2>
-          <div className="mapa-detalle" role="img" aria-label={t?.mapa?.titulo}>
-            <Icono nombre="pin" tamano={28} />
-            <span>{t?.mapa?.titulo}</span>
-          </div>
+          {enlaceMapa ? (
+            <a
+              className="mapa-detalle"
+              href={enlaceMapa}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t?.comoLlegar?.botones?.abrirMapa}
+              title={t?.comoLlegar?.botones?.abrirMapa}
+            >
+              <Icono nombre="pin" tamano={28} />
+              <span>{t?.mapa?.titulo}</span>
+            </a>
+          ) : (
+            <div className="mapa-detalle">
+              <Icono nombre="pin" tamano={28} />
+              <span>{t?.mapa?.titulo}</span>
+            </div>
+          )}
           <p>
-            {[
-              evento.recinto?.nombre,
-              evento.recinto?.direccion,
-              evento.recinto?.ciudad,
-            ]
-              .filter(Boolean)
-              .join(" · ")}
+            {lugarYDireccion}. {parqueadero}
           </p>
         </section>
 
