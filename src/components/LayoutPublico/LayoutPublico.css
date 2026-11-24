@@ -3,7 +3,7 @@
 }
 
 @media (max-width: 640px) {
-  .sin-navbar-movil>.cabecera-home {
+  .sin-navbar-movil > .cabecera-home {
     display: none;
   }
 }

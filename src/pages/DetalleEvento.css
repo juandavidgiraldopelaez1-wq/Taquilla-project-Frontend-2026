@@ -129,7 +129,7 @@
   padding-top: var(--espacio-2);
 }
 
-.datos-detalle>div {
+.datos-detalle > div {
   display: grid;
   grid-template-columns: 44px auto;
   grid-template-rows: auto auto;
@@ -400,7 +400,7 @@
     border-bottom: 1px solid var(--borde-sutil);
   }
 
-  .datos-detalle>div {
+  .datos-detalle > div {
     grid-template-rows: auto;
   }
 
@@ -489,7 +489,7 @@
     display: none;
   }
 
-  .relacionados-grid>* {
+  .relacionados-grid > * {
     flex: 0 0 280px;
     scroll-snap-align: start;
   }

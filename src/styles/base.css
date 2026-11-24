@@ -169,7 +169,6 @@ select {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   .landing *,
   .landing *::before,
   .landing *::after {
@@ -232,12 +231,14 @@ html[data-subrayar-enlaces="true"] a:not(.boton) {
 /* Espaciado de lectura: valores de WCAG 1.4.12 (interlineado ≥ 1,5,
    0,12 em entre letras, 0,16 em entre palabras y 2 em entre párrafos).
    Solo en textos, para no cortar botones ni campos de alto fijo. */
-html[data-espaciado-lectura="true"] .taquilla :is(p, li, dd, dt, label, small, h1, h2, h3, h4, a:not(.boton)) {
+html[data-espaciado-lectura="true"]
+  .taquilla
+  :is(p, li, dd, dt, label, small, h1, h2, h3, h4, a:not(.boton)) {
   line-height: 1.8 !important;
   letter-spacing: 0.12em !important;
   word-spacing: 0.16em !important;
 }
 
-html[data-espaciado-lectura="true"] .taquilla p+p {
+html[data-espaciado-lectura="true"] .taquilla p + p {
   margin-top: 2em;
 }

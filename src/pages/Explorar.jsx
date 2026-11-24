@@ -660,7 +660,7 @@ export default function Explorar() {
                       type="button"
                       className={
                         fechasPersonalizadasAbiertas ||
-                          estadoFecha === "personalizada"
+                        estadoFecha === "personalizada"
                           ? "seleccionado"
                           : ""
                       }
@@ -829,69 +829,69 @@ export default function Explorar() {
                   etiquetaFecha ||
                   ciudad ||
                   consulta) && (
-                    <div className="filtros-activos">
-                      {categoriasSeleccionadas.map((id) => {
-                        const categoria = categorias.find(
-                          (item) => String(item.id) === String(id),
-                        );
+                  <div className="filtros-activos">
+                    {categoriasSeleccionadas.map((id) => {
+                      const categoria = categorias.find(
+                        (item) => String(item.id) === String(id),
+                      );
 
-                        const nombre =
-                          categoriasTexto?.[id] ?? categoria?.nombre ?? id;
+                      const nombre =
+                        categoriasTexto?.[id] ?? categoria?.nombre ?? id;
 
-                        return (
-                          <button
-                            type="button"
-                            key={id}
-                            onClick={() => seleccionarCategoria(id)}
-                            aria-label={`${faltantes.quitarFiltro}: ${nombre}`}
-                          >
-                            {nombre}
-                            <span aria-hidden="true">×</span>
-                          </button>
-                        );
-                      })}
-
-                      {etiquetaFecha && (
+                      return (
                         <button
                           type="button"
-                          onClick={() => {
-                            setFechasPersonalizadasAbiertas(false);
-
-                            actualizarParametros({
-                              desde: "",
-                              hasta: "",
-                            });
-                          }}
+                          key={id}
+                          onClick={() => seleccionarCategoria(id)}
+                          aria-label={`${faltantes.quitarFiltro}: ${nombre}`}
                         >
-                          {etiquetaFecha}
+                          {nombre}
                           <span aria-hidden="true">×</span>
                         </button>
-                      )}
+                      );
+                    })}
 
-                      {ciudad && (
-                        <button
-                          type="button"
-                          onClick={() => actualizarParametros({ ciudad: "" })}
-                        >
-                          {ciudad}
-                          <span aria-hidden="true">×</span>
-                        </button>
-                      )}
+                    {etiquetaFecha && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFechasPersonalizadasAbiertas(false);
 
-                      {consulta && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setBusqueda("");
-                            actualizarParametros({ q: "" });
-                          }}
-                        >
-                          {consulta}
-                          <span aria-hidden="true">×</span>
-                        </button>
-                      )}
-                    </div>
-                  )}
+                          actualizarParametros({
+                            desde: "",
+                            hasta: "",
+                          });
+                        }}
+                      >
+                        {etiquetaFecha}
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    )}
+
+                    {ciudad && (
+                      <button
+                        type="button"
+                        onClick={() => actualizarParametros({ ciudad: "" })}
+                      >
+                        {ciudad}
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    )}
+
+                    {consulta && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setBusqueda("");
+                          actualizarParametros({ q: "" });
+                        }}
+                      >
+                        {consulta}
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    )}
+                  </div>
+                )}
 
                 <span className="conteo-resultados-movil">
                   {respuestaEventos.cargando

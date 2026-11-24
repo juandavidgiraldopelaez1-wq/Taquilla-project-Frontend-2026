@@ -19,11 +19,11 @@
 }
 
 /* Divisor de 1 × 32 px entre campos */
-.buscador-eventos label+label {
+.buscador-eventos label + label {
   padding-left: var(--espacio-4);
 }
 
-.buscador-eventos label+label::before {
+.buscador-eventos label + label::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -34,19 +34,19 @@
   transform: translateY(-50%);
 }
 
-.buscador-eventos label>.icono {
+.buscador-eventos label > .icono {
   flex-shrink: 0;
   color: var(--texto-principal);
 }
 
-.buscador-eventos label>span {
+.buscador-eventos label > span {
   display: flex;
   flex-direction: column;
   width: 100%;
   min-width: 0;
 }
 
-.buscador-eventos label>span>span {
+.buscador-eventos label > span > span {
   font-size: var(--tamano-detalle);
   line-height: var(--interlineado-detalle);
   font-weight: var(--peso-medio);
@@ -90,7 +90,7 @@
 }
 
 @media (max-width: 1100px) {
-  .buscador-eventos label+label::before {
+  .buscador-eventos label + label::before {
     display: none;
   }
 }
@@ -130,7 +130,6 @@
 }
 
 @media (max-width: 640px) {
-
   .buscador-eventos input,
   .buscador-eventos select {
     font-size: var(--tamano-cuerpo-m);
@@ -187,14 +186,14 @@
     border: 0 !important;
   }
 
-  .buscador-eventos .campo-consulta>.icono {
+  .buscador-eventos .campo-consulta > .icono {
     width: 19px;
     height: 19px;
     flex: 0 0 19px;
     color: var(--texto-secundario);
   }
 
-  .buscador-eventos .campo-consulta>span {
+  .buscador-eventos .campo-consulta > span {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -202,7 +201,7 @@
     gap: 2px;
   }
 
-  .buscador-eventos .campo-consulta>span>span:first-child {
+  .buscador-eventos .campo-consulta > span > span:first-child {
     display: none;
   }
 
@@ -281,20 +280,20 @@
     grid-area: fecha;
   }
 
-  .buscador-eventos .campo-ciudad>.icono,
-  .buscador-eventos .campo-fecha>.icono {
+  .buscador-eventos .campo-ciudad > .icono,
+  .buscador-eventos .campo-fecha > .icono {
     flex: 0 0 20px;
     width: 20px;
     color: var(--texto-secundario);
   }
 
-  .buscador-eventos .campo-ciudad>span,
-  .buscador-eventos .campo-fecha>span {
+  .buscador-eventos .campo-ciudad > span,
+  .buscador-eventos .campo-fecha > span {
     min-width: 0;
   }
 
-  .buscador-eventos .campo-ciudad>span>span,
-  .buscador-eventos .campo-fecha>span>span {
+  .buscador-eventos .campo-ciudad > span > span,
+  .buscador-eventos .campo-fecha > span > span {
     display: block;
     font-size: var(--tamano-detalle);
     color: var(--texto-secundario);
@@ -309,11 +308,11 @@
   }
 
   /* Buscar aparece cuando se despliegan los filtros */
-  .buscador-eventos>.boton {
+  .buscador-eventos > .boton {
     display: none;
   }
 
-  .buscador-eventos.filtros-moviles-abiertos>.boton {
+  .buscador-eventos.filtros-moviles-abiertos > .boton {
     display: flex;
     grid-area: buscar;
     align-items: center;
