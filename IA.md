@@ -72,6 +72,23 @@ Al revisar las reglas del proyecto ("no desactivar reglas de ESLint para ocultar
 
 Este caso muestra que una solución que "hace pasar" la herramienta no siempre es la correcta: hay que revisar por qué aparece la advertencia.
 
+### 8. Ajuste visual frente a Figma, vista por vista
+
+Desde el 21 de noviembre el estudiante hizo los commits y los pull requests; Claude proponía el código archivo por archivo. Para cada vista, Claude comparó la versión desplegada con los frames de Figma (web y móvil) usando las medidas, tipografías y colores del archivo, y probó el resultado con capturas en 390, 800 y 1440 px antes de entregarlo:
+
+- Inicio: espaciado del hero, buscador sin estilos nativos, precios y categorías (PR #23); lista compacta «Este fin de semana» en celular con los eventos del sábado y el domingo (PR #31).
+- Explorar: panel de filtros en celular con «Ver N eventos», chips de categoría y orden con los íconos de Figma (PR #22); rango de precio de $0 al evento más caro según la API (PR #26).
+- Detalle: portada a todo el ancho en celular con botones de volver y compartir, y «Leer más» (PR #24).
+- Ingresar y sesión: estados de Figma (cargando, error de conexión con «Reintentar» en el botón principal), avatar al final de la barra y datos de la cuenta en el menú móvil (PR #27, #28, #30).
+
+### 9. Errores encontrados al revisar el funcionamiento
+
+Al probar cada vista con la API real aparecieron fallos que no se veían a simple vista:
+
+- Explorar ocultaba los eventos de menos de $30.000 aunque no se hubiera elegido un precio, y el contador seguía diciendo 97 eventos (PR #22 y #26).
+- «Alto contraste» no hacía nada: cambiaba variables con nombres antiguos que ya no usaba ningún componente. Se reescribió con los tokens actuales y se ajustó «Espaciado de lectura» a los valores de WCAG 1.4.12 (PR #25).
+- Con `X-Simular-Error: 503` también fallaba `GET /textos`, así que el estado de error salía sin mensajes. Se excluyeron `/textos` e `/idiomas` de la simulación y se agregó la opción `?simularError=503` en la dirección para probarlo en el despliegue (PR #29).
+
 ## Validación y responsabilidad
 
 El estudiante revisó las propuestas, incorporó los cambios al código y ejecutó pruebas de compilación y funcionamiento.
