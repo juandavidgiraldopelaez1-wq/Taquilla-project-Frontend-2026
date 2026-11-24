@@ -72,8 +72,9 @@ export default function Navbar() {
 
   return (
     <header
-      className={`cabecera-home ${abierto ? "menu-abierto" : ""
-        } ${esExplorar ? "cabecera-explorar" : ""}`}
+      className={`cabecera-home ${
+        abierto ? "menu-abierto" : ""
+      } ${esExplorar ? "cabecera-explorar" : ""}`}
       onKeyDown={(evento) => {
         if (evento.key !== "Escape") return;
 

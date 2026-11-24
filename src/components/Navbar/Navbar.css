@@ -24,12 +24,12 @@
   display: contents;
 }
 
-.menu-home .enlaces-menu-movil>a {
+.menu-home .enlaces-menu-movil > a {
   color: var(--texto-secundario);
 }
 
-.menu-home .enlaces-menu-movil>a:hover,
-.menu-home .enlaces-menu-movil>a.active {
+.menu-home .enlaces-menu-movil > a:hover,
+.menu-home .enlaces-menu-movil > a.active {
   color: var(--texto-principal);
 }
 
@@ -74,7 +74,7 @@
   order: 4;
 }
 
-.taquilla .grupo-sesion-menu>.boton--primario {
+.taquilla .grupo-sesion-menu > .boton--primario {
   order: 5;
 }
 
@@ -94,7 +94,6 @@
    ======================================== */
 
 @media (max-width: 640px) {
-
   /* Encabezado integrado visualmente con el Hero */
   .taquilla .cabecera-home {
     min-height: 56px;
@@ -248,7 +247,7 @@
     padding: 16px 12px;
   }
 
-  .menu-home .enlaces-menu-movil>a {
+  .menu-home .enlaces-menu-movil > a {
     display: flex;
     align-items: center;
     flex: 0 0 52px;
@@ -263,7 +262,7 @@
 
   /* Figma «Enlace del menú móvil · Activo»: fondo sutil, indicador de
      3 × 20 px y texto H4 */
-  .menu-home .enlaces-menu-movil>a.active {
+  .menu-home .enlaces-menu-movil > a.active {
     gap: var(--espacio-3);
     background: var(--fondo-sutil);
     font-size: var(--tamano-h4);
@@ -272,7 +271,7 @@
     font-weight: var(--peso-seminegrita);
   }
 
-  .menu-home .enlaces-menu-movil>a.active::before {
+  .menu-home .enlaces-menu-movil > a.active::before {
     flex-shrink: 0;
     width: 3px;
     height: 20px;
@@ -356,7 +355,7 @@
 
   /* Botones: 302 × 40 px */
   .menu-home .grupo-sesion-menu .ingresar-home,
-  .menu-home .grupo-sesion-menu>.boton--primario {
+  .menu-home .grupo-sesion-menu > .boton--primario {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -381,7 +380,7 @@
     color: var(--texto-inverso);
   }
 
-  .taquilla .menu-home .grupo-sesion-menu>.boton--primario {
+  .taquilla .menu-home .grupo-sesion-menu > .boton--primario {
     border: 1px solid var(--borde-fuerte);
     background: var(--fondo-superficie);
     color: var(--texto-principal);
@@ -422,7 +421,7 @@
   white-space: normal;
 }
 
-.taquilla .grupo-sesion-menu>.boton--primario {
+.taquilla .grupo-sesion-menu > .boton--primario {
   box-sizing: border-box;
   flex: 0 1 auto;
   min-width: 121px;
@@ -613,7 +612,7 @@
     gap: 14px;
   }
 
-  .taquilla .cabecera-home .fila-cabecera>.marca {
+  .taquilla .cabecera-home .fila-cabecera > .marca {
     margin-right: auto;
   }
 
@@ -655,7 +654,7 @@
     gap: 14px;
   }
 
-  .taquilla .cabecera-explorar .fila-cabecera>.marca {
+  .taquilla .cabecera-explorar .fila-cabecera > .marca {
     margin-right: auto;
     color: var(--texto-principal);
   }
@@ -682,7 +681,6 @@
    ========================================= */
 
 @media (min-width: 641px) and (max-width: 1024px) {
-
   .taquilla .cabecera-explorar .buscar-movil,
   .taquilla .cabecera-explorar .ingreso-movil {
     display: flex;
@@ -768,7 +766,7 @@
     padding: 16px 12px;
   }
 
-  .taquilla .cabecera-explorar .enlaces-menu-movil>a {
+  .taquilla .cabecera-explorar .enlaces-menu-movil > a {
     display: flex;
     align-items: center;
     min-height: 52px;
@@ -822,7 +820,7 @@
 
 /* Logo de Explorar según Figma: 32 × 32 px */
 @media (max-width: 1024px) {
-  .taquilla .cabecera-explorar .fila-cabecera>.marca .marca-emblema {
+  .taquilla .cabecera-explorar .fila-cabecera > .marca .marca-emblema {
     display: grid;
     place-items: center;
     flex: 0 0 32px;
@@ -833,7 +831,7 @@
     color: var(--texto-inverso);
   }
 
-  .taquilla .cabecera-explorar .fila-cabecera>.marca .marca-emblema .icono {
+  .taquilla .cabecera-explorar .fila-cabecera > .marca .marca-emblema .icono {
     display: block;
     width: 24px;
     height: 24px;
@@ -865,7 +863,7 @@
     cursor: default;
   }
 
-  .persona-menu-movil>span:last-child {
+  .persona-menu-movil > span:last-child {
     display: flex;
     flex-direction: column;
     min-width: 0;

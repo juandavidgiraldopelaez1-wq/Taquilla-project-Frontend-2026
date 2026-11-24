@@ -16,7 +16,7 @@
   margin: 12px 0;
 }
 
-.contenido-evento>p {
+.contenido-evento > p {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -25,7 +25,7 @@
   margin-top: 10px;
 }
 
-.contenido-evento>p .icono {
+.contenido-evento > p .icono {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
@@ -71,7 +71,7 @@
     scroll-snap-type: none;
   }
 
-  #proximos .eventos-grid>.tarjeta-evento {
+  #proximos .eventos-grid > .tarjeta-evento {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -85,7 +85,7 @@
     background: var(--fondo-superficie);
   }
 
-  #proximos .tarjeta-evento>.afiche-evento {
+  #proximos .tarjeta-evento > .afiche-evento {
     flex: 0 0 72px;
     width: 72px;
     height: 72px;
@@ -104,8 +104,8 @@
 
   /* En la lista no van la etiqueta, el lugar, los íconos ni el botón */
   #proximos .tarjeta-evento .etiqueta,
-  #proximos .tarjeta-evento .contenido-evento>p:nth-of-type(2),
-  #proximos .tarjeta-evento .contenido-evento>p .icono,
+  #proximos .tarjeta-evento .contenido-evento > p:nth-of-type(2),
+  #proximos .tarjeta-evento .contenido-evento > p .icono,
   #proximos .tarjeta-evento .precio-evento .boton {
     display: none;
   }
@@ -121,7 +121,7 @@
     text-overflow: ellipsis;
   }
 
-  #proximos .tarjeta-evento .contenido-evento>p {
+  #proximos .tarjeta-evento .contenido-evento > p {
     margin: 0;
     font-size: var(--tamano-detalle);
     line-height: var(--interlineado-detalle);
@@ -133,7 +133,7 @@
     padding: 0;
   }
 
-  #proximos .tarjeta-evento .precio-evento>div {
+  #proximos .tarjeta-evento .precio-evento > div {
     display: flex;
     align-items: baseline;
     gap: 4px;

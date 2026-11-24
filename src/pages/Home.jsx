@@ -44,10 +44,10 @@ export default function Home() {
   const proximos = useRecurso(
     ciudad
       ? `/eventos?${new URLSearchParams({
-        ...filtrosProximos,
-        orden: "fecha",
-        porPagina: String(EVENTOS_POR_SECCION),
-      })}`
+          ...filtrosProximos,
+          orden: "fecha",
+          porPagina: String(EVENTOS_POR_SECCION),
+        })}`
       : null,
   );
 

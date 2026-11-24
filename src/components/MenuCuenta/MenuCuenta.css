@@ -56,7 +56,7 @@
   border-bottom: 1px solid var(--borde-sutil);
 }
 
-.persona-cuenta>span:last-child {
+.persona-cuenta > span:last-child {
   display: flex;
   flex-direction: column;
   gap: 2px;

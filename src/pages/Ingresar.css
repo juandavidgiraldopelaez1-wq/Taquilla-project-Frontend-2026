@@ -132,13 +132,13 @@
   color: transparent;
 }
 
-.casilla input:checked+.casilla-caja {
+.casilla input:checked + .casilla-caja {
   border-color: var(--marca-primario);
   background: var(--marca-primario);
   color: var(--texto-inverso);
 }
 
-.casilla input:focus-visible+.casilla-caja {
+.casilla input:focus-visible + .casilla-caja {
   outline: 2px solid var(--foco);
   outline-offset: 2px;
 }
