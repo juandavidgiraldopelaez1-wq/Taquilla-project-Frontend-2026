@@ -8,14 +8,14 @@
   width: 40px;
   height: 40px;
   padding: 0;
-  border: 1px solid var(--borde-sutil);
+  border: 0;
   border-radius: var(--radio-pildora);
-  background: var(--fondo-sutil);
+  background: var(--marca-primario-suave);
   font-family: var(--fuente-texto);
   font-size: var(--tamano-cuerpo-p);
   line-height: var(--interlineado-cuerpo-p);
   font-weight: var(--peso-medio);
-  color: var(--texto-principal);
+  color: var(--texto-marca);
   cursor: pointer;
 }
 
@@ -56,7 +56,7 @@
   border-bottom: 1px solid var(--borde-sutil);
 }
 
-.persona-cuenta > span:last-child {
+.persona-cuenta>span:last-child {
   display: flex;
   flex-direction: column;
   gap: 2px;

@@ -24,12 +24,12 @@
   display: contents;
 }
 
-.menu-home .enlaces-menu-movil > a {
+.menu-home .enlaces-menu-movil>a {
   color: var(--texto-secundario);
 }
 
-.menu-home .enlaces-menu-movil > a:hover,
-.menu-home .enlaces-menu-movil > a.active {
+.menu-home .enlaces-menu-movil>a:hover,
+.menu-home .enlaces-menu-movil>a.active {
   color: var(--texto-principal);
 }
 
@@ -69,11 +69,12 @@
   order: 3;
 }
 
-.taquilla .grupo-sesion-menu .ingresar-home {
+.taquilla .grupo-sesion-menu .ingresar-home,
+.taquilla .grupo-sesion-menu .menu-cuenta-escritorio {
   order: 4;
 }
 
-.taquilla .grupo-sesion-menu > .boton--primario {
+.taquilla .grupo-sesion-menu>.boton--primario {
   order: 5;
 }
 
@@ -93,6 +94,7 @@
    ======================================== */
 
 @media (max-width: 640px) {
+
   /* Encabezado integrado visualmente con el Hero */
   .taquilla .cabecera-home {
     min-height: 56px;
@@ -246,7 +248,7 @@
     padding: 16px 12px;
   }
 
-  .menu-home .enlaces-menu-movil > a {
+  .menu-home .enlaces-menu-movil>a {
     display: flex;
     align-items: center;
     flex: 0 0 52px;
@@ -259,7 +261,7 @@
     text-decoration: none;
   }
 
-  .menu-home .enlaces-menu-movil > a.active {
+  .menu-home .enlaces-menu-movil>a.active {
     background: var(--fondo-sutil);
   }
 
@@ -338,7 +340,7 @@
 
   /* Botones: 302 × 40 px */
   .menu-home .grupo-sesion-menu .ingresar-home,
-  .menu-home .grupo-sesion-menu > .boton--primario {
+  .menu-home .grupo-sesion-menu>.boton--primario {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -361,7 +363,7 @@
     color: var(--texto-principal);
   }
 
-  .menu-home .grupo-sesion-menu > .boton--primario {
+  .menu-home .grupo-sesion-menu>.boton--primario {
     border: 1px solid var(--fondo-inverso);
     background: var(--marca-primario);
     color: var(--texto-inverso);
@@ -402,7 +404,7 @@
   white-space: normal;
 }
 
-.taquilla .grupo-sesion-menu > .boton--primario {
+.taquilla .grupo-sesion-menu>.boton--primario {
   box-sizing: border-box;
   flex: 0 1 auto;
   min-width: 121px;
@@ -593,7 +595,7 @@
     gap: 14px;
   }
 
-  .taquilla .cabecera-home .fila-cabecera > .marca {
+  .taquilla .cabecera-home .fila-cabecera>.marca {
     margin-right: auto;
   }
 
@@ -635,7 +637,7 @@
     gap: 14px;
   }
 
-  .taquilla .cabecera-explorar .fila-cabecera > .marca {
+  .taquilla .cabecera-explorar .fila-cabecera>.marca {
     margin-right: auto;
     color: var(--texto-principal);
   }
@@ -662,6 +664,7 @@
    ========================================= */
 
 @media (min-width: 641px) and (max-width: 1024px) {
+
   .taquilla .cabecera-explorar .buscar-movil,
   .taquilla .cabecera-explorar .ingreso-movil {
     display: flex;
@@ -747,7 +750,7 @@
     padding: 16px 12px;
   }
 
-  .taquilla .cabecera-explorar .enlaces-menu-movil > a {
+  .taquilla .cabecera-explorar .enlaces-menu-movil>a {
     display: flex;
     align-items: center;
     min-height: 52px;
@@ -801,7 +804,7 @@
 
 /* Logo de Explorar según Figma: 32 × 32 px */
 @media (max-width: 1024px) {
-  .taquilla .cabecera-explorar .fila-cabecera > .marca .marca-emblema {
+  .taquilla .cabecera-explorar .fila-cabecera>.marca .marca-emblema {
     display: grid;
     place-items: center;
     flex: 0 0 32px;
@@ -812,7 +815,7 @@
     color: var(--texto-inverso);
   }
 
-  .taquilla .cabecera-explorar .fila-cabecera > .marca .marca-emblema .icono {
+  .taquilla .cabecera-explorar .fila-cabecera>.marca .marca-emblema .icono {
     display: block;
     width: 24px;
     height: 24px;
@@ -820,14 +823,50 @@
   }
 }
 
-/* Sesión iniciada: avatar en web, botón «Cerrar sesión» en el menú móvil. */
-.cerrar-sesion-movil {
+/* Sesión iniciada: avatar en web; en el menú móvil, la persona y el
+   botón «Cerrar sesión» (Figma «Menú · sesión iniciada — Móvil»). */
+.cerrar-sesion-movil,
+.persona-menu-movil {
   display: none;
 }
 
 @media (max-width: 900px) {
   .menu-cuenta-escritorio {
     display: none;
+  }
+
+  .persona-menu-movil {
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-3);
+    min-width: 0;
+  }
+
+  .persona-menu-movil .avatar-cuenta {
+    flex-shrink: 0;
+    cursor: default;
+  }
+
+  .persona-menu-movil>span:last-child {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .persona-menu-movil strong {
+    font-size: var(--tamano-cuerpo-p);
+    line-height: var(--interlineado-cuerpo-p);
+    font-weight: var(--peso-medio);
+    color: var(--texto-principal);
+  }
+
+  .persona-menu-movil small {
+    overflow: hidden;
+    font-size: var(--tamano-detalle);
+    line-height: var(--interlineado-detalle);
+    color: var(--texto-secundario);
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .cerrar-sesion-movil {

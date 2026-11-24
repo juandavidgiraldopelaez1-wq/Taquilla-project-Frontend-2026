@@ -72,9 +72,8 @@ export default function Navbar() {
 
   return (
     <header
-      className={`cabecera-home ${
-        abierto ? "menu-abierto" : ""
-      } ${esExplorar ? "cabecera-explorar" : ""}`}
+      className={`cabecera-home ${abierto ? "menu-abierto" : ""
+        } ${esExplorar ? "cabecera-explorar" : ""}`}
       onKeyDown={(evento) => {
         if (evento.key !== "Escape") return;
 
@@ -110,11 +109,9 @@ export default function Navbar() {
           <Icono nombre="search" />
         </Link>
 
-        {usuario ? (
-          <span className="avatar-cuenta ingreso-movil" aria-hidden="true">
-            {iniciales(usuario.nombre)}
-          </span>
-        ) : (
+        {/* Figma móvil: con sesión el encabezado solo tiene buscar y menú;
+            los datos de la cuenta están dentro del menú. */}
+        {!usuario && (
           <Link className="ingreso-movil" to="/ingresar">
             {nav?.botones?.ingresar}
           </Link>
@@ -218,6 +215,15 @@ export default function Navbar() {
                       onCerrarSesion={cerrarSesion}
                     />
                   </span>
+                  <div className="persona-menu-movil">
+                    <span className="avatar-cuenta" aria-hidden="true">
+                      {iniciales(usuario.nombre)}
+                    </span>
+                    <span>
+                      <strong>{usuario.nombre}</strong>
+                      <small>{usuario.correo}</small>
+                    </span>
+                  </div>
                   <Boton
                     variante="secundario"
                     className="cerrar-sesion-movil"
@@ -226,7 +232,6 @@ export default function Navbar() {
                       cerrarSesion();
                     }}
                   >
-                    <Icono nombre="salir" tamano={18} />
                     {menu?.botones?.cerrarSesion}
                   </Boton>
                 </>
