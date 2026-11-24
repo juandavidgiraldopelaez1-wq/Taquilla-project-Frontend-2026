@@ -101,21 +101,21 @@
   line-height: var(--interlineado-cuerpo-p);
 }
 
-/* Casilla de 20 px con área táctil de 44 px (Figma: «Casilla de verificación»). */
+/* Casilla de 20 px con área táctil de 44 px (Figma: «Casilla de verificación»).
+   La fila mide 20 px como en Figma; el área táctil se amplía con el input. */
 .casilla {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--espacio-2);
-  min-height: 44px;
   cursor: pointer;
 }
 
 .casilla input {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -12px;
+  width: calc(100% + 24px);
+  height: calc(100% + 24px);
   margin: 0;
   opacity: 0;
   cursor: pointer;
@@ -132,13 +132,13 @@
   color: transparent;
 }
 
-.casilla input:checked + .casilla-caja {
+.casilla input:checked+.casilla-caja {
   border-color: var(--marca-primario);
   background: var(--marca-primario);
   color: var(--texto-inverso);
 }
 
-.casilla input:focus-visible + .casilla-caja {
+.casilla input:focus-visible+.casilla-caja {
   outline: 2px solid var(--foco);
   outline-offset: 2px;
 }
@@ -153,14 +153,15 @@
   width: 100%;
 }
 
+/* Figma «Botón · cargando»: mismo color con 80 % de opacidad */
 .boton-ingresar:disabled {
-  opacity: 1;
-  background: var(--marca-primario-hover);
+  opacity: 0.8;
+  background: var(--marca-primario);
 }
 
 .giro {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border: 2px solid var(--texto-inverso-suave);
   border-top-color: var(--texto-inverso);
   border-radius: 50%;
@@ -181,6 +182,8 @@
   color: var(--texto-secundario);
 }
 
+/* Tableta y celular (Figma 33:440): todo sobre fondo blanco, el logo
+   normal arriba y el formulario debajo, separados por 20 px. */
 @media (max-width: 1024px) {
   .pagina-ingresar {
     grid-template-columns: minmax(0, 1fr);
@@ -188,7 +191,18 @@
   }
 
   .portada-ingresar {
-    padding: var(--espacio-4) var(--margen-pagina-movil);
+    padding: var(--espacio-5) var(--espacio-6) 0;
+    background: var(--fondo-superficie);
+    color: var(--texto-principal);
+  }
+
+  .portada-ingresar .marca--inverso {
+    color: var(--texto-principal);
+  }
+
+  .portada-ingresar .marca--inverso .marca-emblema {
+    background: var(--marca-primario);
+    color: var(--texto-inverso);
   }
 
   .presentacion-ingresar {
@@ -197,7 +211,17 @@
 
   .contenido-ingresar {
     align-items: flex-start;
-    padding: var(--espacio-8) var(--margen-pagina-movil);
+    padding: var(--espacio-5) var(--espacio-6) var(--espacio-8);
+  }
+}
+
+@media (max-width: 640px) {
+  .formulario-ingresar {
+    width: 100%;
+  }
+
+  .enlace-olvidaste {
+    display: none;
   }
 }
 
