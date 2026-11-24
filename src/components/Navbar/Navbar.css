@@ -6,7 +6,7 @@
   display: flex;
   align-items: center;
   min-height: 72px;
-  gap: 40px;
+  gap: var(--espacio-10);
 }
 
 /* Navegación de escritorio */
@@ -36,7 +36,7 @@
 .acciones-home {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: var(--espacio-8);
   margin-left: auto;
 }
 
@@ -81,11 +81,11 @@
 /* Tablet */
 @media (max-width: 900px) {
   .fila-cabecera {
-    gap: 24px;
+    gap: var(--espacio-6);
   }
 
   .acciones-home {
-    gap: 16px;
+    gap: var(--espacio-4);
   }
 }
 
@@ -106,14 +106,14 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: nowrap;
-    gap: 12px;
+    gap: var(--espacio-3);
   }
 
   .taquilla .cabecera-home .marca {
     flex-shrink: 0;
     color: var(--texto-inverso);
     font-size: var(--tamano-cuerpo-g);
-    gap: 8px;
+    gap: var(--espacio-2);
   }
 
   .taquilla .cabecera-home .marca-emblema {
@@ -143,7 +143,7 @@
     display: flex;
     align-items: center;
     flex: 0 0 auto;
-    padding: 8px 0;
+    padding: var(--espacio-2) 0;
     border: 0;
     background: transparent;
     color: var(--texto-inverso);
@@ -192,7 +192,7 @@
     width: min(350px, 100vw);
     height: min(802px, 100dvh);
     max-height: 100dvh;
-    padding: 16px 0 12px;
+    padding: var(--espacio-4) 0 var(--espacio-3);
     overflow-y: auto;
     overscroll-behavior: contain;
     background: var(--fondo-superficie);
@@ -206,7 +206,7 @@
     flex: 0 0 54px;
     width: 100%;
     box-sizing: border-box;
-    padding: 8px 12px;
+    padding: var(--espacio-2) var(--espacio-3);
     border-bottom: 1px solid var(--borde-sutil);
   }
 
@@ -214,7 +214,7 @@
     color: var(--texto-principal);
     font-size: var(--tamano-h3);
     font-weight: var(--peso-seminegrita);
-    gap: 12px;
+    gap: var(--espacio-3);
   }
 
   .menu-home .menu-movil-cabecera .marca-emblema {
@@ -244,7 +244,7 @@
     box-sizing: border-box;
     width: 100%;
     gap: 2px;
-    padding: 16px 12px;
+    padding: var(--espacio-4) var(--espacio-3);
   }
 
   .menu-home .enlaces-menu-movil > a {
@@ -253,7 +253,7 @@
     flex: 0 0 52px;
     box-sizing: border-box;
     width: 100%;
-    padding: 12px 16px;
+    padding: var(--espacio-3) var(--espacio-4);
     border-radius: var(--radio-m);
     color: var(--texto-principal);
     font-size: var(--tamano-cuerpo-g);
@@ -307,7 +307,7 @@
     flex: 0 0 64px;
     box-sizing: border-box;
     width: 100%;
-    padding: 12px 24px;
+    padding: var(--espacio-3) var(--espacio-6);
   }
 
   .menu-home .etiqueta-menu-movil {
@@ -315,7 +315,7 @@
     color: var(--texto-principal);
     font-size: var(--tamano-cuerpo-m);
     font-weight: var(--peso-medio);
-    line-height: 24px;
+    line-height: var(--interlineado-cuerpo-m);
   }
 
   /* Selector ES / EN: 98 × 40 px */
@@ -348,8 +348,8 @@
     align-items: stretch;
     box-sizing: border-box;
     width: 100%;
-    gap: 12px;
-    padding: 16px 24px 24px;
+    gap: var(--espacio-3);
+    padding: var(--espacio-4) var(--espacio-6) var(--espacio-6);
     border-top: 1px solid var(--borde-sutil);
   }
 
@@ -369,7 +369,7 @@
     border-radius: var(--radio-m);
     font-family: var(--fuente-texto);
     font-size: var(--tamano-cuerpo-p);
-    line-height: 20px;
+    line-height: var(--interlineado-cuerpo-p);
   }
 
   /* Figma «Menú móvil»: Ingresar es el botón principal y Crear cuenta
@@ -450,7 +450,7 @@
   min-height: 40px;
   height: auto;
   box-sizing: border-box;
-  padding: 8px 16px;
+  padding: var(--espacio-2) var(--espacio-4);
   border: 0;
   border-radius: var(--radio-pildora);
   background: var(--fondo-sutil);
@@ -522,7 +522,7 @@
 }
 
 .taquilla .acciones-home {
-  gap: 16px;
+  gap: var(--espacio-4);
 }
 
 /* =========================================
@@ -732,7 +732,7 @@
     width: min(350px, 100vw);
     height: min(802px, 100dvh);
     max-height: 100dvh;
-    padding: 16px 0;
+    padding: var(--espacio-4) 0;
     overflow-y: auto;
     background: var(--fondo-superficie);
     box-shadow: var(--sombra-flotante);
@@ -755,7 +755,7 @@
     flex: 0 0 54px;
     box-sizing: border-box;
     width: 100%;
-    padding: 8px 12px;
+    padding: var(--espacio-2) var(--espacio-3);
     border-bottom: 1px solid var(--borde-sutil);
   }
 
@@ -763,14 +763,14 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-    padding: 16px 12px;
+    padding: var(--espacio-4) var(--espacio-3);
   }
 
   .taquilla .cabecera-explorar .enlaces-menu-movil > a {
     display: flex;
     align-items: center;
     min-height: 52px;
-    padding: 12px 16px;
+    padding: var(--espacio-3) var(--espacio-4);
     border-radius: var(--radio-m);
     color: var(--texto-principal);
     text-decoration: none;
@@ -796,7 +796,7 @@
     align-items: center;
     justify-content: space-between;
     min-height: 64px;
-    padding: 12px 24px;
+    padding: var(--espacio-3) var(--espacio-6);
   }
 
   .taquilla .cabecera-explorar .menu-home .etiqueta-menu-movil {
@@ -808,8 +808,8 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
-    padding: 16px 24px;
+    gap: var(--espacio-3);
+    padding: var(--espacio-4) var(--espacio-6);
     border-top: 1px solid var(--borde-sutil);
   }
 

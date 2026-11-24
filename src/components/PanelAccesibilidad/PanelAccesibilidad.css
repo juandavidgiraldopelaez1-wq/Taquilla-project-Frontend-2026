@@ -5,11 +5,11 @@
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--espacio-5);
   box-sizing: border-box;
   width: 360px;
   min-height: 576px;
-  padding: 24px;
+  padding: var(--espacio-6);
   background: var(--fondo-superficie);
   border: 1px solid var(--borde-sutil);
   border-radius: var(--radio-xl);
@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--espacio-4);
 }
 
 .panel-accesibilidad-encabezado h2 {
@@ -30,7 +30,7 @@
   color: var(--texto-principal);
   font-size: var(--tamano-h3);
   font-weight: var(--peso-seminegrita);
-  line-height: 26px;
+  line-height: var(--interlineado-h3);
 }
 
 .panel-accesibilidad-cerrar {
@@ -54,7 +54,7 @@
 .panel-accesibilidad-tamano {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--espacio-2);
 }
 
 .panel-accesibilidad-tamano h3 {
@@ -62,18 +62,18 @@
   color: var(--texto-principal);
   font-size: var(--tamano-cuerpo-p);
   font-weight: var(--peso-medio);
-  line-height: 20px;
+  line-height: var(--interlineado-cuerpo-p);
 }
 
 .control-tamano-texto {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 4px;
+  gap: var(--espacio-1);
   box-sizing: border-box;
   width: 100%;
   height: 50px;
-  padding: 4px;
+  padding: var(--espacio-1);
   border: 1px solid var(--borde-sutil);
   border-radius: var(--radio-l);
 }
@@ -113,14 +113,14 @@
 .panel-accesibilidad-opciones {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--espacio-3);
 }
 
 .opcion-accesibilidad {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--espacio-4);
   width: 100%;
 }
 
@@ -137,7 +137,7 @@
   color: var(--texto-principal);
   font-size: var(--tamano-cuerpo-m);
   font-weight: var(--peso-medio);
-  line-height: 24px;
+  line-height: var(--interlineado-cuerpo-m);
 }
 
 .opcion-accesibilidad-texto p {
@@ -145,7 +145,7 @@
   color: var(--texto-secundario);
   font-size: var(--tamano-cuerpo-p);
   font-weight: var(--peso-regular);
-  line-height: 20px;
+  line-height: var(--interlineado-cuerpo-p);
 }
 
 .interruptor-accesibilidad {
@@ -187,7 +187,7 @@
 .panel-accesibilidad-pie {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--espacio-4);
   margin-top: auto;
 }
 
@@ -196,14 +196,14 @@
   color: var(--texto-secundario);
   font-size: var(--tamano-detalle);
   font-weight: var(--peso-regular);
-  line-height: 16px;
+  line-height: var(--interlineado-detalle);
 }
 
 .panel-accesibilidad-pie footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--espacio-3);
 }
 
 .panel-accesibilidad-pie footer a {
@@ -220,7 +220,7 @@
   box-sizing: border-box;
   min-width: 108px;
   height: 38px;
-  padding: 8px 14px;
+  padding: var(--espacio-2) 14px;
   border: 1px solid var(--borde-fuerte);
   border-radius: var(--radio-m);
   background: var(--fondo-superficie);
@@ -228,7 +228,7 @@
   font-family: inherit;
   font-size: var(--tamano-detalle);
   font-weight: var(--peso-medio);
-  line-height: 20px;
+  line-height: var(--interlineado-cuerpo-p);
   cursor: pointer;
 }
 

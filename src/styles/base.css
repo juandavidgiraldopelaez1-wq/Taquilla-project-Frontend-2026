@@ -107,7 +107,7 @@ select {
 
 .grupo-botones {
   display: flex;
-  gap: 12px;
+  gap: var(--espacio-3);
   flex-wrap: wrap;
 }
 
@@ -115,8 +115,8 @@ select {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: var(--espacio-4);
+  margin-bottom: var(--espacio-6);
 }
 
 .titulo-seccion h2 {
@@ -151,7 +151,7 @@ select {
 
 @media (max-width: 640px) {
   .titulo-seccion {
-    gap: 12px;
+    gap: var(--espacio-3);
   }
 }
 
@@ -190,7 +190,7 @@ select {
 
 .etiqueta-evento {
   display: inline-block;
-  padding: 3px 8px;
+  padding: 3px var(--espacio-2);
   border-radius: var(--radio-s);
   background: var(--fondo-sutil);
   color: var(--texto-principal);

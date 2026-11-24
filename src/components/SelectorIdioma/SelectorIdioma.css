@@ -27,7 +27,7 @@
   font-family: "Instrument Sans", sans-serif;
   font-size: var(--tamano-cuerpo-p);
   font-weight: var(--peso-medio);
-  line-height: 20px;
+  line-height: var(--interlineado-cuerpo-p);
   cursor: pointer;
 }
 

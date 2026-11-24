@@ -22,12 +22,12 @@
   right: 20px;
   background: var(--fondo-superficie);
   color: var(--texto-principal);
-  padding: 20px;
+  padding: var(--espacio-5);
   border-radius: var(--radio-l);
 }
 .ficha-destacado h2 {
   font-size: var(--tamano-h2);
-  margin: 12px 0;
+  margin: var(--espacio-3) 0;
   font-weight: var(--peso-seminegrita);
   letter-spacing: -0.03em;
 }
@@ -39,7 +39,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: var(--espacio-3);
 }
 .ficha-destacado strong {
   font-weight: var(--peso-medio);

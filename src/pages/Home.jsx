@@ -27,8 +27,8 @@ export default function Home() {
   const inicio = textos?.paginas?.inicio;
 
   const destacados = useRecurso("/eventos/destacados");
-  const categorias = useRecurso("/categorias");
-  const ciudades = useRecurso("/ciudades");
+  const categorias = useRecurso("/categorias", { cache: true });
+  const ciudades = useRecurso("/ciudades", { cache: true });
 
   const listaCiudades = ciudades.datos?.datos ?? [];
   const [ciudadElegida, setCiudadElegida] = useState(null);
