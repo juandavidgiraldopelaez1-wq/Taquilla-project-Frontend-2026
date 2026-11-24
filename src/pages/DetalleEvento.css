@@ -225,6 +225,17 @@
   color: var(--texto-secundario);
 }
 
+.lista-politicas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-2);
+  margin: 0;
+  padding-left: var(--espacio-5);
+  font-size: var(--tamano-cuerpo-m);
+  line-height: var(--interlineado-cuerpo-m);
+  color: var(--texto-secundario);
+}
+
 /* «Leer más» solo se usa en celular */
 .leer-mas {
   display: none;
