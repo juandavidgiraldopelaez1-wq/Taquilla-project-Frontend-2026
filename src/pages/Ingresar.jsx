@@ -208,7 +208,6 @@ export default function Ingresar() {
               </span>
               {formulario?.etiquetas?.mantenerSesion}
             </label>
-            {/* En el Figma móvil este enlace no aparece */}
             <Link
               className="enlace-subrayado enlace-olvidaste"
               to="/recuperar-clave"
